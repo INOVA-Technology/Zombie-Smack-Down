@@ -3,6 +3,18 @@
 # for color referances go to:
 # http://pueblo.sourceforge.net/doc/manual/ansi_color_codes.html
 
+# colors/style codes/usages:
+  # Colors:
+    # \e[31m is red, for pain/death things
+    # \e[33m is yellow, for warnings and such like not enough xp
+    # \e[35m is purple, for info like ranking up and the info command
+
+    # \e[39m gets rid of colors, goes back to default
+
+  # Bold:
+  # \e[1m is bold, just for attacking info
+  # \e[22m gets rid of the bold
+
 module Stuff
 
   class Game
