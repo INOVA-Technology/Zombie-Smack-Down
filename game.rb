@@ -217,7 +217,7 @@ module Stuff
       @prefs[:rank] += 1
       give_xp 10
       if (@combos[@prefs[:rank] - 1]) 
-        puts "\e[35mNew combo unlocked!" + @combos[@prefs[:rank - 1]]
+        puts "\e[35mNew combo unlocked!" + @combos[@prefs[:rank - 1]] + "\e[39m"
       else
         puts "\e[35mYour doing pretty good!\e[39m"
       end
