@@ -1,5 +1,8 @@
 #!/usr/bin/env ruby
 
+# for color referances go to:
+# http://pueblo.sourceforge.net/doc/manual/ansi_color_codes.html
+
 module Stuff
 
   class Game
@@ -22,17 +25,17 @@ module Stuff
     end	
 
     def die
-      death = [" \e[31mYour dead\e[39m ", " \e[31mToo bad\e[39m ", " \e[31mThe zombie ate ur brainz\e[39m ", " \e[31mSo sad\e[39m ", " \e[31mGame over looser\e[39m ", " \e[31mYou\e[39m must really fail at life "].sample
-      introPhrase = [" You have \e[31mkilled\e[39m ", " You have viciously slapped ", "\e[31m You have beaten the crud out of\e[39m "].sample
-      endPhrase = [" zombies ", " \e[36minnocent\e[39m zombies ", " \e[31mvicious\e[39m zombies ", " \e[31mruthless\e[39m zombies ", " \e[31mwalkers\e[39m "].sample
+      death = ["Your dead ", "Too bad", "The zombie ate ur brainz", "So sad", "Game over looser", "You must really fail at life"].sample
+      introPhrase = ["You have killed", "You have viciously slapped", "You have beaten the crud out of"].sample
+      endPhrase = ["zombies", "innocent zombies", "vicious zombies", "ruthless zombies", "walkers"].sample
 
       prefs_file = File.open 'prefs.yaml', 'w'
       prefs_file.puts @default.to_yaml + ":totalKills: " + @prefs[:totalKills].to_s + "\n:rank: " + @prefs[:rank].to_s
       prefs_file.close
 
-      puts death + "(enter to continue)"
+      puts "\e[31m" + death + "\e[39m (enter to continue)"
       gets.chomp
-      puts introPhrase + @prefs[:kills].to_s + endPhrase + "(enter to continue)"
+      puts "\e[31m" + introPhrase + " " + @prefs[:kills].to_s + " " + endPhrase + "\e[39m (enter to exit)"
       gets.chomp
       exit
     end
@@ -46,7 +49,7 @@ module Stuff
 
     def not_enough_xp
       puts
-      puts "Not enough xp..."
+      puts "\e[33mNot enough xp...\e[39m"
       @r = 0
     end
 
@@ -150,7 +153,7 @@ module Stuff
 
     def attack enemy, weapon = "punch"
       pass = 1
-      phrase = [" You \e[31msmacked down\e[39m the ", " You hit the ", " Whose your daddy ", " You just \e[31mpowned\e[39m the "].sample
+      phrase = ["You smacked down the", "You hit the", "Whose your daddy", "You just powned the"].sample
       while pass != 0
       	pass = 0
 	      case weapon
@@ -172,9 +175,9 @@ module Stuff
 	    end
       enemy.damage @r
       
-      puts
-      puts phrase + enemy.name + " -" + @r.to_s
-      puts
+      puts "\e[1;31m"
+      puts phrase + " " + enemy.name + " -" + @r.to_s
+      puts "\e[22;39m"
     end
 
     def damage amount
@@ -191,8 +194,8 @@ module Stuff
     end
 
     def pwn
-      puts "\e[31mKO! \e[39m"
-      puts
+    	puts
+      puts "\e[31;1mKO! \e[39;22m"
       @prefs[:kills] += 1
       @prefs[:totalKills] += 1
       self.rankup if @prefs[:totalKills] % 15 == 0
@@ -202,32 +205,22 @@ module Stuff
       @prefs[:rank] += 1
       give_xp 10
       if (@combos[@prefs[:rank] - 1]) 
-        puts "\e[35mNew combo unlocked!"
-        i = 0
-        @combos.each { |c|
-          break if i == @prefs[:rank]
-          puts c
-          i += 1
-        }
-        print "\e[39m"
+        puts "\e[35mNew combo unlocked!" + @combos[@prefs[:rank - 1]]
       else
         puts "\e[35mYour doing pretty good!\e[39m"
       end
     end
 
     def comboList
-      if (@combos[@prefs[:rank] - 1]) 
-        puts "\e[35mCombos:"
-        i = 0
-        @combos.each { |c|
-          break if i == @prefs[:rank]
-          puts c
-          i += 1
-        }
-        print "\e[39m"
-      else
-        puts "\e[35mYour doing pretty good!\e[39m"
-      end
+      puts
+      puts "\e[35mCombos:"
+      i = 0
+      @combos.each { |c|
+        break if i == @prefs[:rank]
+        puts c
+        i += 1
+      }
+      puts "\e[39m"
     end
 
     def quit
@@ -244,6 +237,7 @@ module Stuff
     end
 
     def heal
+      puts
       puts "\e[36mHow much health do u want? (1 xp for 1 health)"
       howMuch = gets.chomp.to_i
       if howMuch == 0
@@ -255,27 +249,34 @@ module Stuff
 	      puts "you have been healed +" + (howMuch * -1).to_s
 	      puts "\e[39m"
 	    else
-	    	puts "NOT ENOUGH XP!!! >:D"
+	    	puts "\e[33mNOT ENOUGH XP!!! >:D\e[39m"
 			end
     end
 
     def rankup
       give_xp 10
-      puts "Newest combo: " + @combos[@prefs[:rank] - 1] || "Your doing pretty good!"
+      puts "\e[39mRanked up!"
+      begin
+				puts "New combo unlocked: " + @combos[@prefs[:rank] - 1] 
+	  	rescue
+				puts "Your doing pretty good!"
+	    end
+      print "\e[39m"
     end
 
     def taunt
-      taunt = ["\e[31mHEY ZOMBIE! UR FACE!\e[39m", "\e[31mDIRT BAG!\e[39m", "\e[31mUR MOM!\e[39m", "\e[31mPOOP FACE\e[39m", "\e[31mGET OWNED BUDDY BOY!\e[39m", "\e[31m:p\e[39m", "\e[31mEAT MY FIST!\e[39m", "\e[31mbe nice\e[39m"].sample
+      taunt = ["HEY ZOMBIE! UR FACE!", "DIRT BAG", "UR MOM", "POOP FACE", "GET OWNED BUDDY BOY", ":p", "EAT MY FIST", "mbe nice"].sample
       
       if @prefs[:xp] >= 2
-
-      r = Random::rand(-10..10)
-      self.give_xp r
-      puts taunt + " " + r.to_s
-      
+        r = Random::rand(-10..10)
+        self.give_xp r
+        puts
+        puts "\e[31m" + taunt + " " + r.to_s + "\e[39m"
+        puts
       else
-        puts "\e[31mNOT ENOUGH XP >:p\e[39m"
-      
+        puts
+        puts "\e[33mNOT ENOUGH XP >:p\e[39m"
+        puts
       end
 
     end
@@ -311,9 +312,9 @@ module Stuff
       if @is_alive
         r = Random::rand(@pain[0]..@pain[1])
         @hero.damage r
-      
+      	print "\e[31;1m"
         puts self.name + ' ' + @phrases + " -" + r.to_s
-        puts
+        puts "\e[39;22m"
       end
     end
 

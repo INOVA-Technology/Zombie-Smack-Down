@@ -27,7 +27,7 @@ def start hero
     end
 
   	while e.is_alive
-  		puts "\e[39m type any of the following: " + yep.join(", ")
+  		puts "Type any of the following: " + yep.join(", ")
 
       input = gets.chomp.downcase
 
@@ -40,7 +40,6 @@ def start hero
         e.attack
       when "info"
       	hero.info
-        puts
         e.info
       when "quit"
       	hero.quit
