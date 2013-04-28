@@ -1,6 +1,10 @@
 #!/usr/bin/env ruby
 
-require "/usr/local/bin/ZSDFiles/game"
+if ARGV[0] == '-t'
+  require "./ZSDFiles/game"
+else
+  require "/usr/local/bin/ZSDFiles/game"
+end
 require "readline"
 
 def start hero

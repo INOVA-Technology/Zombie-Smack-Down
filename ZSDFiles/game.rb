@@ -22,12 +22,19 @@ module Stuff
     require 'yaml'
     
     def initialize
-      prefs_file = File.open '/usr/local/bin/ZSDFiles/prefs.yaml', 'r'
+      prefs_file_path = ''
+      if ARGV[0] == '-t'
+        prefs_file_path = './ZSDFiles/prefs.yaml'
+        puts "TESTING"
+      else
+        prefs_file_path = '/usr/local/bin/ZSDFiles/prefs.yaml'
+      end
+      prefs_file = File.open prefs_file_path, 'r'
       @prefs = YAML.load prefs_file.read
       prefs_file.close
       @default = { xp: 10, kills: 0, health: 20}
       @r = 0;
-      if @prefs == 10
+      if @prefs[:xp] == 10
         @prefs[:xp] += @prefs[:rank] * 5
       end
       @combos = ["kick punch", "punch punch kick", "elbow fist knee fist knee body slam", "heal fury", "trip stomp", "knee punch face slap", "kick kick kick kick kick kick kick kick kick kick kick kick kick kick kick", "chase punch of fire", "addison kick of cold hard music", "ultimate destruction kick punch", "chuck norris stomp of mayhem", "coolest combo ever"]
