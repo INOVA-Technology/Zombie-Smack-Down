@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require "ZSDFiles/game"
+require "/usr/local/bin/ZSDFiles/game"
 require "readline"
 
 def start hero

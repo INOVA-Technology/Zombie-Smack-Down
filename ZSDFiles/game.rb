@@ -22,7 +22,7 @@ module Stuff
     require 'yaml'
     
     def initialize
-      prefs_file = File.open 'prefs.yaml', 'r'
+      prefs_file = File.open '/usr/local/bin/ZSDFiles/prefs.yaml', 'r'
       @prefs = YAML.load prefs_file.read
       prefs_file.close
       @default = { xp: 10, kills: 0, health: 20}
