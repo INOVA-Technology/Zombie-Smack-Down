@@ -27,7 +27,9 @@ module Stuff
       prefs_file.close
       @default = { xp: 10, kills: 0, health: 20}
       @r = 0;
-      @prefs[:xp] += @prefs[:rank] * 5
+      if @prefs == 10
+        @prefs[:xp] += @prefs[:rank] * 5
+      end
       @combos = ["kick punch", "punch punch kick", "elbow fist knee fist knee body slam", "heal fury", "trip stomp", "knee punch face slap", "kick kick kick kick kick kick kick kick kick kick kick kick kick kick kick", "chase punch of fire", "addison kick of cold hard music", "ultimate destruction kick punch", "chuck norris stomp of mayhem", "coolest combo ever"]
     end
 
@@ -238,7 +240,7 @@ module Stuff
     def quit
       puts "Wanna save yo game? yes or no"
       save = gets.chomp.downcase
-        if save == "yes"
+        unless save == "no"
           prefs_file = File.open 'prefs.yaml', 'w'
           prefs_file.puts @prefs.to_yaml
           prefs_file.close
