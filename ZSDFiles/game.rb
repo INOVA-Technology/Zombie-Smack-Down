@@ -74,14 +74,6 @@ module Stuff
       @r = 0
     end
 
-    def punch
-      @r = Random::rand(4..7)
-    end
-
-    def kick
-      @r = Random::rand(3..8)
-    end
-
     def combo com
       case com
       when "kick punch"
@@ -176,6 +168,9 @@ module Stuff
         else
           self.not_enough_xp
         end
+      else
+        puts "Invalid combo..."
+        @r = 0
       end
     end
 
@@ -186,23 +181,18 @@ module Stuff
       	pass = 0
 	      case weapon
 	      when "punch"
-	        self.punch
+	        @r = Random::rand(4..7)
 	      when "kick"
-	      	self.kick
+	      	@r = Random::rand(3..8)
 	      when "combo"
 	      	puts "Which combo?"
 	      	c = Readline::readline.downcase
-	      	if @combos.include? c
-            self.combo c
-		      else
-  	      	puts "Invalid combo..."
-            @r = 0
-	      	end
+          self.combo c
 	      end
         
 	    end
       enemy.damage @r
-      
+
       puts "\e[1;31m"
       puts phrase + " " + enemy.name + " -" + @r.to_s
       puts "\e[22;39m"
@@ -278,6 +268,7 @@ module Stuff
 	      puts "\e[39m"
 	    else
 	    	puts "\e[33mNOT ENOUGH XP!!! >:D\e[39m"
+        puts
 			end
     end
 
