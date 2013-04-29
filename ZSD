@@ -37,10 +37,12 @@ def start hero
 
   	while e.is_alive
   		puts "Type any of the following: " + yep.join(", ")
+      print "> "
 
       begin
-        input = Readline.readline.squeeze.strip.downcase
+        input = Readline.readline.squeeze(" ").strip.downcase
       rescue Interrupt
+        puts
         exit
       end
 
@@ -65,8 +67,13 @@ def start hero
       	hero.heal
       when "taunt"
         hero.taunt
+      when "easter egg"
+        x = Random::rand(-175..150)
+        hero.give_xp x
+        puts "\e[33mBraaaiiiiinnnnsss!\e[39m (plus #{x} xp)"
       else
       	puts "Input invalid"
+        puts input
       end
     end
 			

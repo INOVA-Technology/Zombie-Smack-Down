@@ -42,7 +42,6 @@ module Stuff
 
     def give_xp amount
       @prefs[:xp] += amount
-      @prefs[:xp] = 0 if @prefs[:xp] < 0
     end	
 
     def die
@@ -260,6 +259,7 @@ module Stuff
       howMuch = Readline::readline.to_i
       if howMuch == 0
         puts "Nothing given"
+        puts "\e[39m"
       elsif howMuch <= @prefs[:xp] 
         howMuch *= -1
 	      self.damage howMuch
