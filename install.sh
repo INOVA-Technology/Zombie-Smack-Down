@@ -1,9 +1,9 @@
 #!/usr/bin/env sh
-curl -s https://raw.github.com/Addisonbean/Zombie-Smack-Down/master/ZSD -o /usr/local/bin/ZSD
-mkdir /usr/local/bin/ZSDFiles
-curl -s https://raw.github.com/Addisonbean/Zombie-Smack-Down/master/ZSDFiles/game.rb -o /usr/local/bin/ZSDFiles/game.rb
-curl -s https://raw.github.com/Addisonbean/Zombie-Smack-Down/master/ZSDFiles/prefs.yaml -o /usr/local/bin/ZSDFiles/prefs.yaml
+sudo curl -s https://raw.github.com/Addisonbean/Zombie-Smack-Down/master/ZSD -o /usr/local/bin/ZSD
+sudo mkdir /usr/local/bin/ZSDFiles
+sudo curl -s https://raw.github.com/Addisonbean/Zombie-Smack-Down/master/ZSDFiles/game.rb -o /usr/local/bin/ZSDFiles/game.rb
+sudo curl -s https://raw.github.com/Addisonbean/Zombie-Smack-Down/master/ZSDFiles/prefs.yaml -o /usr/local/bin/ZSDFiles/prefs.yaml
 
-chmod +x /usr/local/bin/ZSD
+sudo chmod +x /usr/local/bin/ZSD
 
 echo "Success! Now enter ZSD to play Zombie Smack Down."
