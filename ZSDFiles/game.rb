@@ -37,7 +37,7 @@ module Stuff
       if @prefs[:xp] == 10
         @prefs[:xp] += @prefs[:rank] * 5
       end
-      @combos = ["kick punch", "punch punch kick", "elbow fist knee fist knee body slam", "heal fury", "trip stomp", "knee punch face slap", "kick kick kick kick kick kick kick kick kick kick kick kick kick kick kick", "chase punch of fire", "addison kick of cold hard music", "ultimate destruction kick punch", "chuck norris stomp of mayhem", "coolest combo ever"]
+      @combos = ["kick punch", "punch punch kick", "elbow fist knee fist knee body slam", "heal fury", "trip stomp", "knee punch face slap", "kick kick kick kick kick kick kick kick kick kick kick kick kick kick kick", "chase punch of fire", "addison kick of cold hard music", "ultimate destruction kick punch", "chuck norris stomp of mayhem", "coolest combo ever", "pain with a side of blood"]
     end
 
     def give_xp amount
@@ -169,6 +169,13 @@ module Stuff
         else
           self.not_enough_xp
         end
+      when "pain with a side of blood"
+        if @prefs[:xp] >= 25
+          @r = Random::rand(35..50)
+          self.give_xp -25
+        else
+          self.not_enough_xp
+        end
       end
     end
 
@@ -184,7 +191,7 @@ module Stuff
 	      	self.kick
 	      when "combo"
 	      	puts "Which combo?"
-	      	c = gets.chomp.downcase
+	      	c = Readline::readline.downcase
 	      	if @combos.include? c
             self.combo c
 		      else
@@ -246,7 +253,7 @@ module Stuff
 
     def quit
       puts "Wanna save yo game? yes or no"
-      save = gets.chomp.downcase
+      save = Readline::readline.downcase
         unless save == "no"
           prefs_file = File.open 'prefs.yaml', 'w'
           prefs_file.puts @prefs.to_yaml
@@ -260,7 +267,7 @@ module Stuff
     def heal
       puts
       puts "\e[36mHow much health do u want? (1 xp for 1 health)"
-      howMuch = gets.chomp.to_i
+      howMuch = Readline::readline.to_i
       if howMuch == 0
         puts "Nothing given"
       elsif howMuch <= @prefs[:xp] 
