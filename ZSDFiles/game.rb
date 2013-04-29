@@ -424,15 +424,28 @@ module Stuff
       @pain = [0, 25]
       @health = 24
       @name = "Blind Zombie"
-      @phrases = ["was to ninja for you", "threw a ninja star at your face", "is a blur", "sent you flying"].sample
+      @phrases = ["tried to hit you", "cant see ur face", "cant touch this", "cant see you but hurt you anyway"].sample
     end
   end
 
   class StrongZombie < Zombie
-    @xp = 32
-    @pain = [15, 21]
-    @health = 30
-    @name = "Strong Zombie"
+    def setXpPainHealth
+      @xp = 32
+      @pain = [15, 21]
+      @health = 30
+      @name = "Strong Zombie"
+      @phrases = ["destroyed you", "may have murdered you", "is strong", "is VERY strong"].sample
+    end
+  end
+
+  class BasicallyDeadZombie < Zombie
+    def setXpPainHealth
+      @xp = 1
+      @pain = [50, 75]
+      @health = 1
+      @name = "Basically Dead Zombie"
+      @phrases = ["totally pwn-ed you!", "hurt you pretty bad", "obliterated you", "probably killed you"].sample
+    end
   end
 
 #end Stuff module

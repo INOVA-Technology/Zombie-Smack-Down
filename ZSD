@@ -28,6 +28,8 @@ def start hero
       e = Stuff::BlindZombie.new hero 
     when 21, 22, 23 
       e = Stuff::StrongZombie.new hero
+    when 24, 25, 26
+      e = Stuff::BasicallyDeadZombie.new hero
     else
       hero.win
       break
