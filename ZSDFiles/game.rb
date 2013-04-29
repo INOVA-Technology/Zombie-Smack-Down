@@ -428,5 +428,11 @@ module Stuff
     end
   end
 
+  class StrongZombie < Zombie
+    @pain = [15, 21]
+    @health = 30
+    @name = "Blind Zombie"
+  end
+
 #end Stuff module
 end
