@@ -2,6 +2,9 @@
 
 if ARGV[0] == '-t'
   require "./ZSDFiles/game"
+elsif ARGV[0] == '-u'
+  system "curl -s https://raw.github.com/Addisonbean/Zombie-Smack-Down/master/ZSD > /usr/local/bin/ZSD"
+  system "curl -s https://github.com/Addisonbean/Zombie-Smack-Down/blob/master/ZSDFiles/game.rb > /usr/local/bin/ZSDFiles/game.rb"
 else
   require "/usr/local/bin/ZSDFiles/game"
 end
