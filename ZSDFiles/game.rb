@@ -22,14 +22,14 @@ module Stuff
     require 'yaml'
     
     def initialize
-      prefs_file_path = ''
+      @prefs_file_path = ''
       if ARGV[0] == '-t'
-        prefs_file_path = './ZSDFiles/prefs.yaml'
+        @prefs_file_path = './ZSDFiles/prefs.yaml'
         puts "TESTING"
       else
-        prefs_file_path = '/usr/local/bin/ZSDFiles/prefs.yaml'
+        @prefs_file_path = '/usr/local/bin/ZSDFiles/prefs.yaml'
       end
-      prefs_file = File.open prefs_file_path, 'r'
+      prefs_file = File.open @prefs_file_path, 'r'
       @prefs = YAML.load prefs_file.read
       prefs_file.close
       @default = { xp: 10, kills: 0, health: 20}
@@ -244,7 +244,7 @@ module Stuff
       puts "Wanna save yo game? yes or no"
       save = Readline::readline.downcase
         unless save == "no"
-          prefs_file = File.open 'prefs.yaml', 'w'
+          prefs_file = File.open @prefs_file_path, 'w'
           prefs_file.puts @prefs.to_yaml
           prefs_file.close
           exit
