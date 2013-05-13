@@ -5,6 +5,8 @@ if ARGV[0] == '-t'
 elsif ARGV[0] == '-u'
   system "curl -s https://raw.github.com/Addisonbean/Zombie-Smack-Down/master/ZSD > /usr/local/bin/ZSD"
   system "curl -s https://raw.github.com/Addisonbean/Zombie-Smack-Down/master/ZSDFiles/game.rb > /usr/local/bin/ZSDFiles/game.rb"
+  system "chmod +x /usr/local/bin/ZSD"
+  system "chmod +x /usr/local/bin/ZSDFiles/game.rb"
   puts "\e[35mUpdate successful!\e[39m"
   exit
 else
