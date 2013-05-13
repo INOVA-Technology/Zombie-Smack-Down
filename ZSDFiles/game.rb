@@ -15,6 +15,17 @@
   # \e[1m is bold, just for attacking info
   # \e[22m gets rid of the bold
 
+def prompt promptBegining=""
+  begin
+    print promptBegining
+    inText = Readline.readline.squeeze(" ").strip.downcase
+    inText
+  rescue Interrupt
+    puts
+    exit
+  end
+end
+
 module Stuff
 
   class Game
@@ -49,20 +60,20 @@ module Stuff
       introPhrase = ["You have killed", "You have viciously slapped", "You have beaten the crud out of"].sample
       endPhrase = ["zombies", "innocent zombies", "vicious zombies", "ruthless zombies", "walkers"].sample
 
-      prefs_file = File.open 'prefs.yaml', 'w'
+      prefs_file = File.open @prefs_file_path, 'w'
       prefs_file.puts @default.to_yaml + ":totalKills: " + @prefs[:totalKills].to_s + "\n:rank: " + @prefs[:rank].to_s
       prefs_file.close
 
       puts "\e[31m" + death + "\e[39m (enter to continue)"
-      gets.chomp
+      prompt
       puts "\e[31m" + introPhrase + " " + @prefs[:kills].to_s + " " + endPhrase + "\e[39m (enter to exit)"
-      gets.chomp
+      prompt
       exit
     end
 
     def win
       puts "You win!!"
-      prefs_file = File.open 'prefs.yaml', 'w'
+      prefs_file = File.open @prefs_file_path, 'w'
       prefs_file.puts @default.to_yaml + ":totalKills: " + @prefs[:totalKills].to_s + "\n:rank: " + @prefs[:rank].to_s
       prefs_file.close
     end
@@ -185,7 +196,7 @@ module Stuff
 	      	@r = Random::rand(3..8)
 	      when "combo"
 	      	puts "Which combo?"
-	      	c = Readline::readline.downcase
+	      	c = prompt
           self.combo c
 	      end
         
@@ -242,7 +253,7 @@ module Stuff
 
     def quit
       puts "Wanna save yo game? yes or no"
-      save = Readline::readline.downcase
+      save = prompt
         unless save == "no"
           prefs_file = File.open @prefs_file_path, 'w'
           prefs_file.puts @prefs.to_yaml
@@ -256,7 +267,7 @@ module Stuff
     def heal
       puts
       puts "\e[36mHow much health do u want? (1 xp for 1 health)"
-      howMuch = Readline::readline.to_i
+      howMuch = prompt.to_i
       if howMuch == 0
         puts "Nothing given"
         puts "\e[39m"
