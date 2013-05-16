@@ -45,7 +45,7 @@ def start hero
   	while e.is_alive
   		puts "Type any of the following: " + yep.join(", ")
 
-      input = prompt "> "
+      input = prompt "> " # function is defined in ZSDFiles/game.rb
 
   		case input
   		when "punch"

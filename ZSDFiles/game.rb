@@ -17,8 +17,7 @@
 
 def prompt promptBegining=""
   begin
-    print promptBegining
-    inText = Readline.readline.squeeze(" ").strip.downcase
+    inText = Readline.readline(promptBegining, true).squeeze(" ").strip.downcase
     inText
   rescue Interrupt
     puts
