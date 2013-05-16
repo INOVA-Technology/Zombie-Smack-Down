@@ -42,8 +42,11 @@ def start hero
       break
     end
 
+    ask = true
+
   	while e.is_alive
-  		puts "Type any of the following: " + yep.join(", ")
+  		puts "Type any of the following: " + yep.join(", ") if ask
+      ask = true
 
       input = prompt "> " # function is defined in ZSDFiles/game.rb
 
@@ -72,9 +75,10 @@ def start hero
         x = Random::rand(-175..150)
         hero.give_xp x
         puts "\e[33mBraaaiiiiinnnnsss!\e[39m (plus #{x} xp)"
+      when ""
+        ask = false
       else
       	puts "Input invalid"
-        puts input
       end
     end
 			

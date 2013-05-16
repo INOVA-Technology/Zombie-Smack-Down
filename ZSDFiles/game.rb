@@ -47,8 +47,8 @@ module Stuff
       if @prefs[:xp] == 10
         @prefs[:xp] += @prefs[:rank] * 5
       end
-      @combos =       [ "kick punch",       "elbow fist knee fist knee body slam",      "punch punch kick",       "trip stomp",      "knee punch face slap",      "heal fury",      "kick kick kick kick kick kick kick kick kick kick kick kick kick kick kick",      "coolest combo ever",       "chase punch of fire",       "addison kick of cold hard music",       "pain with a side of blood"        "ultimate destruction kick punch",       "chuck norris stomp of mayhem"         ]
-      @comboValues = { "kick punch" => 2 , "elbow fist knee fist knee body slam" => 3, "punch punch kick" => 4 , "trip stomp" => 3, "knee punch face slap" => 4, "heal fury" => 5, "kick kick kick kick kick kick kick kick kick kick kick kick kick kick kick" => 7, "coolest combo ever" => 15, "chase punch of fire" => 20, "addison kick of cold hard music" => 20, "pain with a side of blood" => 25, "ultimate destruction kick punch" => 30, "chuck norris stomp of mayhem" => 1000 }
+      @combos =      [ "kick punch",       "elbow fist knee fist knee body slam",      "trip stomp",      "punch punch kick",       "knee punch face slap",      "heal fury",      "kick kick kick kick kick kick kick kick kick kick kick kick kick kick kick",      "coolest combo ever",       "chase punch of fire",       "addison kick of cold hard music",       "pain with a side of blood"        "ultimate destruction kick punch",       "chuck norris stomp of mayhem"         ]
+      @comboValues = { "kick punch" => 2 , "elbow fist knee fist knee body slam" => 3, "trip stomp" => 3, "punch punch kick" => 4 , "knee punch face slap" => 4, "heal fury" => 5, "kick kick kick kick kick kick kick kick kick kick kick kick kick kick kick" => 7, "coolest combo ever" => 15, "chase punch of fire" => 20, "addison kick of cold hard music" => 20, "pain with a side of blood" => 25, "ultimate destruction kick punch" => 30, "chuck norris stomp of mayhem" => 1000 }
     end
 
     def give_xp amount
