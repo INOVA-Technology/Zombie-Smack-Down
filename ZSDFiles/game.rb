@@ -48,7 +48,8 @@ module Stuff
       if @prefs[:xp] == 10
         @prefs[:xp] += @prefs[:rank] * 5
       end
-      @combos = ["kick punch", "punch punch kick", "elbow fist knee fist knee body slam", "heal fury", "trip stomp", "knee punch face slap", "kick kick kick kick kick kick kick kick kick kick kick kick kick kick kick", "chase punch of fire", "addison kick of cold hard music", "ultimate destruction kick punch", "chuck norris stomp of mayhem", "coolest combo ever", "pain with a side of blood"]
+      @combos =       [ "kick punch",       "elbow fist knee fist knee body slam",      "punch punch kick",       "trip stomp",      "knee punch face slap",      "heal fury",      "kick kick kick kick kick kick kick kick kick kick kick kick kick kick kick",      "coolest combo ever",       "chase punch of fire",       "addison kick of cold hard music",       "pain with a side of blood"        "ultimate destruction kick punch",       "chuck norris stomp of mayhem"         ]
+      @comboValues = { "kick punch" => 2 , "elbow fist knee fist knee body slam" => 3, "punch punch kick" => 4 , "trip stomp" => 3, "knee punch face slap" => 4, "heal fury" => 5, "kick kick kick kick kick kick kick kick kick kick kick kick kick kick kick" => 7, "coolest combo ever" => 15, "chase punch of fire" => 20, "addison kick of cold hard music" => 20, "pain with a side of blood" => 25, "ultimate destruction kick punch" => 30, "chuck norris stomp of mayhem" => 1000 }
     end
 
     def give_xp amount
@@ -232,7 +233,7 @@ module Stuff
     def rankup
       @prefs[:rank] += 1
       give_xp 10
-      if (@combos[@prefs[:rank] - 1]) 
+      if (@combos[@prefs[:rank] - 1])
         puts "\e[35mNew combo unlocked!" + @combos[@prefs[:rank - 1]] + "\e[39m"
       else
         puts "\e[35mYour doing pretty good!\e[39m"
@@ -243,9 +244,9 @@ module Stuff
       puts
       puts "\e[35mCombos:"
       i = 0
-      @combos.each { |c|
+      @comboValues.each { |c, xp|
         break if i == @prefs[:rank]
-        puts c
+        puts "#{c} -#{xp} xp"
         i += 1
       }
       puts "\e[39m"

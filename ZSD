@@ -14,17 +14,6 @@ else
 end
 require "readline"
 
-# def prompt promptBegining
-#   begin
-#     print promptBegining
-#     inText = Readline.readline.squeeze(" ").strip.downcase
-#     inText
-#   rescue Interrupt
-#     puts
-#     exit
-#   end
-# end
-
 def start hero
   yep = ["punch", "kick", "combo", "heal", "combolist", "info", "quit", "taunt"]
 
