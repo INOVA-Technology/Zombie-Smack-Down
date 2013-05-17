@@ -1,8 +1,8 @@
 #!/usr/bin/env ruby
 
-if ARGV[0] == '-t'
+if ARGV[0] == '-t' # only used for testing local version. eg: ./ZSD -t
   require "./ZSDFiles/game"
-elsif ARGV[0] == '-u'
+elsif ARGV[0] == '-u' # updates to newest verion on github
   system "curl -s https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/ZSD > /usr/local/bin/ZSD"
   system "curl -s https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/ZSDFiles/game.rb > /usr/local/bin/ZSDFiles/game.rb"
   system "chmod +x /usr/local/bin/ZSD"
@@ -10,12 +10,12 @@ elsif ARGV[0] == '-u'
   puts "\e[35mUpdate successful!\e[39m"
   exit
 else
-  require "/usr/local/bin/ZSDFiles/game"
+  require "/usr/local/bin/ZSDFiles/game" # load normal game module, also loads the prompt function
 end
 require "readline"
 
 def start hero
-  yep = ["punch", "kick", "combo", "heal", "combolist", "info", "quit", "taunt"]
+  cmds = ["punch", "kick", "combo", "heal", "combolist", "info", "quit", "taunt"]
 
   while true
   	case hero.prefs[:kills]
@@ -45,7 +45,7 @@ def start hero
     ask = true
 
   	while e.is_alive
-  		puts "Type any of the following: " + yep.join(", ") if ask
+  		puts "Type any of the following: " + cmds.join(", ") if ask
       ask = true
 
       input = prompt "> " # function is defined in ZSDFiles/game.rb
@@ -66,7 +66,7 @@ def start hero
         hero.comboList
       when "combo"
       	hero.attack e, "combo"
-      	e.attack if hero.r != 0
+      	e.attack if hero.r != 0 # enemy doesnt attack if player does no damage
       when "heal"
       	hero.heal
       when "taunt"
@@ -76,7 +76,7 @@ def start hero
         hero.give_xp x
         puts "\e[33mBraaaiiiiinnnnsss!\e[39m (plus #{x} xp)"
       when ""
-        ask = false
+        ask = false # dont display the commands
       else
       	puts "Input invalid"
       end
@@ -91,6 +91,6 @@ def main
 	start game
 end
 
-if __FILE__ == $0
+if __FILE__ == $0 # just checks to make sure the file isnt being loaded through require
 	main
 end

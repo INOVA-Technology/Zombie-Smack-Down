@@ -3,7 +3,7 @@
 # for color referances go to:
 # http://pueblo.sourceforge.net/doc/manual/ansi_color_codes.html
 
-# colors/style codes/usages:
+# codes/usages for colors and styles:
   # Colors:
     # \e[31m is red, for pain/death things
     # \e[33m is yellow, for warnings and such like not enough xp
@@ -16,10 +16,10 @@
   # \e[22m gets rid of the bold
 
 def prompt promptBegining=""
-  begin
+  begin # the true parameter keeps a history of the previously entered commands
     inText = Readline.readline(promptBegining, true).squeeze(" ").strip.downcase
     inText
-  rescue Interrupt
+  rescue Interrupt # this is run if the script is stopped with ctrl+c or ctrl+d
     puts
     exit
   end
@@ -28,26 +28,28 @@ end
 module Stuff
 
   class Game
-  	attr_accessor :prefs, :r
+  	attr_accessor :prefs, :r # r is the damage done to the enemy
     require 'yaml'
     
     def initialize
       @prefs_file_path = ''
-      if ARGV[0] == '-t'
+      if ARGV[0] == '-t' # uses local version of the prefs
         @prefs_file_path = './ZSDFiles/prefs.yaml'
         puts "TESTING"
-      else
+      else # loads normal version of prefs
         @prefs_file_path = '/usr/local/bin/ZSDFiles/prefs.yaml'
       end
       prefs_file = File.open @prefs_file_path, 'r'
       @prefs = YAML.load prefs_file.read
       prefs_file.close
-      @default = { xp: 10, kills: 0, health: 20}
-      @r = 0;
+      @default = { xp: 10, kills: 0, health: 20} # defualt prefs for when they die
+      @r = 0; # damage done to enemy
       if @prefs[:xp] == 10
-        @prefs[:xp] += @prefs[:rank] * 5
+        @prefs[:xp] += @prefs[:rank] * 5 # add 5 * their rank of xp at the beginning of they game
       end
+      @disp = true # tells weather it should attack/tell the damage done
       @combos =      [ "kick punch",       "elbow fist knee fist knee body slam",      "trip stomp",      "punch punch kick",       "knee punch face slap",      "heal fury",      "kick kick kick kick kick kick kick kick kick kick kick kick kick kick kick",      "coolest combo ever",       "chase punch of fire",       "addison kick of cold hard music",       "pain with a side of blood"        "ultimate destruction kick punch",       "chuck norris stomp of mayhem"         ]
+      #combos with xp cost
       @comboValues = { "kick punch" => 2 , "elbow fist knee fist knee body slam" => 3, "trip stomp" => 3, "punch punch kick" => 4 , "knee punch face slap" => 4, "heal fury" => 5, "kick kick kick kick kick kick kick kick kick kick kick kick kick kick kick" => 7, "coolest combo ever" => 15, "chase punch of fire" => 20, "addison kick of cold hard music" => 20, "pain with a side of blood" => 25, "ultimate destruction kick punch" => 30, "chuck norris stomp of mayhem" => 1000 }
     end
 
@@ -82,6 +84,7 @@ module Stuff
       puts
       puts "\e[33mNot enough xp...\e[39m"
       @r = 0
+      @disp = false
     end
 
     def combo com
@@ -185,6 +188,7 @@ module Stuff
     end
 
     def attack enemy, weapon = "punch"
+      @disp = true # tells weather it should attack/tell the damage done
       pass = 1
       phrase = ["You smacked down the", "You hit the", "Whose your daddy", "You just powned the"].sample
       while pass != 0
@@ -201,11 +205,18 @@ module Stuff
 	      end
         
 	    end
-      enemy.damage @r
 
-      puts "\e[1;31m"
-      puts phrase + " " + enemy.name + " -" + @r.to_s
-      puts "\e[22;39m"
+      if @disp # only display damage done if they attacked
+        enemy.damage @r
+
+        puts "\e[1;31m"
+        puts phrase + " " + enemy.name + " -" + @r.to_s
+        puts "\e[22;39m"
+      else
+        print "\e[1;33m"
+        puts "No damage done!!"
+        puts "\e[22;39m"
+      end
     end
 
     def damage amount
@@ -226,17 +237,7 @@ module Stuff
       puts "\e[31;1mKO! \e[39;22m"
       @prefs[:kills] += 1
       @prefs[:totalKills] += 1
-      self.rankup if @prefs[:totalKills] % 15 == 0
-    end
-
-    def rankup
-      @prefs[:rank] += 1
-      give_xp 10
-      if (@combos[@prefs[:rank] - 1])
-        puts "\e[35mNew combo unlocked!" + @combos[@prefs[:rank - 1]] + "\e[39m"
-      else
-        puts "\e[35mYour doing pretty good!\e[39m"
-      end
+      self.rankup if @prefs[:totalKills] % 15 == 0 # rankup every 15 kills
     end
 
     def comboList
@@ -244,8 +245,8 @@ module Stuff
       puts "\e[35mCombos:"
       i = 0
       @comboValues.each { |c, xp|
-        break if i == @prefs[:rank]
-        puts "#{c} -#{xp} xp"
+        break if i == @prefs[:rank] # break if i equals their rank
+        puts "#{c} -#{xp} xp" # outputs something like:  kick punch -2 xp
         i += 1
       }
       puts "\e[39m"
@@ -285,7 +286,7 @@ module Stuff
 
     def rankup
       give_xp 10
-      puts "\e[39mRanked up!"
+      puts "\e[35mRanked up!"
       begin
 				puts "New combo unlocked: " + @combos[@prefs[:rank] - 1] 
 	  	rescue
@@ -304,9 +305,7 @@ module Stuff
         puts "\e[31m" + taunt + " " + r.to_s + "\e[39m"
         puts
       else
-        puts
-        puts "\e[33mNOT ENOUGH XP >:p\e[39m"
-        puts
+        self.not_enough_xp
       end
 
     end
