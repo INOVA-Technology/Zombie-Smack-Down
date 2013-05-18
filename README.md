@@ -9,6 +9,6 @@ To play just run the ZSD command!
 And to update your current version just run:
     ZSD -u
 
-Todo:
+To-do List:
 * Add highscore list (hopefully global)
 * Add windows support
