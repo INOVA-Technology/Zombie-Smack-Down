@@ -70,6 +70,38 @@ module Stuff
       prompt
       puts "\e[31m" + introPhrase + " " + @prefs[:kills].to_s + " " + endPhrase + "\e[39m (enter to exit)"
       prompt
+
+      unless File.exists? "#{Dir.home}/.zsd_scores"
+        system "touch ~/.zsd_scores"
+        name = prompt "New Highscore! Enter Your name: "
+        highscore_list = ["chase 10", "addison 10", "#{name} #{@prefs[:kills]}"]
+        highscore_file = File.open("#{Dir.home}/.zsd_scores", "w")
+        highscore_file.puts highscore_list.to_yaml
+        highscore_file.close
+        puts
+      else
+        highscore_file = File.open("#{Dir.home}/.zsd_scores", "r")
+        highscore_list = YAML.load highscore_file.read
+        highscore_file.close
+        highscore_list.sort! { |s1, s2| 
+          s2.split(" ").last.to_i <=> s1.split(" ").last.to_i
+        }
+        if highscore_list.length < 5 || highscore_list.last.split(" ").last.to_i < @prefs[:kills]
+          highscore_file = File.open("#{Dir.home}/.zsd_scores", "w")
+          if highscore_list.last.split(" ").last.to_i < @prefs[:kills] && highscore_list.length == 5
+            highscore_list.pop
+          end
+          name = prompt "New Highscore! Enter Your name: "
+          highscore_list << "#{name} #{@prefs[:kills]}"
+          highscore_list.sort! { |s1, s2| 
+            s2.split(" ").last.to_i <=> s1.split(" ").last.to_i
+          }
+          highscore_file.puts highscore_list.to_yaml
+          puts
+          highscore_file.close
+        end
+      end
+
       exit
     end
 

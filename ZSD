@@ -25,6 +25,20 @@ elsif ARGV[0] == '-h' # shows help
   healing costs 1 xp per health point. \n
   '"
   exit
+elsif ARGV[0] == '-s'
+  require 'yaml'
+  puts "\e[35mHighscores:"
+  puts
+  highscore_file = File.open("#{Dir.home}/.zsd_scores", "r")
+  highscore_list = YAML.load highscore_file.read
+  highscore_list.each { |s|
+    info = s.split(" ")
+    score = info.last
+    name = info[0, info.length - 1].join(" ")
+    puts "#{name.capitalize}: #{score}"
+  }
+  puts "\e[39m"
+  exit
 else
   require "/usr/local/bin/ZSDFiles/game" # load normal game module, also loads the prompt function
 end
@@ -93,6 +107,8 @@ def start hero
         puts "\e[33mBraaaiiiiinnnnsss!\e[39m (plus #{x} xp)"
       when ""
         ask = false # dont display the commands
+      when "die"
+        hero.die
       else
         print "\e[33m"
       	puts "Input invalid"
