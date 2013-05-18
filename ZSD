@@ -94,6 +94,10 @@ def start hero
       	hero.quit
       when "combolist"
         hero.comboList
+      when "upgrade kick"
+        hero.upgradekick
+      when "upgrade punch"
+        hero.upgradeunch
       when "combo"
       	hero.attack e, "combo"
       	e.attack if hero.r != 0 # enemy doesnt attack if player does no damage
