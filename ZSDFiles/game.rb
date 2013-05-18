@@ -48,9 +48,9 @@ module Stuff
         @prefs[:xp] += @prefs[:rank] * 5 # add 5 * their rank of xp at the beginning of they game
       end
       @disp = true # tells weather it should attack/tell the damage done
-      @combos =      [ "kick punch",       "elbow fist knee fist knee body slam",      "trip stomp",      "punch punch kick",       "knee punch face slap",      "heal fury",      "kick kick kick kick kick kick kick kick kick kick kick kick kick kick kick",      "coolest combo ever",       "chase punch of fire",       "addison kick of cold hard music",       "pain with a side of blood"        "ultimate destruction kick punch",       "chuck norris stomp of mayhem"         ]
+      @combos =      [ "kick punch",       "elbow fist knee fist knee body slam",      "trip stomp",      "punch punch kick",       "knee punch face slap",      "heal fury",      "kick kick kick kick kick kick kick kick kick kick kick kick kick kick kick",      "coolest combo ever",       "chase punch of fire",       "addison kick of cold hard music",       "pain with a side of blood",       "ultimate destruction kick punch",       "chuck norris stomp of mayhem",         "not a combo"]
       #combos with xp cost
-      @comboValues = { "kick punch" => 2 , "elbow fist knee fist knee body slam" => 3, "trip stomp" => 3, "punch punch kick" => 4 , "knee punch face slap" => 4, "heal fury" => 5, "kick kick kick kick kick kick kick kick kick kick kick kick kick kick kick" => 7, "coolest combo ever" => 15, "chase punch of fire" => 20, "addison kick of cold hard music" => 20, "pain with a side of blood" => 25, "ultimate destruction kick punch" => 30, "chuck norris stomp of mayhem" => 1000 }
+      @comboValues = { "kick punch" => 2 , "elbow fist knee fist knee body slam" => 3, "trip stomp" => 3, "punch punch kick" => 4 , "knee punch face slap" => 4, "heal fury" => 5, "kick kick kick kick kick kick kick kick kick kick kick kick kick kick kick" => 7, "coolest combo ever" => 15, "chase punch of fire" => 20, "addison kick of cold hard music" => 20, "pain with a side of blood" => 25, "ultimate destruction kick punch" => 30, "chuck norris stomp of mayhem" => 1000, "not a combo" => 20}
     end
 
     def give_xp amount
@@ -170,6 +170,13 @@ module Stuff
         if @prefs[:xp] >= 5
           @r = Random::rand(4..10)
           self.damage(Random::rand(2..4) * -1)
+          self.give_xp -5
+        else
+          self.not_enough_xp
+        end
+      when "not a combo"
+        if @prefs[:xp] >= 20
+          @r = Random::rand(25..45)
           self.give_xp -5
         else
           self.not_enough_xp
@@ -298,7 +305,7 @@ module Stuff
     end
 
     def taunt
-      taunt = ["HEY ZOMBIE! UR FACE!", "DIRT BAG", "UR MOM", "POOP FACE", "GET OWNED BUDDY BOY", ":p", "EAT MY FIST", "mbe nice"].sample
+      taunt = ["HEY ZOMBIE! UR FACE!", "DIRT BAG", "UR MOM", "POOP FACE", "GET OWNED BUDDY BOY", ":p", "EAT MY FIST", "be nice", "You stink", "YO MAMA"].sample
       
       if @prefs[:xp] >= 2
         r = Random::rand(-10..10)
@@ -387,7 +394,7 @@ module Stuff
       @pain = [3, 12]
       @health = 20
       @name = "Daddy Zombie"
-      @phrases = ["IS your daddy", "punched the heck out of you", "beat the heck out of you", "ain't your mom"].sample
+      @phrases = ["IS your daddy", "punched the heck out of you", "beat the heck out of you", "ain't your mom", "told you to go to bed"].sample
     end
   end
 
@@ -397,7 +404,7 @@ module Stuff
       @pain = [2, 15]
       @health = 20
       @name = "Gun Zombie"
-      @phrases = ["shot yo face", "shot the heck out of you", "beat the heck out of you", "made you eat bullets"].sample
+      @phrases = ["shot yo face", "shot the heck out of you", "beat the heck out of you", "made you eat bullets", "showed you his ak-47"].sample
     end
   end
 
@@ -407,7 +414,7 @@ module Stuff
       @pain = [7, 20]
       @health = 20
       @name = "Ninja Zombie"
-      @phrases = ["was to ninja for you", "threw a ninja star at your face", "is a blur", "sent you flying"].sample
+      @phrases = ["was to ninja for you", "threw a ninja star at your face", "is a blur", "sent you flying", "has a black belt"].sample
     end
   end
 
@@ -417,7 +424,7 @@ module Stuff
       @pain = [7, 20]
       @health = 2
       @name = "Idiot Zombie"
-      @phrases = ["was to ninja for you", "threw a ninja star at your face", "is a blur", "sent you flying"].sample
+      @phrases = ["is an idiot but still pwn-ed u", "fell down from stupidness but somehow landed on you", "beat ur face's face", "is somehow beating you"].sample
     end
   end
 
@@ -437,7 +444,7 @@ module Stuff
       @pain = [15, 21]
       @health = 30
       @name = "Strong Zombie"
-      @phrases = ["destroyed you", "may have murdered you", "is strong", "is VERY strong"].sample
+      @phrases = ["destroyed you", "may have murdered you", "is strong", "is VERY strong", "works out"].sample
     end
   end
 
@@ -447,7 +454,7 @@ module Stuff
       @pain = [50, 75]
       @health = 1
       @name = "Basically Dead Zombie"
-      @phrases = ["totally pwn-ed you!", "hurt you pretty bad", "obliterated you", "probably killed you"].sample
+      @phrases = ["totally pwn-ed you!", "hurt you pretty bad", "obliterated you", "probably killed you", "is not dead"].sample
     end
   end
 
