@@ -6,8 +6,12 @@ To install:
 
 To play just run the ZSD command!
 
-And to update your current version just run:
+To update your current version just run:
     ZSD -u
+
+To see how to play just run
+    ZSD -h
+
 
 To-do List:
 * Add highscore list (hopefully global)
