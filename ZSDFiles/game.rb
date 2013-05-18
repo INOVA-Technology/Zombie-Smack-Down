@@ -15,11 +15,14 @@
   # \e[1m is bold, just for attacking info
   # \e[22m gets rid of the bold
 
-def prompt promptBegining=""
+def prompt promptBegining="", hero=nil
   begin # the true parameter keeps a history of the previously entered commands
     inText = Readline.readline(promptBegining, true).squeeze(" ").strip.downcase
     inText
   rescue Interrupt # this is run if the script is stopped with ctrl+c or ctrl+d
+    unless hero.nil?
+      hero.save
+    end
     puts
     exit
   end
@@ -293,17 +296,17 @@ module Stuff
       puts "\e[39m"
     end
 
+    def save
+      prefs_file = File.open @prefs_file_path, 'w'
+      prefs_file.puts @prefs.to_yaml
+      prefs_file.close
+    end
+
     def quit
       puts "Wanna save yo game? yes or no"
-      save = prompt
-        unless save == "no"
-          prefs_file = File.open @prefs_file_path, 'w'
-          prefs_file.puts @prefs.to_yaml
-          prefs_file.close
-          exit
-        else
-        	exit
-        end
+      save_game = prompt
+      self.save unless save_game == "no"
+    	exit
     end
 
     def heal

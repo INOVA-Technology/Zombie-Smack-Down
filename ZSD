@@ -29,14 +29,18 @@ elsif ARGV[0] == '-s'
   require 'yaml'
   puts "\e[35mHighscores:"
   puts
-  highscore_file = File.open("#{Dir.home}/.zsd_scores", "r")
-  highscore_list = YAML.load highscore_file.read
-  highscore_list.each { |s|
-    info = s.split(" ")
-    score = info.last
-    name = info[0, info.length - 1].join(" ")
-    puts "#{name.capitalize}: #{score}"
-  }
+  begin
+    highscore_file = File.open("#{Dir.home}/.zsd_scores", "r")
+    highscore_list = YAML.load highscore_file.read
+    highscore_list.each { |s|
+      info = s.split(" ")
+      score = info.last
+      name = info[0, info.length - 1].join(" ")
+      puts "#{name.capitalize}: #{score}"
+    }
+  rescue
+    puts "No Highscores :("
+  end
   puts "\e[39m"
   exit
 else
@@ -45,7 +49,7 @@ end
 require "readline"
 
 def start hero
-  cmds = ["punch", "kick", "combo", "heal", "combolist", "info", "quit", "taunt"]
+  cmds = ["punch", "kick", "combo", "heal", "combolist", "info", "quit", "taunt", "save"]
 
   while true
   	case hero.prefs[:kills]
@@ -78,7 +82,7 @@ def start hero
   		puts "Type any of the following: " + cmds.join(", ") if ask
       ask = true
 
-      input = prompt "> " # function is defined in ZSDFiles/game.rb
+      input = prompt "> ", hero # function is defined in ZSDFiles/game.rb
 
   		case input
   		when "punch"
@@ -107,8 +111,8 @@ def start hero
         puts "\e[33mBraaaiiiiinnnnsss!\e[39m (plus #{x} xp)"
       when ""
         ask = false # dont display the commands
-      when "die"
-        hero.die
+      when "save"
+        hero.save
       else
         print "\e[33m"
       	puts "Input invalid"
