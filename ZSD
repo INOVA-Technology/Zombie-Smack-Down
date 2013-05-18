@@ -9,6 +9,24 @@ elsif ARGV[0] == '-u' # updates to newest verion on github
   system "chmod +x /usr/local/bin/ZSDFiles/game.rb"
   puts "\e[35mUpdate successful!\e[39m"
   exit
+elsif ARGV[0] == '-h' # shows help
+  system "echo '\n \e[35mBASICS:\e[39m \n
+  Kick: does between 3 and 8 damage\n
+  Punch: does between 4 and 7 damage \n
+  Info: shows status of zombie, player, and level \n
+  Quit: quits the game and give option to save \n \n
+
+  \e[35mCOMBOS:\e[39m \n
+  To start using combos, type combo. \n
+  Combos are displayed using the combolist command. \n \n
+
+  \e[35mHEALTH:\e[39m \n
+  if you want more health, type heal. \n
+  healing costs 1 xp per health point. \n \n
+
+
+  '"
+  exit
 else
   require "/usr/local/bin/ZSDFiles/game" # load normal game module, also loads the prompt function
 end
