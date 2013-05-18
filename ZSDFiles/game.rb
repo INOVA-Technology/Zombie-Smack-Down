@@ -28,7 +28,7 @@ end
 module Stuff
 
   class Game
-  	attr_accessor :prefs, :r # r is the damage done to the enemy
+  	attr_accessor :prefs, :disp, :r # r is the damage done to the enemy
     require 'yaml'
     
     def initialize
@@ -182,7 +182,13 @@ module Stuff
           self.not_enough_xp
         end
       else
+        print "\e[33m"        
         puts "Invalid combo..."
+        print "\e[1m"
+        puts "No damage done!!"
+        puts "\e[22;39m"
+
+        @disp = false
         @r = 0
       end
     end
@@ -211,10 +217,6 @@ module Stuff
 
         puts "\e[1;31m"
         puts phrase + " " + enemy.name + " -" + @r.to_s
-        puts "\e[22;39m"
-      else
-        print "\e[1;33m"
-        puts "No damage done!!"
         puts "\e[22;39m"
       end
     end

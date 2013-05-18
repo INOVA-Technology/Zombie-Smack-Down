@@ -78,7 +78,9 @@ def start hero
       when ""
         ask = false # dont display the commands
       else
+        print "\e[33m"
       	puts "Input invalid"
+        print "\e[39m"
       end
     end
 			
