@@ -354,6 +354,19 @@ module Stuff
 
     end
 
+    def upgradekick
+      puts "hi"
+      puts "upgrade costs " + @prefs[:kmoney]
+
+
+    end
+
+    def upgradepunch
+      puts "upgrade costs " + @prefs[:pmoney]
+
+
+    end
+
   # end of Game class
   end
 
