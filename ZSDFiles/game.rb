@@ -356,15 +356,11 @@ module Stuff
 
     def upgradekick
       puts "hi"
-      puts "upgrade costs " + @prefs[:kmoney]
-
-
+      puts "upgrade costs " + @prefs[:kmoney].to_s
     end
 
     def upgradepunch
-      puts "upgrade costs " + @prefs[:pmoney]
-
-
+      puts "upgrade costs " + @prefs[:pmoney].to_s
     end
 
   # end of Game class
