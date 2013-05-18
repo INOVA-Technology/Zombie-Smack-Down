@@ -9,7 +9,7 @@ To play just run the ZSD command!
 To update your current version just run:
     ZSD -u
 
-To see how to play just run
+To see how to play just run:
     ZSD -h
 
 
