@@ -10,7 +10,7 @@ elsif ARGV[0] == '-u' # updates to newest verion on github
   puts "\e[35mUpdate successful!\e[39m"
   exit
 elsif ARGV[0] == '-h' # shows help
-  system "echo '\n \e[35mBASICS:\e[39m \n
+  system "echo '\n  \e[35mBASICS:\e[39m \n
   Kick: does between 3 and 8 damage\n
   Punch: does between 4 and 7 damage \n
   Info: shows status of zombie, player, and level \n
@@ -22,9 +22,7 @@ elsif ARGV[0] == '-h' # shows help
 
   \e[35mHEALTH:\e[39m \n
   if you want more health, type heal. \n
-  healing costs 1 xp per health point. \n \n
-
-
+  healing costs 1 xp per health point. \n
   '"
   exit
 else
