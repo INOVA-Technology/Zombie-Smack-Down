@@ -17,12 +17,18 @@ elsif ARGV[0] == '-h' # shows help
   Quit: quits the game and give option to save \n \n
 
   \e[35mCOMBOS:\e[39m \n
-  To start using combos, type combo. \n
+  To start using combos, type \e[35mcombo\e[39m. \n
   Combos are displayed using the combolist command. \n \n
 
   \e[35mHEALTH:\e[39m \n
-  if you want more health, type heal. \n
-  healing costs 1 xp per health point. \n
+  if you want more health, type \e[35mheal\e[39m. \n
+  healing costs 1 xp per health point. \n \n
+
+  \e[35mUPGRADING:\e[39m \n
+  upgrading makes attacks more affective. \n
+  to upgrade type \e[35mupgrade <attack>\e[39m replacing \e[35m<attack>\e[39m with kick or punch. \n
+  upgrading costs more each time.
+
   '"
   exit
 elsif ARGV[0] == '-s'
@@ -109,7 +115,7 @@ def start hero
       when "upgrade kick"
         hero.upgradekick
       when "upgrade punch"
-        hero.upgradeunch
+        hero.upgradepunch
       when "combo"
       	hero.attack e, "combo"
       	e.attack if hero.r != 0 # enemy doesnt attack if player does no damage
