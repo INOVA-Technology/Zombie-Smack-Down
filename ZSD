@@ -55,7 +55,7 @@ end
 require "readline"
 
 def start hero
-  cmds = ["punch", "kick", "combo", "heal", "combolist", "info", "quit", "taunt", "save"]
+  cmds = ["punch", "kick", "combo", "heal", "combolist", "info", "quit", "taunt", "save", "upgrade kick", "upgrade punch"]
 
   while true
   	case hero.prefs[:kills]

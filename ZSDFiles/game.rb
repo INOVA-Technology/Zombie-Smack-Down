@@ -243,9 +243,9 @@ module Stuff
       	pass = 0
 	      case weapon
 	      when "punch"
-	        @r = Random::rand(4..7) + @prefs[:pskill]
+	        @r = Random::rand(4..7) + @prefs[:punchUpgrade] / 5 - 2
 	      when "kick"
-	      	@r = Random::rand(3..8) + @prefs[:kskill]
+	      	@r = Random::rand(3..8) + @prefs[:kickUpgrade] / 5 - 2
 	      when "combo"
 	      	puts "Which combo?"
 	      	c = prompt
@@ -271,7 +271,13 @@ module Stuff
     def info
       puts "\e[35m"
       @prefs.each{ |key, value|
-        puts key.to_s + ": " + value.to_s
+        if key == :kickUpgrade
+          puts "Kick upgrade: #{(@prefs[:kickUpgrade] / 5 - 2).to_s}"
+        elsif key == :punchUpgrade
+          puts "Punch upgrade: #{(@prefs[:punchUpgrade] / 5 - 2).to_s}"
+        else
+          puts key.to_s + ": " + value.to_s
+        end
       }
       print "\e[39m"
     end
@@ -355,42 +361,38 @@ module Stuff
     end
 
     def upgradekick
-      puts "upgrade costs " + @prefs[:kmoney].to_s
-      if @prefs[:xp] >= @prefs[:kmoney]
+      puts "\e[36mUpgrade costs " + @prefs[:kickUpgrade].to_s
+      if @prefs[:xp] >= @prefs[:kickUpgrade]
         puts "Would you like to upgrade? (YES or NO)"
-        answer = gets.chomp.downcase
+        answer = prompt
         if answer == "yes"
-           @prefs[:kmoney] += 5
-           @prefs[:kskill] += 1
-           self.give_xp -1 * @prefs[:kmoney]
-           puts "\e[35msuccessfully upgraded\e[39m"
-        elsif answer == "no"
-           puts "nothing changed"
+          self.give_xp -1 * @prefs[:kickUpgrade]
+          @prefs[:kickUpgrade] += 5
+          puts "successfully upgraded"
         else
-          puts "invalid input"
+           puts "nothing changed"
         end
+        puts "\e[39m"
       else
-        puts "\e[31mnot enough xp\e[39m"
+        puts "\e[33mnot enough xp\e[39m"
       end
     end
 
     def upgradepunch
-      puts "upgrade costs " + @prefs[:pmoney].to_s
-      if @prefs[:xp] >= @prefs[:pmoney]
+      puts "\e[36mupgrade costs " + @prefs[:punchUpgrade].to_s
+      if @prefs[:xp] >= @prefs[:punchUpgrade]
         puts "Would you like to upgrade? (YES or NO)"
-        answer = gets.chomp.downcase
+        answer = prompt
         if answer == "yes"
-           @prefs[:pmoney] += 5
-           @prefs[:pskill] += 1
-           self.give_xp -1 * @prefs[:pmoney]
-           puts "\e[35msuccessfully upgraded\e[39m"
-        elsif answer == "no"
-           puts "nothing changed"
+          self.give_xp -1 * @prefs[:punchUpgrade]
+          @prefs[:punchUpgrade] += 5
+          puts "successfully upgraded"
         else
-          puts "invalid input"
+          puts "nothing changed"
         end
+        print "\e[39m"
       else
-        puts "\e[31mnot enough xp\e[39m"
+        puts "\e[33mnot enough xp\e[39m"
       end
     end
 
