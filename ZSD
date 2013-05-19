@@ -55,13 +55,12 @@ def start hero
   	case hero.prefs[:kills]
   	when 0, 1, 2
   		e = Stuff::Zombie.new hero
-      hero.damage -4
     when 3, 4, 5
       e = Stuff::BigZombie.new hero
       hero.damage -4
     when 6, 7, 8
       e = Stuff::DaddyZombie.new hero
-      hero.damage -6
+      hero.damage -4
     when 9, 10, 11
       e = Stuff::GunZombie.new hero
       hero.damage -6
@@ -70,7 +69,7 @@ def start hero
       hero.damage -6
     when 15, 16, 17
       e = Stuff::IdiotZombie.new hero
-      hero.damage -6
+      hero.damage -8
     when 18, 19, 20 
       e = Stuff::BlindZombie.new hero
       hero.damage -8
