@@ -2,7 +2,7 @@
 :xp: 10
 :kills: 0
 :health: 20
-:kickUpgrade: 10
-:punchUpgrade: 10
-:totalKills: 150
-:rank: 6
+:kickUpgrade: 0
+:punchUpgrade: 0
+:totalKills: 0
+:rank: 0
