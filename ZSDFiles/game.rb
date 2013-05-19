@@ -243,9 +243,9 @@ module Stuff
       	pass = 0
 	      case weapon
 	      when "punch"
-	        @r = Random::rand(4..7)
+	        @r = Random::rand(4..7) + @prefs[:pskill]
 	      when "kick"
-	      	@r = Random::rand(3..8)
+	      	@r = Random::rand(3..8) + @prefs[:kskill]
 	      when "combo"
 	      	puts "Which combo?"
 	      	c = prompt
@@ -355,12 +355,43 @@ module Stuff
     end
 
     def upgradekick
-      puts "hi"
       puts "upgrade costs " + @prefs[:kmoney].to_s
+      if @prefs[:xp] >= @prefs[:kmoney]
+        puts "Would you like to upgrade? (YES or NO)"
+        answer = gets.chomp.downcase
+        if answer == "yes"
+           @prefs[:kmoney] += 5
+           @prefs[:kskill] += 1
+           self.give_xp -1 * @prefs[:kmoney]
+           puts "\e[35msuccessfully upgraded\e[39m"
+        elsif answer == "no"
+           puts "nothing changed"
+        else
+          puts "invalid input"
+        end
+      else
+        puts "\e[31mnot enough xp\e[39m"
+      end
     end
 
     def upgradepunch
       puts "upgrade costs " + @prefs[:pmoney].to_s
+      if @prefs[:xp] >= @prefs[:pmoney]
+        puts "Would you like to upgrade? (YES or NO)"
+        answer = gets.chomp.downcase
+        if answer == "yes"
+           @prefs[:pmoney] += 5
+           @prefs[:pskill] += 1
+           self.give_xp -1 * @prefs[:pmoney]
+           puts "\e[35msuccessfully upgraded\e[39m"
+        elsif answer == "no"
+           puts "nothing changed"
+        else
+          puts "invalid input"
+        end
+      else
+        puts "\e[31mnot enough xp\e[39m"
+      end
     end
 
   # end of Game class

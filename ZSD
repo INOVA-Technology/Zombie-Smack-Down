@@ -101,7 +101,7 @@ def start hero
       when "upgrade kick"
         hero.upgradekick
       when "upgrade punch"
-        hero.upgradeunch
+        hero.upgradepunch
       when "combo"
       	hero.attack e, "combo"
       	e.attack if hero.r != 0 # enemy doesnt attack if player does no damage

@@ -1,6 +1,10 @@
 ---
-:xp: 10
+:xp: 5
 :kills: 0
-:health: 20
-:totalKills: 0
+:health: 14
+:totalKills: 7
 :rank: 0
+:kmoney: 10
+:pmoney: 15
+:kskill: 0
+:pskill: 1
