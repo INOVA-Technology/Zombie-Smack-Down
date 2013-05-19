@@ -29,6 +29,11 @@ elsif ARGV[0] == '-h' # shows help
   to upgrade type \e[35mupgrade <attack>\e[39m replacing \e[35m<attack>\e[39m with kick or punch. \n
   upgrading costs more each time.
 
+  \e[35mTAUNT:\e[39m \n
+  taunting gives or takes away xp. \n
+  to taunt type \e[35mtaunt\e[39m\n
+  you cannot taunt with less than 2 xp.
+
   '"
   exit
 elsif ARGV[0] == '-s'
