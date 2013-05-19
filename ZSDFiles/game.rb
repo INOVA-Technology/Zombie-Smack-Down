@@ -47,7 +47,7 @@ module Stuff
       prefs_file.close
       @default = { xp: 10, kills: 0, health: 20, kickUpgrade: 5, punchUpgrade: 5} # defualt prefs for when they die
       @r = 0; # damage done to enemy
-      if @prefs[:xp] == 10
+      if @prefs[:xp] == 15
         @prefs[:xp] += @prefs[:rank] * 5 # add 5 * their rank of xp at the beginning of they game
       end
       @disp = true # tells weather it should attack/tell the damage done
@@ -276,9 +276,9 @@ module Stuff
       puts "\e[35m"
       @prefs.each{ |key, value|
         if key == :kickUpgrade
-          puts "Kick upgrade: #{(@prefs[:kickUpgrade] / 5).to_s}"
+          puts "Kick upgrade: #{(@prefs[:kickUpgrade] / 5 - 1).to_s}"
         elsif key == :punchUpgrade
-          puts "Punch upgrade: #{(@prefs[:punchUpgrade] / 5).to_s}"
+          puts "Punch upgrade: #{(@prefs[:punchUpgrade] / 5 - 1).to_s}"
         else
           puts key.to_s + ": " + value.to_s
         end
