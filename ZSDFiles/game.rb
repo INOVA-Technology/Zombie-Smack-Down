@@ -57,11 +57,7 @@ module Stuff
     end
 
     def give_xp amount
-      if @prefs[:xp] + amount >= 0
         @prefs[:xp] += amount
-      else
-        self.not_enough_xp
-      end
     end	
 
     def die
