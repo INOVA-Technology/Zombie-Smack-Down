@@ -57,20 +57,28 @@ def start hero
   		e = Stuff::Zombie.new hero
     when 3, 4, 5
       e = Stuff::BigZombie.new hero
+      hero.damage -4
     when 6, 7, 8
       e = Stuff::DaddyZombie.new hero
+      hero.damage -4
     when 9, 10, 11
       e = Stuff::GunZombie.new hero
+      hero.damage -6
     when 12, 13, 14
       e = Stuff::NinjaZombie.new hero 
+      hero.damage -6
     when 15, 16, 17
-      e = Stuff::IdiotZombie.new hero 
+      e = Stuff::IdiotZombie.new hero
+      hero.damage -8
     when 18, 19, 20 
-      e = Stuff::BlindZombie.new hero 
+      e = Stuff::BlindZombie.new hero
+      hero.damage -8
     when 21, 22, 23 
       e = Stuff::StrongZombie.new hero
+      hero.damage -8
     when 24, 25, 26
       e = Stuff::BasicallyDeadZombie.new hero
+      hero.damage -8
     else
       hero.win
       break

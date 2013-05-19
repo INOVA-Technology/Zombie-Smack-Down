@@ -204,7 +204,7 @@ module Stuff
       when "heal fury"
         if @prefs[:xp] >= 5
           @r = Random::rand(4..10)
-          self.damage(Random::rand(2..4) * -1)
+          self.damage(Random::rand(2..5) * -1)
           self.give_xp -5
         else
           self.not_enough_xp
@@ -466,7 +466,7 @@ module Stuff
   class DaddyZombie < Zombie
     def setXpPainHealth
       @xp = 10
-      @pain = [3, 12]
+      @pain = [4, 10]
       @health = 20
       @name = "Daddy Zombie"
       @phrases = ["IS your daddy", "punched the heck out of you", "beat the heck out of you", "ain't your mom", "told you to go to bed"].sample
@@ -476,7 +476,7 @@ module Stuff
   class GunZombie < Zombie
     def setXpPainHealth
       @xp = 15
-      @pain = [2, 15]
+      @pain = [3, 15]
       @health = 20
       @name = "Gun Zombie"
       @phrases = ["shot yo face", "shot the heck out of you", "beat the heck out of you", "made you eat bullets", "showed you his ak-47"].sample
