@@ -45,7 +45,7 @@ module Stuff
       prefs_file = File.open @prefs_file_path, 'r'
       @prefs = YAML.load prefs_file.read
       prefs_file.close
-      @default = { xp: 10, kills: 0, health: 20} # defualt prefs for when they die
+      @default = { xp: 10, kills: 0, health: 20, kickUpgrade: 10, punchUpgrade: 10} # defualt prefs for when they die
       @r = 0; # damage done to enemy
       if @prefs[:xp] == 10
         @prefs[:xp] += @prefs[:rank] * 5 # add 5 * their rank of xp at the beginning of they game
