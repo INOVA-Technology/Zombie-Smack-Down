@@ -32,10 +32,11 @@ end
 module Stuff
 
   class Game
-  	attr_accessor :prefs, :disp, :r # r is the damage done to the enemy
+  	attr_accessor :prefs, :disp, :new_game, :r # r is the damage done to the enemy
     require 'yaml'
     
     def initialize
+      @new_game = false
       @prefs_file_path = ''
       if ARGV[0] == '-t' # uses local version of the prefs
         @prefs_file_path = './ZSDFiles/prefs.yaml'
@@ -256,6 +257,7 @@ module Stuff
 	    end
 
       if @disp # only display damage done if they attacked
+        @new_game = true
         enemy.damage @r
 
         puts "\e[1;31m"

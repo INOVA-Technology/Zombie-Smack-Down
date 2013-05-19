@@ -63,28 +63,30 @@ def start hero
   cmds = ["punch", "kick", "combo", "heal", "combolist", "info", "quit", "taunt", "save", "upgrade kick", "upgrade punch"]
 
   while true
-    case hero.prefs[:kills]
-    when 3
-      hero.damage -4
-      puts "\e[36m+4\e39[m"
-    when 6
-      hero.damage -4
-      puts "\e[36m+4\e39[m"
-    when 12
-      hero.damage -6   
-      puts "\e[36m+6\e39[m"   
-    when 15
-      hero.damage -6
-      puts "\e[36m+6\e39[m"
-    when 18
-      hero.damage -8 
-      puts "\e[36m+8\e39[m"
-    when 21
-      hero.damage -8
-      puts "\e[36m+8\e39[m"  
-    when 24
-      hero.damage -8 
-      puts "\e[36m+8\e39[m" 
+    if hero.new_game
+      case hero.prefs[:kills]
+      when 3
+        hero.damage -4
+        puts "\e[36m+4\e[39m"
+      when 6
+        hero.damage -4
+        puts "\e[36m+4\e[39m"
+      when 12
+        hero.damage -6   
+        puts "\e[36m+6\e[39m"   
+      when 15
+        hero.damage -6
+        puts "\e[36m+6\e[39m"
+      when 18
+        hero.damage -8 
+        puts "\e[36m+8\e[39m"
+      when 21
+        hero.damage -8
+        puts "\e[36m+8\e[39m"  
+      when 24
+        hero.damage -8 
+        puts "\e[36m+8\e[39m" 
+      end
     end
   	case hero.prefs[:kills]
   	when 0, 1, 2
