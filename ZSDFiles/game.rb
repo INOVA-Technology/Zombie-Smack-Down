@@ -414,8 +414,9 @@ module Stuff
     def info
       puts "\e[35m"
       puts self.name + " health: " + @health.to_s
+      puts "Attack strength: #{@pain[0]} to #{@pain[1]}"
+      puts
       print "\e[39m"
-
     end
   # end Zombie class
   end
