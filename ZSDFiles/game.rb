@@ -338,6 +338,7 @@ module Stuff
     end
 
     def rankup
+      @prefs[:rank] += 1
       give_xp 10
       puts "\e[35mRanked up!"
       begin
