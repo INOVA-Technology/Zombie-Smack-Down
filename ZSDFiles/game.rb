@@ -540,5 +540,15 @@ module Stuff
     end
   end
 
+  class SuperZombie < Zombie
+    def setXpPainHealth
+      @xp = 50
+      @pain = [60, 90]
+      @health = 100
+      @name = "Basically Dead Zombie"
+      @phrases = ["is up up and away!", "just chucked kryptonite at ur face", "has super strength", "is the ultimate super villain", "just mad you cry"].sample
+    end
+  end
+
 #end Stuff module
 end
