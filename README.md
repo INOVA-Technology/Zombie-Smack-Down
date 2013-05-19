@@ -18,5 +18,5 @@ Also, you can see the highscores by running:
 
     ZSD -s
 
-To-do:
-* Add windows support
+To-do (pull requests appreciated):
+* Add Windows support
