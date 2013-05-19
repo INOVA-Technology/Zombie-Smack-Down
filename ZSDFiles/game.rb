@@ -45,7 +45,7 @@ module Stuff
       prefs_file = File.open @prefs_file_path, 'r'
       @prefs = YAML.load prefs_file.read
       prefs_file.close
-      @default = { xp: 10, kills: 0, health: 20, kickUpgrade: 10, punchUpgrade: 10} # defualt prefs for when they die
+      @default = { xp: 10, kills: 0, health: 20, kickUpgrade: 5, punchUpgrade: 5} # defualt prefs for when they die
       @r = 0; # damage done to enemy
       if @prefs[:xp] == 10
         @prefs[:xp] += @prefs[:rank] * 5 # add 5 * their rank of xp at the beginning of they game
@@ -57,7 +57,11 @@ module Stuff
     end
 
     def give_xp amount
-      @prefs[:xp] += amount
+      if @prefs[:xp] + amount >= 0
+        @prefs[:xp] += amount
+      else
+        self.not_enough_xp
+      end
     end	
 
     def die
@@ -243,9 +247,9 @@ module Stuff
       	pass = 0
 	      case weapon
 	      when "punch"
-	        @r = Random::rand(4..7) + @prefs[:punchUpgrade] / 5 - 2
+	        @r = Random::rand(4..7) + @prefs[:punchUpgrade] / 5
 	      when "kick"
-	      	@r = Random::rand(3..8) + @prefs[:kickUpgrade] / 5 - 2
+	      	@r = Random::rand(3..8) + @prefs[:kickUpgrade] / 5
 	      when "combo"
 	      	puts "Which combo?"
 	      	c = prompt
@@ -272,9 +276,9 @@ module Stuff
       puts "\e[35m"
       @prefs.each{ |key, value|
         if key == :kickUpgrade
-          puts "Kick upgrade: #{(@prefs[:kickUpgrade] / 5 - 2).to_s}"
+          puts "Kick upgrade: #{(@prefs[:kickUpgrade] / 5).to_s}"
         elsif key == :punchUpgrade
-          puts "Punch upgrade: #{(@prefs[:punchUpgrade] / 5 - 2).to_s}"
+          puts "Punch upgrade: #{(@prefs[:punchUpgrade] / 5).to_s}"
         else
           puts key.to_s + ": " + value.to_s
         end
