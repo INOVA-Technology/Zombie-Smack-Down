@@ -458,7 +458,7 @@ module Stuff
 
   class BigZombie < Zombie
     def setXpPainHealth
-      @xp = 4
+      @xp = 5
       @pain = [6, 8]
       @health = 15
       @name = "Big Zombie"
@@ -468,7 +468,7 @@ module Stuff
 
   class DaddyZombie < Zombie
     def setXpPainHealth
-      @xp = 10
+      @xp = 14
       @pain = [4, 10]
       @health = 20
       @name = "Daddy Zombie"
@@ -478,7 +478,7 @@ module Stuff
 
   class GunZombie < Zombie
     def setXpPainHealth
-      @xp = 15
+      @xp = 18
       @pain = [3, 15]
       @health = 20
       @name = "Gun Zombie"
@@ -488,7 +488,7 @@ module Stuff
 
   class NinjaZombie < Zombie
     def setXpPainHealth
-      @xp = 20
+      @xp = 25
       @pain = [7, 20]
       @health = 20
       @name = "Ninja Zombie"
@@ -508,7 +508,7 @@ module Stuff
 
   class BlindZombie < Zombie
     def setXpPainHealth
-      @xp = 25
+      @xp = 29
       @pain = [0, 25]
       @health = 24
       @name = "Blind Zombie"
@@ -518,7 +518,7 @@ module Stuff
 
   class StrongZombie < Zombie
     def setXpPainHealth
-      @xp = 32
+      @xp = 37
       @pain = [15, 21]
       @health = 30
       @name = "Strong Zombie"

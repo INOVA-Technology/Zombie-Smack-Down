@@ -63,33 +63,41 @@ def start hero
   cmds = ["punch", "kick", "combo", "heal", "combolist", "info", "quit", "taunt", "save", "upgrade kick", "upgrade punch"]
 
   while true
+    case hero.prefs[:kills]
+    when 3
+      hero.damage -4
+    when 6
+      hero.damage -4
+    when 12
+      hero.damage -6      
+    when 15
+      hero.damage -6  
+    when 18
+      hero.damage -6  
+    when 21
+      hero.damage -6  
+    when 24
+      hero.damage -6  
+    end
   	case hero.prefs[:kills]
   	when 0, 1, 2
   		e = Stuff::Zombie.new hero
     when 3, 4, 5
       e = Stuff::BigZombie.new hero
-      hero.damage -4
     when 6, 7, 8
       e = Stuff::DaddyZombie.new hero
-      hero.damage -4
     when 9, 10, 11
       e = Stuff::GunZombie.new hero
-      hero.damage -6
     when 12, 13, 14
       e = Stuff::NinjaZombie.new hero 
-      hero.damage -6
     when 15, 16, 17
       e = Stuff::IdiotZombie.new hero
-      hero.damage -8
     when 18, 19, 20 
       e = Stuff::BlindZombie.new hero
-      hero.damage -8
     when 21, 22, 23 
       e = Stuff::StrongZombie.new hero
-      hero.damage -8
     when 24, 25, 26
       e = Stuff::BasicallyDeadZombie.new hero
-      hero.damage -8
     else
       hero.win
       break
