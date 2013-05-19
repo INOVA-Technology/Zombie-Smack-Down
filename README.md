@@ -20,3 +20,4 @@ Also, you can see the highscores by running:
 
 To-do (pull requests appreciated):
 * Add Windows support
+* Add web high scores
