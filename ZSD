@@ -38,7 +38,7 @@ elsif ARGV[0] == '-h' # shows help
   exit
 elsif ARGV[0] == '-s'
   require 'yaml'
-  puts "\e[35mHighscores:"
+  puts "\e[33mHighscores:"
   puts
   begin
     highscore_file = File.open("#{Dir.home}/.zsd_scores", "r")
@@ -66,18 +66,25 @@ def start hero
     case hero.prefs[:kills]
     when 3
       hero.damage -4
+      puts "\e[36m+4\e39[m"
     when 6
       hero.damage -4
+      puts "\e[36m+4\e39[m"
     when 12
-      hero.damage -6      
+      hero.damage -6   
+      puts "\e[36m+6\e39[m"   
     when 15
-      hero.damage -6  
+      hero.damage -6
+      puts "\e[36m+6\e39[m"
     when 18
-      hero.damage -6  
+      hero.damage -8 
+      puts "\e[36m+8\e39[m"
     when 21
-      hero.damage -6  
+      hero.damage -8
+      puts "\e[36m+8\e39[m"  
     when 24
-      hero.damage -6  
+      hero.damage -8 
+      puts "\e[36m+8\e39[m" 
     end
   	case hero.prefs[:kills]
   	when 0, 1, 2

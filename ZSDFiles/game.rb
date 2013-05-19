@@ -8,6 +8,7 @@
     # \e[31m is red, for pain/death things
     # \e[33m is yellow, for warnings and such like not enough xp
     # \e[35m is purple, for info like ranking up and the info command
+    # \e[36m is for healing and extra power/leveling up
 
     # \e[39m gets rid of colors, goes back to default
 
