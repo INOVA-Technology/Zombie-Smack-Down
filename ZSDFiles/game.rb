@@ -468,7 +468,7 @@ module Stuff
 
   class DaddyZombie < Zombie
     def setXpPainHealth
-      @xp = 14
+      @xp = 12
       @pain = [4, 10]
       @health = 20
       @name = "Daddy Zombie"
@@ -508,7 +508,7 @@ module Stuff
 
   class BlindZombie < Zombie
     def setXpPainHealth
-      @xp = 29
+      @xp = 28
       @pain = [0, 25]
       @health = 24
       @name = "Blind Zombie"
