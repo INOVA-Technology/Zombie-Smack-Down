@@ -165,6 +165,7 @@ def start hero
         ask = false # dont display the commands
       when "save"
         hero.save
+        
       else
         print "\e[33m"
       	puts "Input invalid"

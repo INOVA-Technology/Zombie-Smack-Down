@@ -307,6 +307,7 @@ module Stuff
       }
       puts "\e[39m"
     end
+    
 
     def save
       prefs_file = File.open @prefs_file_path, 'w'
