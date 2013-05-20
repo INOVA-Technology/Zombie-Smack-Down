@@ -20,7 +20,7 @@ Also, you can see the highscores by running:
 
 
 ******IMPORTANT******
-\n
+<p>
 Drag cost.yaml into /usr/local/bin/ZSDFiles
 
 
