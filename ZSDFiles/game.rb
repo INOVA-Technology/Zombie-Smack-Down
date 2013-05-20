@@ -47,6 +47,9 @@ module Stuff
       prefs_file = File.open @prefs_file_path, 'r'
       @prefs = YAML.load prefs_file.read
       prefs_file.close
+      @costs = '/usr/local/bin/ZSDFiles/cost.yaml'
+      cost_file = File.open @costs, 'r'
+      @cost = YAML.load cost_file.read
       @default = { xp: 15, kills: 0, health: 25, kickUpgrade: 5, punchUpgrade: 5} # defualt prefs for when they die
       @r = 0; # damage done to enemy
       if @prefs[:xp] == 15
@@ -365,31 +368,14 @@ module Stuff
     end
 
     def upgradekick
-      puts "\e[36mUpgrade costs " + @prefs[:kickUpgrade].to_s
-      if @prefs[:xp] >= @prefs[:kickUpgrade]
+      puts "\e[36mupgrade costs " + @cost[:kickMoney].to_s
+      if @prefs[:xp] >= @cost[:kickMoney]
         puts "Would you like to upgrade? (YES or NO)"
         answer = prompt
         if answer == "yes"
-          self.give_xp -1 * @prefs[:kickUpgrade]
-          @prefs[:kickUpgrade] += 5
-          puts "successfully upgraded"
-        else
-           puts "nothing changed"
-        end
-        puts "\e[39m"
-      else
-        puts "\e[33mnot enough xp\e[39m"
-      end
-    end
-
-    def upgradepunch
-      puts "\e[36mupgrade costs " + @prefs[:punchUpgrade].to_s
-      if @prefs[:xp] >= @prefs[:punchUpgrade]
-        puts "Would you like to upgrade? (YES or NO)"
-        answer = prompt
-        if answer == "yes"
-          self.give_xp -1 * @prefs[:punchUpgrade]
-          @prefs[:punchUpgrade] += 5
+          self.give_xp -1 * @cost[:kickMoney]
+          @prefs[:kickUpgrade] += 1
+          @cost[:kickMoney] += 10
           puts "successfully upgraded"
         else
           puts "nothing changed"
@@ -398,6 +384,52 @@ module Stuff
       else
         puts "\e[33mnot enough xp\e[39m"
       end
+    end
+
+    def upgradepunch
+      puts "\e[36mupgrade costs " + @cost[:punchMoney].to_s
+      if @prefs[:xp] >= @cost[:punchMoney]
+        puts "Would you like to upgrade? (YES or NO)"
+        answer = prompt
+        if answer == "yes"
+          self.give_xp -1 * @cost[:punchMoney]
+          @prefs[:punchUpgrade] += 1
+          @cost[:punchMoney] += 10
+          puts "successfully upgraded"
+        else
+          puts "nothing changed"
+        end
+        print "\e[39m"
+      else
+        puts "\e[33mnot enough xp\e[39m"
+      end
+    end
+
+    def upgradeblock
+      puts "\e[36mupgrade costs " + @cost[:blockMoney].to_s
+      if @prefs[:xp] >= @cost[:blockMoney]
+        puts "Would you like to upgrade? (YES or NO)"
+        answer = prompt
+        if answer == "yes"
+          self.give_xp -1 * @cost[:blockMoney]
+          @prefs[:blockUpgrade] += 1
+          @cost[:blockMoney] += 10
+          puts "successfully upgraded"
+        else
+          puts "nothing changed"
+        end
+        print "\e[39m"
+      else
+        puts "\e[33mnot enough xp\e[39m"
+      end
+    end
+
+    def block
+       face = 1 + @prefs[:blockUpgrade]
+       self.give_xp 1 + @prefs[:blockUpgrade]
+       @prefs[:health] += 1 + @prefs[:blockUpgrade]
+       puts "\e[35m xp and health added: " + face.to_s + "\e[39m"
+
     end
 
   # end of Game class

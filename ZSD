@@ -129,6 +129,9 @@ def start hero
       when "kick"
         hero.attack e, "kick"
         e.attack
+      when "block"
+        hero.block
+        e.attack
       when "info"
       	hero.info
         e.info
@@ -140,6 +143,8 @@ def start hero
         hero.upgradekick
       when "upgrade punch"
         hero.upgradepunch
+      when "upgrade block"
+        hero.upgradeblock
       when "combo"
       	hero.attack e, "combo"
       	e.attack if hero.r != 0 # enemy doesnt attack if player does no damage

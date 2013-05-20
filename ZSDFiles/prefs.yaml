@@ -1,8 +1,9 @@
 ---
-:xp: 15
+:xp: 18
 :kills: 0
-:health: 25
-:kickUpgrade: 5
+:health: 37
+:kickUpgrade: 16
 :punchUpgrade: 5
+:blockUpgrade: 10
 :totalKills: 0
 :rank: 0
