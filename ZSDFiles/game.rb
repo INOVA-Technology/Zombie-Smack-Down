@@ -307,7 +307,7 @@ module Stuff
       }
       puts "\e[39m"
     end
-    
+
 
     def save
       prefs_file = File.open @prefs_file_path, 'w'
@@ -475,6 +475,7 @@ module Stuff
 
     def die 
       @hero.give_xp @xp
+      @hero.damage -1 * @hp
       @is_alive = false
       @hero.pwn
     end
@@ -499,6 +500,7 @@ module Stuff
   class BigZombie < Zombie
     def setXpPainHealth
       @xp = 5
+      @hp = 1
       @pain = [6, 8]
       @health = 15
       @name = "Big Zombie"
@@ -509,6 +511,7 @@ module Stuff
   class DaddyZombie < Zombie
     def setXpPainHealth
       @xp = 12
+      @hp = 2
       @pain = [4, 10]
       @health = 20
       @name = "Daddy Zombie"
@@ -519,6 +522,7 @@ module Stuff
   class GunZombie < Zombie
     def setXpPainHealth
       @xp = 18
+      @hp = 5
       @pain = [3, 15]
       @health = 20
       @name = "Gun Zombie"
@@ -529,6 +533,7 @@ module Stuff
   class NinjaZombie < Zombie
     def setXpPainHealth
       @xp = 25
+      @hp = 10
       @pain = [7, 20]
       @health = 20
       @name = "Ninja Zombie"
@@ -539,6 +544,7 @@ module Stuff
   class IdiotZombie < Zombie
     def setXpPainHealth
       @xp = 5
+      @hp = 15
       @pain = [7, 20]
       @health = 2
       @name = "Idiot Zombie"
@@ -549,6 +555,7 @@ module Stuff
   class BlindZombie < Zombie
     def setXpPainHealth
       @xp = 28
+      @hp = 17
       @pain = [0, 25]
       @health = 24
       @name = "Blind Zombie"
@@ -559,6 +566,7 @@ module Stuff
   class StrongZombie < Zombie
     def setXpPainHealth
       @xp = 37
+      @hp = 20
       @pain = [15, 21]
       @health = 30
       @name = "Strong Zombie"
@@ -569,6 +577,7 @@ module Stuff
   class BasicallyDeadZombie < Zombie
     def setXpPainHealth
       @xp = 1
+      @hp = 1
       @pain = [50, 75]
       @health = 1
       @name = "Basically Dead Zombie"
@@ -579,6 +588,7 @@ module Stuff
   class SuperZombie < Zombie
     def setXpPainHealth
       @xp = 50
+      @hp = 25
       @pain = [60, 90]
       @health = 100
       @name = "Basically Dead Zombie"
