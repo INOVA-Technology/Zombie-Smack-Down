@@ -1,8 +1,8 @@
 #!/usr/bin/env sh
-curl https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/ZSD -o /usr/local/bin/ZSD
-mkdir -p /usr/local/bin/ZSDFiles
-curl https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/ZSDFiles/game.rb -o /usr/local/bin/ZSDFiles/game.rb
-curl https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/ZSDFiles/prefs.yaml -o /usr/local/bin/ZSDFiles/prefs.yaml
+sudo curl https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/ZSD -o /usr/local/bin/ZSD
+sudo mkdir -p /usr/local/bin/ZSDFiles
+sudo curl https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/ZSDFiles/game.rb -o /usr/local/bin/ZSDFiles/game.rb
+sudo curl https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/ZSDFiles/prefs.yaml -o /usr/local/bin/ZSDFiles/prefs.yaml
 
 chmod +x /usr/local/bin/ZSD
 chmod +x /usr/local/bin/ZSDFiles/game.rb
