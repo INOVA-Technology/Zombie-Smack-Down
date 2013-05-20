@@ -312,6 +312,9 @@ module Stuff
       prefs_file = File.open @prefs_file_path, 'w'
       prefs_file.puts @prefs.to_yaml
       prefs_file.close
+      prefs_file1 = File.open @costs, 'w'
+      prefs_file1.puts @cost.to_yaml
+      prefs_file1.close
     end
 
     def quit

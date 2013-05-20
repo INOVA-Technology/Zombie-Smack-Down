@@ -32,7 +32,12 @@ elsif ARGV[0] == '-h' # shows help
   \e[35mTAUNT:\e[39m \n
   taunting gives or takes away xp. \n
   to taunt type \e[35mtaunt\e[39m\n
-  you cannot taunt with less than 2 xp.
+  you cannot taunt with less than 2 xp. \n
+
+  \e[35mBLOCK:\e[39m \n
+  blocking gives xp and health. \n
+  to block type \e[35mblock\e[39m\n
+  upgrade your block to increase health and xp added.
 
   '"
   exit
@@ -60,7 +65,7 @@ end
 require "readline"
 
 def start hero
-  cmds = ["punch", "kick", "combo", "heal", "combolist", "info", "quit", "taunt", "save", "upgrade kick", "upgrade punch"]
+  cmds = ["punch", "kick", "block", "combo", "heal", "combolist", "info", "quit", "taunt", "save", "upgrade kick", "upgrade punch", "upgrade block"]
 
   while true
     if hero.new_game
