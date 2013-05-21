@@ -36,7 +36,7 @@ module Stuff
     require 'yaml'
     
     def initialize
-      @new_game = false
+      @new_game = true
       @prefs_file_path = ''
       if ARGV[0] == '-t' # uses local version of the prefs
         @prefs_file_path = './ZSDFiles/prefs.yaml'
@@ -47,10 +47,11 @@ module Stuff
       prefs_file = File.open @prefs_file_path, 'r'
       @prefs = YAML.load prefs_file.read
       prefs_file.close
-      @costs = '/usr/local/bin/ZSDFiles/cost.yaml'
-      cost_file = File.open @costs, 'r'
+
+      @costs_path = '/usr/local/bin/ZSDFiles/cost.yaml'
+      cost_file = File.open @costs_path, 'r'
       @cost = YAML.load cost_file.read
-      @default = { xp: 15, kills: 0, health: 25, kickUpgrade: 5, punchUpgrade: 5} # defualt prefs for when they die
+      cost_file.close
       @r = 0; # damage done to enemy
       if @prefs[:xp] == 15
         @prefs[:xp] += @prefs[:rank] * 5 # add 5 * their rank of xp at the beginning of they game
@@ -70,8 +71,13 @@ module Stuff
       introPhrase = ["You have killed", "You have viciously slapped", "You have beaten the crud out of"].sample
       endPhrase = ["zombies", "innocent zombies", "vicious zombies", "ruthless zombies", "walkers"].sample
 
+      # defualts
+      @prefs[:xp] = 15
+      @prefs[:kills] = 0
+      @prefs[:health] = 25
+
       prefs_file = File.open @prefs_file_path, 'w'
-      prefs_file.puts @default.to_yaml + ":totalKills: " + @prefs[:totalKills].to_s + "\n:rank: " + @prefs[:rank].to_s
+      prefs_file.puts @prefs.to_yaml
       prefs_file.close
 
       puts "\e[31m" + death + "\e[39m (enter to continue)"
@@ -248,9 +254,9 @@ module Stuff
       	pass = 0
 	      case weapon
 	      when "punch"
-	        @r = Random::rand(4..7) + @prefs[:punchUpgrade] / 5
+	        @r = Random::rand(4..7) + @prefs[:punch]
 	      when "kick"
-	      	@r = Random::rand(3..8) + @prefs[:kickUpgrade] / 5
+	      	@r = Random::rand(3..8) + @prefs[:kick]
 	      when "combo"
 	      	puts "Which combo?"
 	      	c = prompt
@@ -260,7 +266,7 @@ module Stuff
 	    end
 
       if @disp # only display damage done if they attacked
-        @new_game = true
+        @new_game = false
         enemy.damage @r
 
         puts "\e[1;31m"
@@ -277,10 +283,12 @@ module Stuff
     def info
       puts "\e[35m"
       @prefs.each{ |key, value|
-        if key == :kickUpgrade
-          puts "Kick upgrade: #{(@prefs[:kickUpgrade] / 5 - 1).to_s}"
-        elsif key == :punchUpgrade
-          puts "Punch upgrade: #{(@prefs[:punchUpgrade] / 5 - 1).to_s}"
+        if key == :kick
+          puts "Kick upgrade: #{@prefs[:kick].to_s}"
+        elsif key == :punch
+          puts "Punch upgrade: #{@prefs[:punch].to_s}"
+        elsif key == :block
+          puts "Block upgrade: #{@prefs[:block].to_s}"
         else
           puts key.to_s + ": " + value.to_s
         end
@@ -308,14 +316,13 @@ module Stuff
       puts "\e[39m"
     end
 
-
     def save
       prefs_file = File.open @prefs_file_path, 'w'
       prefs_file.puts @prefs.to_yaml
       prefs_file.close
-      prefs_file1 = File.open @costs, 'w'
-      prefs_file1.puts @cost.to_yaml
-      prefs_file1.close
+      cost_file = File.open @costs_path, 'w'
+      cost_file.puts @cost.to_yaml
+      cost_file.close
     end
 
     def quit
@@ -353,6 +360,11 @@ module Stuff
 	  	rescue
 				puts "Your doing pretty good!"
 	    end
+      print "\e[36m"
+      puts "New upgrade available!"
+      puts "What do you want to upgrade? (kick, punch, or block)"
+      skill = prompt
+      self.upgrade skill
       print "\e[39m"
     end
 
@@ -371,69 +383,31 @@ module Stuff
 
     end
 
-    def upgradekick
-      puts "\e[36mupgrade costs " + @cost[:kickMoney].to_s
-      if @prefs[:xp] >= @cost[:kickMoney]
+    def upgrade skill
+      skill = skill.to_sym
+      puts "\e[36mupgrade costs " + @cost[skill].to_s
+      if @prefs[:xp] >= @cost[skill]
         puts "Would you like to upgrade? (YES or NO)"
         answer = prompt
         if answer == "yes"
-          self.give_xp -1 * @cost[:kickMoney]
-          @prefs[:kickUpgrade] += 1
-          @cost[:kickMoney] += 10
+          self.give_xp -1 * @cost[skill]
+          @prefs[skill] += 1
+          @cost[skill] += 10
           puts "successfully upgraded"
         else
           puts "nothing changed"
         end
-        print "\e[39m"
       else
-        puts "\e[33mnot enough xp\e[39m"
+        puts "\e[33mnot enough xp"
       end
-    end
-
-    def upgradepunch
-      puts "\e[36mupgrade costs " + @cost[:punchMoney].to_s
-      if @prefs[:xp] >= @cost[:punchMoney]
-        puts "Would you like to upgrade? (YES or NO)"
-        answer = prompt
-        if answer == "yes"
-          self.give_xp -1 * @cost[:punchMoney]
-          @prefs[:punchUpgrade] += 1
-          @cost[:punchMoney] += 10
-          puts "successfully upgraded"
-        else
-          puts "nothing changed"
-        end
-        print "\e[39m"
-      else
-        puts "\e[33mnot enough xp\e[39m"
-      end
-    end
-
-    def upgradeblock
-      puts "\e[36mupgrade costs " + @cost[:blockMoney].to_s
-      if @prefs[:xp] >= @cost[:blockMoney]
-        puts "Would you like to upgrade? (YES or NO)"
-        answer = prompt
-        if answer == "yes"
-          self.give_xp -1 * @cost[:blockMoney]
-          @prefs[:blockUpgrade] += 1
-          @cost[:blockMoney] += 10
-          puts "successfully upgraded"
-        else
-          puts "nothing changed"
-        end
-        print "\e[39m"
-      else
-        puts "\e[33mnot enough xp\e[39m"
-      end
+      print "\e[39m"
     end
 
     def block
-       face = 1 + @prefs[:blockUpgrade]
-       self.give_xp 1 + @prefs[:blockUpgrade]
-       @prefs[:health] += 1 + @prefs[:blockUpgrade]
+       face = 1 + @prefs[:block]
+       self.give_xp 1 + @prefs[:block]
+       @prefs[:health] += 1 + @prefs[:block]
        puts "\e[35m xp and health added: " + face.to_s + "\e[39m"
-
     end
 
   # end of Game class
@@ -453,6 +427,7 @@ module Stuff
 
     def setXpPainHealth
       @xp = 2
+      @hp = 0
       @pain = [4, 6]
       @health = 10
       @name = "Zombie"

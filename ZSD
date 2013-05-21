@@ -65,38 +65,32 @@ elsif ARGV[0] == '-s'
 else
   require "/usr/local/bin/ZSDFiles/game" # load normal game module, also loads the prompt function
 end
+if ARGV[0] == '-i'
+  game = Stuff::Game.new
+  game.info
+  puts
+  exit
+end
 require "readline"
 
 def start hero
-  cmds = ["punch", "kick", "block", "combo", "heal", "combolist", "info", "quit", "taunt", "save", "upgrade kick", "upgrade punch", "upgrade block"]
-
+  cmds = ["punch", "kick", "block", "combo", "heal", "combolist", "info", "quit", "taunt", "save"]
+  wave = 1
   while true
-    if hero.new_game
-      case hero.prefs[:kills]
-      when 3
+    kills = hero.prefs[:kills]
+    if !hero.new_game && kills % 3 == 0
+      wave += 1
+      case wave
+      when 2, 3
         hero.damage -4
-        puts "\e[36m+4\e[39m"
-      when 6
-        hero.damage -4
-        puts "\e[36m+4\e[39m"
-      when 12
+      when 4, 5
         hero.damage -6   
-        puts "\e[36m+6\e[39m"   
-      when 15
-        hero.damage -6
-        puts "\e[36m+6\e[39m"
-      when 18
+      when 6, 7, 8
         hero.damage -8 
-        puts "\e[36m+8\e[39m"
-      when 21
-        hero.damage -8
-        puts "\e[36m+8\e[39m"  
-      when 24
-        hero.damage -8 
-        puts "\e[36m+8\e[39m" 
       end
+      puts "\e[36mwave #{wave} +4\e[39m"
     end
-  	case hero.prefs[:kills]
+  	case kills
   	when 0, 1, 2
   		e = Stuff::Zombie.new hero
     when 3, 4, 5
@@ -147,12 +141,6 @@ def start hero
       	hero.quit
       when "combolist"
         hero.comboList
-      when "upgrade kick"
-        hero.upgradekick
-      when "upgrade punch"
-        hero.upgradepunch
-      when "upgrade block"
-        hero.upgradeblock
       when "combo"
       	hero.attack e, "combo"
       	e.attack if hero.r != 0 # enemy doesnt attack if player does no damage
@@ -175,7 +163,6 @@ def start hero
         print "\e[39m"
       end
     end
-			
   end
 end
 
