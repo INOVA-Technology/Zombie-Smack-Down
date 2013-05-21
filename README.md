@@ -18,6 +18,8 @@ Also, you can see the highscores by running:
 
     ZSD -s
 
+More info in CONTROLS.md
+
 To-do (pull requests appreciated):
 * Add Windows support
 * Add web high scores
