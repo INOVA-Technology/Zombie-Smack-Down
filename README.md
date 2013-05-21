@@ -18,6 +18,12 @@ Also, you can see the highscores by running:
 
     ZSD -s
 
+
+******IMPORTANT******
+<p>
+Drag cost.yaml into /usr/local/bin/ZSDFiles
+
+
 To-do (pull requests appreciated):
 * Add Windows support
 * Add web high scores

@@ -8,6 +8,11 @@ PUNCH:
    * Basic attack
    * Does between 4 and 7 damage
 
+BLOCK
+   * Basic attack
+   * Adds atleast 1 xp and health
+   * Upgrade to make more affective
+
 HEAL:
    * Gives health
    * 1 xp for 1 health point
