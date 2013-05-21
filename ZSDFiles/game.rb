@@ -47,11 +47,6 @@ module Stuff
       prefs_file = File.open @prefs_file_path, 'r'
       @prefs = YAML.load prefs_file.read
       prefs_file.close
-
-      @costs_path = '/usr/local/bin/ZSDFiles/cost.yaml'
-      cost_file = File.open @costs_path, 'r'
-      @cost = YAML.load cost_file.read
-      cost_file.close
       @r = 0; # damage done to enemy
       if @prefs[:xp] == 15
         @prefs[:xp] += @prefs[:rank] * 5 # add 5 * their rank of xp at the beginning of they game
@@ -320,9 +315,6 @@ module Stuff
       prefs_file = File.open @prefs_file_path, 'w'
       prefs_file.puts @prefs.to_yaml
       prefs_file.close
-      cost_file = File.open @costs_path, 'w'
-      cost_file.puts @cost.to_yaml
-      cost_file.close
     end
 
     def quit
@@ -385,21 +377,9 @@ module Stuff
 
     def upgrade skill
       skill = skill.to_sym
-      puts "\e[36mupgrade costs " + @cost[skill].to_s
-      if @prefs[:xp] >= @cost[skill]
-        puts "Would you like to upgrade? (YES or NO)"
-        answer = prompt
-        if answer == "yes"
-          self.give_xp -1 * @cost[skill]
-          @prefs[skill] += 1
-          @cost[skill] += 10
-          puts "successfully upgraded"
-        else
-          puts "nothing changed"
-        end
-      else
-        puts "\e[33mnot enough xp"
-      end
+      @prefs[skill] += 1
+      print "\e[36m"
+      puts "successfully upgraded"
       print "\e[39m"
     end
 
