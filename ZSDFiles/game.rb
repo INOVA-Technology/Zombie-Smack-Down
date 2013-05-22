@@ -377,7 +377,7 @@ module Stuff
 
     def upgrade skill
       skill = skill.to_sym
-      @prefs[skill] += 1
+      @prefs[:skill] += 1
       print "\e[36m"
       puts "successfully upgraded"
       print "\e[39m"
