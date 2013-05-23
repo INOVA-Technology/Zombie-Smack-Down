@@ -3,10 +3,27 @@
 if ARGV[0] == '-t' # only used for testing local version. eg: ./ZSD -t
   require "./ZSDFiles/game"
 elsif ARGV[0] == '-u' # updates to newest verion on github
-  system "curl -s https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/ZSD > /usr/local/bin/ZSD"
-  system "curl -s https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/ZSDFiles/game.rb > /usr/local/bin/ZSDFiles/game.rb"
-  system "chmod +x /usr/local/bin/ZSD"
-  system "chmod +x /usr/local/bin/ZSDFiles/game.rb"
+  system "sudo curl https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/ZSD -o /usr/local/bin/ZSD"
+  system "sudo curl https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/ZSDFiles/game.rb -o /usr/local/bin/ZSDFiles/game.rb"
+  system "sudo chmod +x /usr/local/bin/ZSD"
+  system "sudo chmod +x /usr/local/bin/ZSDFiles/game.rb"
+  zsd_sum = `md5 -q /usr/local/bin/ZSD 2> /dev/null`
+  game_sum = `md5 -q /usr/local/bin/ZSDFiles/game.rb 2> /dev/null`
+  print "\e[35m"
+  if zsd_sum == `curl -s https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/ZSD | md5` && game_sum == `curl -s https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/ZSDFiles/game.rb | md5`
+    zsd_is_exec = system `if [[ -x "/usr/local/bin/ZSD" ]]; then echo true; else echo false; fi`
+    game_is_exec = system `if [[ -x "/usr/local/bin/ZSDFiles/game.rb" ]]; then echo true; else echo false; fi`
+    if zsd_is_exec && game_is_exec
+      puts "Update Successful!"
+    else
+      puts "Files are not executable" if ARGV[1] == "-v"
+      puts "Update Failed :("
+    end
+  else
+    puts "Files failed to update" if ARGV[1] == "-v"
+    puts "Update Failed :("
+  end
+  print "\e[39m"
   exit
 elsif ARGV[0] == '-h' # shows help
   system "echo '\n  \e[35mBASICS:\e[39m \n
