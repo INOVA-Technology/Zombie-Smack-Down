@@ -76,15 +76,17 @@ def start hero
   while true
     kills = hero.prefs[:kills]
     if !hero.new_game && kills % 3 == 0
-      wave += 1
+      wave = kills / 3 + 1
+			tmp = 0 # amount of extra health
       case wave
       when 2, 3
-        hero.damage -4
+        tmp = -4
       when 4, 5
-        hero.damage -6   
+        tmp = -6   
       when 6, 7, 8
-        hero.damage -8 
+        tmp = -8 
       end
+			hero.damage tmp
       puts "\e[36mwave #{wave} +4\e[39m"
     end
   	case kills

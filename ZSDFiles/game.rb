@@ -66,15 +66,6 @@ module Stuff
       introPhrase = ["You have killed", "You have viciously slapped", "You have beaten the crud out of"].sample
       endPhrase = ["zombies", "innocent zombies", "vicious zombies", "ruthless zombies", "walkers"].sample
 
-      # defualts
-      @prefs[:xp] = 15
-      @prefs[:kills] = 0
-      @prefs[:health] = 25
-
-      prefs_file = File.open @prefs_file_path, 'w'
-      prefs_file.puts @prefs.to_yaml
-      prefs_file.close
-
       puts "\e[31m" + death + "\e[39m (enter to continue)"
       prompt
       puts "\e[31m" + introPhrase + " " + @prefs[:kills].to_s + " " + endPhrase + "\e[39m (enter to exit)"
@@ -83,7 +74,7 @@ module Stuff
       unless File.exists? "#{Dir.home}/.zsd_scores"
         system "touch ~/.zsd_scores"
         name = prompt "New Highscore! Enter Your name: "
-        highscore_list = ["chase 10", "addison 9", "#{name} #{@prefs[:kills]}"]
+        highscore_list = ["chase 10", "addison 27", "#{name} #{@prefs[:kills]}"]
         highscore_file = File.open("#{Dir.home}/.zsd_scores", "w")
         highscore_file.puts highscore_list.to_yaml
         highscore_file.close
@@ -110,6 +101,15 @@ module Stuff
           highscore_file.close
         end
       end
+
+      # defualts
+      @prefs[:xp] = 15
+      @prefs[:kills] = 0
+      @prefs[:health] = 25
+
+      prefs_file = File.open @prefs_file_path, 'w'
+      prefs_file.puts @prefs.to_yaml
+      prefs_file.close
 
       exit
     end
@@ -278,12 +278,15 @@ module Stuff
     def info
       puts "\e[35m"
       @prefs.each{ |key, value|
-        if key == :kick
+        case key
+        when :kick
           puts "Kick upgrade: #{@prefs[:kick].to_s}"
-        elsif key == :punch
+        when :punch
           puts "Punch upgrade: #{@prefs[:punch].to_s}"
-        elsif key == :block
+        when :block
           puts "Block upgrade: #{@prefs[:block].to_s}"
+        when :totalKills
+          puts "Total Kills: #{@prefs[:totalKills].to_s}"
         else
           puts key.to_s + ": " + value.to_s
         end
@@ -376,11 +379,20 @@ module Stuff
     end
 
     def upgrade skill
-      skill = skill.to_sym
-      @prefs[skill] += 1
-      print "\e[36m"
-      puts "successfully upgraded"
-      print "\e[39m"
+      if ["block", "punch", "kick"].include? skill
+        skill = skill.to_sym
+        @prefs[skill] += 1
+        print "\e[36m"
+        puts "successfully upgraded"
+        print "\e[39m"
+      else
+        print "\e[35m"
+        puts "Invalid combo"
+        print "\e[36m"
+        puts "What do you want to upgrade? (kick, punch, or block)"
+        skill = prompt
+        self.upgrade skill
+      end
     end
 
     def block
@@ -407,7 +419,6 @@ module Stuff
 
     def setXpPainHealth
       @xp = 2
-      @hp = 0
       @pain = [4, 6]
       @health = 10
       @name = "Zombie"
@@ -430,7 +441,6 @@ module Stuff
 
     def die 
       @hero.give_xp @xp
-      @hero.damage -1 * @hp
       @is_alive = false
       @hero.pwn
     end
@@ -455,7 +465,6 @@ module Stuff
   class BigZombie < Zombie
     def setXpPainHealth
       @xp = 5
-      @hp = 1
       @pain = [6, 8]
       @health = 15
       @name = "Big Zombie"
@@ -466,7 +475,6 @@ module Stuff
   class DaddyZombie < Zombie
     def setXpPainHealth
       @xp = 12
-      @hp = 2
       @pain = [4, 10]
       @health = 20
       @name = "Daddy Zombie"
@@ -477,7 +485,6 @@ module Stuff
   class GunZombie < Zombie
     def setXpPainHealth
       @xp = 18
-      @hp = 5
       @pain = [3, 15]
       @health = 20
       @name = "Gun Zombie"
@@ -488,7 +495,6 @@ module Stuff
   class NinjaZombie < Zombie
     def setXpPainHealth
       @xp = 25
-      @hp = 10
       @pain = [7, 20]
       @health = 20
       @name = "Ninja Zombie"
@@ -499,7 +505,6 @@ module Stuff
   class IdiotZombie < Zombie
     def setXpPainHealth
       @xp = 5
-      @hp = 15
       @pain = [7, 20]
       @health = 2
       @name = "Idiot Zombie"
@@ -510,7 +515,6 @@ module Stuff
   class BlindZombie < Zombie
     def setXpPainHealth
       @xp = 28
-      @hp = 17
       @pain = [0, 25]
       @health = 24
       @name = "Blind Zombie"
@@ -521,7 +525,6 @@ module Stuff
   class StrongZombie < Zombie
     def setXpPainHealth
       @xp = 37
-      @hp = 20
       @pain = [15, 21]
       @health = 30
       @name = "Strong Zombie"
@@ -532,7 +535,6 @@ module Stuff
   class BasicallyDeadZombie < Zombie
     def setXpPainHealth
       @xp = 1
-      @hp = 1
       @pain = [50, 75]
       @health = 1
       @name = "Basically Dead Zombie"
@@ -543,10 +545,9 @@ module Stuff
   class SuperZombie < Zombie
     def setXpPainHealth
       @xp = 50
-      @hp = 25
       @pain = [60, 90]
       @health = 100
-      @name = "Basically Dead Zombie"
+      @name = "Super Zombie"
       @phrases = ["is up up and away!", "just chucked kryptonite at ur face", "has super strength", "is the ultimate super villain", "just mad you cry"].sample
     end
   end
