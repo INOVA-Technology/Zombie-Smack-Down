@@ -1,8 +1,0 @@
-#!/usr/bin/env sh
-
-echo "ZSD MD5 Sum:"
-md5 -q ZSD
-echo
-echo "ZSDFiles/game.rb MD5 Sum:"
-md5 -q ZSDFiles/game.rb
-
