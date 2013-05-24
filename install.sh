@@ -6,7 +6,7 @@ sudo curl https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/ZSDFi
 
 sudo chmod +x /usr/local/bin/ZSD
 sudo chmod +x /usr/local/bin/ZSDFiles/game.rb
-
+sudo chmod g+w /usr/local/bin/ZSDFiles/prefs.yaml 
 file1=`md5 -q /usr/local/bin/ZSD 2> /dev/null`
 file2=`md5 -q /usr/local/bin/ZSDFiles/prefs.yaml 2> /dev/null`
 file3=`md5 -q /usr/local/bin/ZSDFiles/game.rb 2> /dev/null`
