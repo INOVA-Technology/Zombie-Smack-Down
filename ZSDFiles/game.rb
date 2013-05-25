@@ -8,7 +8,7 @@
     # \e[31m is red, for pain/death things
     # \e[33m is yellow, for warnings and such like not enough xp
     # \e[35m is purple, for info like ranking up and the info command
-    # \e[36m is for healing and extra power/leveling up
+    # \e[36m is blue for healing and extra power/leveling up
 
     # \e[39m gets rid of colors, goes back to default
 
@@ -49,7 +49,7 @@ module Stuff
       prefs_file.close
       @r = 0; # damage done to enemy
       if @prefs[:xp] == 15
-        @prefs[:xp] += @prefs[:rank] * 5 # add 5 * their rank of xp at the beginning of they game
+        @prefs[:xp] += (@prefs[:rank] - 1) * 4 # add 4 * their rank of xp at the beginning of they game
       end
       @disp = true # tells weather it should attack/tell the damage done
       @combos =      [ "kick punch",       "elbow fist knee fist knee body slam",      "trip stomp",      "punch punch kick",       "knee punch face slap",      "heal fury",      "kick kick kick kick kick kick kick kick kick kick kick kick kick kick kick",      "combo of possible death"       "coolest combo ever",       "chase punch of fire",       "addison kick of cold hard music",       "pain with a side of blood",       "ultimate destruction kick punch",       "chuck norris stomp of mayhem",         "not a combo"]
@@ -405,10 +405,11 @@ module Stuff
     end
 
     def block
-       face = 1 + @prefs[:block]
+       health = 1 + (@prefs[:block] * 1.5).ceil
        self.give_xp 1 + @prefs[:block]
-       @prefs[:health] += 1 + @prefs[:block]
-       puts "\e[35m xp and health added: " + face.to_s + "\e[39m"
+       @prefs[:health] += 1 + health
+       puts "\e[36m#{@prefs[:block]} xp added and #{health} health added\e[39m"
+       puts
     end
 
   # end of Game class
@@ -483,7 +484,7 @@ module Stuff
 
   class DaddyZombie < Zombie
     def setXpPainHealth
-      @xp = 12
+      @xp = 10
       @pain = [4, 10]
       @health = 20
       @name = "Daddy Zombie"
@@ -493,7 +494,7 @@ module Stuff
 
   class GunZombie < Zombie
     def setXpPainHealth
-      @xp = 18
+      @xp = 15
       @pain = [3, 15]
       @health = 20
       @name = "Gun Zombie"
@@ -503,7 +504,7 @@ module Stuff
 
   class NinjaZombie < Zombie
     def setXpPainHealth
-      @xp = 25
+      @xp = 20
       @pain = [7, 20]
       @health = 20
       @name = "Ninja Zombie"
@@ -523,7 +524,7 @@ module Stuff
 
   class BlindZombie < Zombie
     def setXpPainHealth
-      @xp = 28
+      @xp = 20
       @pain = [0, 25]
       @health = 24
       @name = "Blind Zombie"
@@ -533,7 +534,7 @@ module Stuff
 
   class StrongZombie < Zombie
     def setXpPainHealth
-      @xp = 37
+      @xp = 35
       @pain = [15, 21]
       @health = 30
       @name = "Strong Zombie"
@@ -543,7 +544,7 @@ module Stuff
 
   class BasicallyDeadZombie < Zombie
     def setXpPainHealth
-      @xp = 1
+      @xp = 2
       @pain = [50, 75]
       @health = 1
       @name = "Basically Dead Zombie"
@@ -553,7 +554,7 @@ module Stuff
 
   class SuperZombie < Zombie
     def setXpPainHealth
-      @xp = 50
+      @xp = 65
       @pain = [60, 90]
       @health = 100
       @name = "Super Zombie"
