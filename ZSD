@@ -20,7 +20,7 @@ elsif ARGV[0] == '-u' # updates to newest verion on github
       puts "Update Failed :("
     end
   else
-    puts "Files failed to update" if ARGV[1] == "-v"
+    puts "Files failed to update (correctly)" if ARGV[1] == "-v"
     puts "Update Failed :("
   end
   print "\e[39m"
