@@ -327,6 +327,7 @@ module Stuff
       prefs_file = File.open @prefs_file_path, 'w'
       prefs_file.puts @prefs.to_yaml
       prefs_file.close
+      puts "Gave saved!"
     end
 
     def quit
@@ -387,7 +388,7 @@ module Stuff
 
     def upgrade
       if @prefs[:block] >= 7 && @prefs[:punch] >= 7 && @prefs[:kick] >= 7
-        puts "\e[34All skills are fully upgraded.\e[39m"
+        puts "\e[33All skills are fully upgraded.\e[39m"
         return
       end
       puts "What do you want to upgrade? (kick, punch, or block)"
@@ -399,11 +400,11 @@ module Stuff
           puts "successfully upgraded"
           print "\e[39m"
         else
-          puts "#{skill.to_s} is at the maximum level (7)"
+          puts "#\e[33m{skill.to_s} is at the maximum level (7)\e[33m"
           self.upgrade
         end
       else
-        print "\e[34m"
+        print "\e[33m"
         puts "Invalid upgrade"
         print "\e[36m"
         self.upgrade
