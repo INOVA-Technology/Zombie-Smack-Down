@@ -433,10 +433,10 @@ module Stuff
     def initialize hero
       @is_alive = true;
       @hero = hero
-      self.setXpPainHealth
+      self.setPower
     end
 
-    def setXpPainHealth
+    def setPower
       @xp = 2
       @pain = [4, 6]
       @health = 10
@@ -482,7 +482,7 @@ module Stuff
   ### MORE ZOMBIEZ! ###
 
   class BigZombie < Zombie
-    def setXpPainHealth
+    def setPower
       @xp = 5
       @pain = [6, 8]
       @health = 15
@@ -492,7 +492,7 @@ module Stuff
   end
 
   class DaddyZombie < Zombie
-    def setXpPainHealth
+    def setPower
       @xp = 10
       @pain = [4, 10]
       @health = 20
@@ -502,7 +502,7 @@ module Stuff
   end
 
   class GunZombie < Zombie
-    def setXpPainHealth
+    def setPower
       @xp = 15
       @pain = [3, 15]
       @health = 20
@@ -512,8 +512,8 @@ module Stuff
   end
 
   class NinjaZombie < Zombie
-    def setXpPainHealth
-      @xp = 20
+    def setPower
+      @xp = 18
       @pain = [7, 20]
       @health = 20
       @name = "Ninja Zombie"
@@ -522,7 +522,7 @@ module Stuff
   end
 
   class IdiotZombie < Zombie
-    def setXpPainHealth
+    def setPower
       @xp = 5
       @pain = [7, 20]
       @health = 2
@@ -532,7 +532,7 @@ module Stuff
   end
 
   class BlindZombie < Zombie
-    def setXpPainHealth
+    def setPower
       @xp = 20
       @pain = [0, 25]
       @health = 24
@@ -542,8 +542,8 @@ module Stuff
   end
 
   class StrongZombie < Zombie
-    def setXpPainHealth
-      @xp = 35
+    def setPower
+      @xp = 30
       @pain = [15, 21]
       @health = 30
       @name = "Strong Zombie"
@@ -552,7 +552,7 @@ module Stuff
   end
 
   class BasicallyDeadZombie < Zombie
-    def setXpPainHealth
+    def setPower
       @xp = 2
       @pain = [50, 75]
       @health = 1
@@ -561,13 +561,23 @@ module Stuff
     end
   end
 
-  class SuperZombie < Zombie
-    def setXpPainHealth
+  class SuperZombie
+    def setPower
+      @xp = 37
+      @pain = [35, 56]
+      @health = 65
+      @name = "Super Zombie"
+      @phrases = ["is up up and away!", "just chucked kryptonite at ur face", "has super strength", "is the ultimate super villain", "just mad you cry"].sample
+    end
+  end
+
+  class BossZombie < Zombie
+    def setPower
       @xp = 65
       @pain = [60, 90]
       @health = 100
-      @name = "Super Zombie"
-      @phrases = ["is up up and away!", "just chucked kryptonite at ur face", "has super strength", "is the ultimate super villain", "just mad you cry"].sample
+      @name = "Boss Zombie"
+      @phrases = ["sent you to work!", "is not kidding", "is a boss!", "just fired you", "just demoted you"].sample
     end
   end
 
