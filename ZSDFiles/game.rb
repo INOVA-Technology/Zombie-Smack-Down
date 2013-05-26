@@ -366,9 +366,7 @@ module Stuff
 	    end
       print "\e[36m"
       puts "New upgrade available!"
-      puts "What do you want to upgrade? (kick, punch, or block)"
-      skill = prompt
-      self.upgrade skill
+      self.upgrade
       print "\e[39m"
     end
 
@@ -387,12 +385,13 @@ module Stuff
 
     end
 
-    def upgrade skill
-      skill = skill.to_sym
+    def upgrade
       if @prefs[:block] >= 7 && @prefs[:punch] >= 7 && @prefs[:kick] >= 7
         puts "\e[34All skills are fully upgraded.\e[39m"
         return
       end
+      puts "What do you want to upgrade? (kick, punch, or block)"
+      skill = prompt.to_sym
       if [:kick, :punch, :block].include? skill
         if @prefs[skill] < 7
           @prefs[skill] += 1
@@ -400,16 +399,14 @@ module Stuff
           puts "successfully upgraded"
           print "\e[39m"
         else
-          puts "#{skill.to_s} is at the maximum leval"
+          puts "#{skill.to_s} is at the maximum level (7)"
           self.upgrade
         end
       else
         print "\e[34m"
-        puts "Invalid combo"
+        puts "Invalid upgrade"
         print "\e[36m"
-        puts "What do you want to upgrade? (kick, punch, or block)"
-        newSkill = prompt
-        self.upgrade newSkill
+        self.upgrade
       end
     end
 
@@ -577,7 +574,7 @@ module Stuff
       @pain = [60, 90]
       @health = 100
       @name = "Boss Zombie"
-      @phrases = ["sent you to work!", "is not kidding", "is a boss!", "just fired you", "just demoted you"].sample
+      @phrases = ["sent you to work!", "is not giving you a raise", "is a boss!", "just fired you", "just demoted you"].sample
     end
   end
 
