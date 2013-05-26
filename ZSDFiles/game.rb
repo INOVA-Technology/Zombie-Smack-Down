@@ -393,7 +393,7 @@ module Stuff
         puts "\e[34All skills are fully upgraded.\e[39m"
         return
       end
-      if ["block", "punch", "kick"].include? skill
+      if [:block, :punch, :block].include? skill
         if @prefs[skill] < 7
           @prefs[skill] += 1
           print "\e[36m"
