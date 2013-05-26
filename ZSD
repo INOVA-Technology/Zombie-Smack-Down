@@ -103,7 +103,7 @@ def start hero
         tmp = -8 
       end
 			hero.damage tmp
-      puts "\e[36mwave #{wave} +4\e[39m"
+      puts "\e[36mwave #{wave} +#{-1 * tmp}\e[39m"
     end
   	case kills
   	when 0, 1, 2
