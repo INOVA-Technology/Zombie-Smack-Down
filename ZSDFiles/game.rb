@@ -389,7 +389,7 @@ module Stuff
 
     def upgrade skill
       skill = skill.to_sym
-      if @prefs["block"] >= 7 && @prefs["punch"] >= 7 && @prefs["kick"] >= 7
+      if @prefs[:block] >= 7 && @prefs[:punch] >= 7 && @prefs[:kick] >= 7
         puts "\e[34All skills are fully upgraded.\e[39m"
         return
       end
