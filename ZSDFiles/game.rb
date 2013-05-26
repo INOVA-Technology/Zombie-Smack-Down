@@ -388,19 +388,28 @@ module Stuff
     end
 
     def upgrade skill
+      skill = skill.to_sym
+      if @prefs["block"] >= 7 && @prefs["punch"] >= 7 && @prefs["kick"] >= 7
+        puts "\e[34All skills are fully upgraded.\e[39m"
+        return
+      end
       if ["block", "punch", "kick"].include? skill
-        skill = skill.to_sym
-        @prefs[skill] += 1
-        print "\e[36m"
-        puts "successfully upgraded"
-        print "\e[39m"
+        if @prefs[skill] < 7
+          @prefs[skill] += 1
+          print "\e[36m"
+          puts "successfully upgraded"
+          print "\e[39m"
+        else
+          puts "#{skill.to_s} is at the maximum leval"
+          self.upgrade
+        end
       else
-        print "\e[35m"
+        print "\e[34m"
         puts "Invalid combo"
         print "\e[36m"
         puts "What do you want to upgrade? (kick, punch, or block)"
-        skill = prompt
-        self.upgrade skill
+        newSkill = prompt
+        self.upgrade newSkill
       end
     end
 
