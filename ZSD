@@ -16,11 +16,11 @@ elsif ARGV[0] == '-u' # updates to newest verion on github
     if zsd_is_exec && game_is_exec
       puts "Update Successful!"
     else
-      puts "Files are not executable" if ARGV[1] == "-v"
+      puts "Files are not executable"
       puts "Update Failed :("
     end
   else
-    puts "Files failed to update (correctly)" if ARGV[1] == "-v"
+    puts "Files failed to update (correctly)"
     puts "Update Failed :("
   end
   print "\e[39m"
