@@ -327,7 +327,7 @@ module Stuff
       prefs_file = File.open @prefs_file_path, 'w'
       prefs_file.puts @prefs.to_yaml
       prefs_file.close
-      puts "Gave saved!"
+      puts "\e[36mGave saved!\e[36m"
     end
 
     def quit
@@ -400,7 +400,7 @@ module Stuff
           puts "successfully upgraded"
           print "\e[39m"
         else
-          puts "#\e[33m{skill.to_s} is at the maximum level (7)\e[33m"
+          puts "\e[33m#{skill.to_s} is at the maximum level (7)\e[33m"
           self.upgrade
         end
       else
