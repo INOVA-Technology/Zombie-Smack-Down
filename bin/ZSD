@@ -3,8 +3,8 @@
 if ARGV[0] == '-t' # only used for testing local version. eg: ./ZSD -t
   require "./require/game"
 elsif ARGV[0] == '-u' # updates to newest verion on github
-  system "curl https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/bin/ZSD -o ~/.zsd/bin/ZSD"
-  system "curl https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/require/game.rb -o ~/.zsd/require/game.rb"
+  system "curl -# https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/bin/ZSD -o ~/.zsd/bin/ZSD"
+  system "curl -# https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/require/game.rb -o ~/.zsd/require/game.rb"
   system "chmod +x ~/.zsd/bin/ZSD"
   zsd_sum = `md5 -q ~/.zsd/bin/ZSD 2> /dev/null`
   game_sum = `md5 -q ~/.zsd/require/game.rb 2> /dev/null`

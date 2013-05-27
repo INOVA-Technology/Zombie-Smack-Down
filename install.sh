@@ -4,9 +4,9 @@ zsd_path="$HOME/.zsd"
 mkdir -p "$zsd_path/bin"
 mkdir "$zsd_path/require"
 
-curl https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/bin/ZSD -o "$zsd_path/bin/zsd"
-curl https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/require/game.rb -o "$zsd_path/require/game.rb"
-curl https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/require/prefs.yaml -o "$zsd_path/require/prefs.yaml"
+curl -# https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/bin/ZSD -o "$zsd_path/bin/zsd"
+curl -# https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/require/game.rb -o "$zsd_path/require/game.rb"
+curl -# https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/require/prefs.yaml -o "$zsd_path/require/prefs.yaml"
 
 chmod +x "$zsd_path/bin/ZSD"
 # chmod +x "$zsd_path/bin/require/game.rb"
