@@ -39,10 +39,10 @@ module Stuff
       @new_game = true
       @prefs_file_path = ''
       if ARGV[0] == '-t' # uses local version of the prefs
-        @prefs_file_path = './ZSDFiles/prefs.yaml'
+        @prefs_file_path = './require/prefs.yaml'
         puts "TESTING"
       else # loads normal version of prefs
-        @prefs_file_path = '/usr/local/bin/ZSDFiles/prefs.yaml'
+        @prefs_file_path = "#{Dir.home}/.zsd/require/prefs.yaml"
       end
       prefs_file = File.open @prefs_file_path, 'r'
       @prefs = YAML.load prefs_file.read
@@ -72,23 +72,23 @@ module Stuff
       prompt
 
       unless ARGV[0] == '-n' || ARGV[1] == '-n'
-        unless File.exists? "#{Dir.home}/.zsd_scores"
-          system "touch ~/.zsd_scores"
+        unless File.exists? "#{Dir.home}/.zsd/scores"
+          system "touch ~/.zsd/scores"
           name = prompt "New Highscore! Enter Your name: "
           highscore_list = ["chase 10", "addison 27", "#{name} #{@prefs[:kills]}"]
-          highscore_file = File.open("#{Dir.home}/.zsd_scores", "w")
+          highscore_file = File.open("#{Dir.home}/.zsd/scores", "w")
           highscore_file.puts highscore_list.to_yaml
           highscore_file.close
           puts
         else
-          highscore_file = File.open("#{Dir.home}/.zsd_scores", "r")
+          highscore_file = File.open("#{Dir.home}/.zsd/scores", "r")
           highscore_list = YAML.load highscore_file.read
           highscore_file.close
           highscore_list.sort! { |s1, s2| 
             s2.split(" ").last.to_i <=> s1.split(" ").last.to_i
           }
           if highscore_list.length < 5 || highscore_list.last.split(" ").last.to_i < @prefs[:kills]
-            highscore_file = File.open("#{Dir.home}/.zsd_scores", "w")
+            highscore_file = File.open("#{Dir.home}/.zsd/scores", "w")
             if highscore_list.last.split(" ").last.to_i < @prefs[:kills] && highscore_list.length == 5
               highscore_list.pop
             end

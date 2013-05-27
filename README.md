@@ -1,4 +1,5 @@
-## Zombie Smack Down
+<!-- ## Zombie Smack Down -->
+## This is a test. Do Not commit
 
 To install:
 
@@ -21,5 +22,5 @@ Also, you can see the highscores by running:
 More info in CONTROLS.md
 
 To-do (pull requests appreciated):
-* Add Windows support
+* Add Windows & Linux support
 * Add web high scores
