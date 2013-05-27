@@ -52,9 +52,9 @@ module Stuff
         @prefs[:xp] += (@prefs[:rank] - 1) * 4 # add 4 * their rank of xp at the beginning of they game
       end
       @disp = true # tells weather it should attack/tell the damage done
-      @combos =      [ "kick punch",       "elbow fist knee fist knee body slam",      "trip stomp",      "punch punch kick",       "knee punch face slap",      "heal fury",      "kick kick kick kick kick kick kick kick kick kick kick kick kick kick kick",      "combo of possible death"       "coolest combo ever",       "chase punch of fire",       "addison kick of cold hard music",       "pain with a side of blood",       "ultimate destruction kick punch",       "chuck norris stomp of mayhem",         "not a combo"]
+      @combos      = [ "kick punch",       "elbow fist knee fist knee body slam",      "trip stomp",      "punch punch kick",       "knee punch face slap",      "heal fury",      "kick kick kick kick kick kick kick kick kick kick kick kick kick kick kick",      "combo of possible death"       "combo of death"        "coolest combo ever",       "chase punch of fire",       "addison kick of cold hard music",       "pain with a side of blood",       "ultimate destruction kick punch",       "chuck norris stomp of mayhem",         "not a combo"]
       #combos with xp cost
-      @comboValues = { "kick punch" => 2 , "elbow fist knee fist knee body slam" => 3, "trip stomp" => 3, "punch punch kick" => 4 , "knee punch face slap" => 4, "heal fury" => 5, "kick kick kick kick kick kick kick kick kick kick kick kick kick kick kick" => 7, "combo of possible death" => 9, "coolest combo ever" => 15, "chase punch of fire" => 20, "addison kick of cold hard music" => 20, "pain with a side of blood" => 25, "ultimate destruction kick punch" => 30, "chuck norris stomp of mayhem" => 1000, "not a combo" => 20}
+      @comboValues = { "kick punch" => 2 , "elbow fist knee fist knee body slam" => 3, "trip stomp" => 3, "punch punch kick" => 4 , "knee punch face slap" => 4, "heal fury" => 5, "kick kick kick kick kick kick kick kick kick kick kick kick kick kick kick" => 7, "combo of possible death" => 9, "combo of death" => 12, "coolest combo ever" => 15, "chase punch of fire" => 20, "addison kick of cold hard music" => 20, "pain with a side of blood" => 25, "ultimate destruction kick punch" => 30, "chuck norris stomp of mayhem" => 1000, "not a combo" => 20}
     end
 
     def give_xp amount
@@ -181,6 +181,13 @@ module Stuff
         if @prefs[:xp] >= 9
           @r = Random::rand(5..25)
           self.give_xp -9
+        else
+          self.not_enough_xp
+        end
+      when "combo of death"
+        if @prefs[:xp] >= 12
+          @r = Random::rand(12..30)
+          self.give_xp -12
         else
           self.not_enough_xp
         end
@@ -562,7 +569,7 @@ module Stuff
     end
   end
 
-  class SuperZombie
+  class SuperZombie < Zombie
     def setPower
       @xp = 37
       @pain = [35, 56]
