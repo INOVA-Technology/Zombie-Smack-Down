@@ -327,7 +327,7 @@ module Stuff
       prefs_file = File.open @prefs_file_path, 'w'
       prefs_file.puts @prefs.to_yaml
       prefs_file.close
-      puts "\e[36mGave saved!\e[36m"
+      puts "\e[36mGave saved!\e[39m"
     end
 
     def quit
