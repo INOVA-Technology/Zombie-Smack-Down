@@ -75,8 +75,11 @@ module Stuff
         unless File.exists? "#{Dir.home}/.zsd/scores"
           system "touch ~/.zsd/scores"
           name = prompt "New Highscore! Enter Your name: "
-          highscore_list = ["chase 10", "addison 27", "#{name} #{@prefs[:kills]}"]
+          highscore_list = ["addison 27", "chase 10", "#{name} #{@prefs[:kills]}"]
           highscore_file = File.open("#{Dir.home}/.zsd/scores", "w")
+          highscore_list.sort! { |s1, s2| 
+            s2.split(" ").last.to_i <=> s1.split(" ").last.to_i
+          }
           highscore_file.puts highscore_list.to_yaml
           highscore_file.close
           puts
