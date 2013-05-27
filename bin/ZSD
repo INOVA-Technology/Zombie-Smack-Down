@@ -6,14 +6,12 @@ elsif ARGV[0] == '-u' # updates to newest verion on github
   system "curl https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/bin/ZSD -o ~/.zsd/bin/ZSD"
   system "curl https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/require/game.rb -o ~/.zsd/require/game.rb"
   system "chmod +x ~/.zsd/bin/ZSD"
-  system "chmod +x ~/.zsd/require/game.rb"
   zsd_sum = `md5 -q ~/.zsd/bin/ZSD 2> /dev/null`
   game_sum = `md5 -q ~/.zsd/require/game.rb 2> /dev/null`
   print "\e[35m"
   if zsd_sum == `curl -s https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/bin/ZSD | md5` && game_sum == `curl -s https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/require/game.rb | md5`
     zsd_is_exec = system `if [[ -x "~/.zsd/bin/ZSD" ]]; then echo true; else echo false; fi`
-    game_is_exec = system `if [[ -x "~/.zsd/require/game.rb" ]]; then echo true; else echo false; fi`
-    if zsd_is_exec && game_is_exec
+    if zsd_is_exec
       puts "Update Successful!"
     else
       puts "Files are not executable"

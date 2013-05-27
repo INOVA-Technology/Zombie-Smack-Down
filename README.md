@@ -1,5 +1,4 @@
-<!-- ## Zombie Smack Down -->
-## This is a test. Do Not commit
+## Zombie Smack Down
 
 To install:
 
