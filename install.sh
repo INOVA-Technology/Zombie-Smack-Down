@@ -20,7 +20,7 @@ git1=`curl -s https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/b
 git2=`curl -s https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/require/game.rb | md5`
 git3=`curl -s https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/require/prefs.yaml | md5`
 
-echo 'PATH="$HOME/.zsd/bin:$PATH"' >> ~/.bash_profile
+echo 'export PATH="$HOME/.zsd/bin:$PATH"' >> ~/.bash_profile
 source ~/.bash_profile
 
 if [[ $file1 == $git1 ]] && [[ $file2 == $git2 ]] && [[ $file3 == $git3 ]]; then
