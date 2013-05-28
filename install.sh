@@ -26,8 +26,7 @@ source ~/.bash_profile
 if [[ $file1 == $git1 ]] && [[ $file2 == $git2 ]] && [[ $file3 == $git3 ]]; then
 	# if [[ -x "$zsd_path/bin/ZSD" ]] && [[ -x "$zsd_path/require/game.rb" ]]; then
 	if [[ -x "$zsd_path/bin/ZSD" ]]; then
-		echo
-		echo -e "\033[35mSuccess! Now enter ZSD to play Zombie Smack Down.\033[39m"
+		echo -e "\033[35mSuccess! Now enter ZSD to play Zombie Smack Down. You may have to open a new window for it to work.\033[39m"
 	else
 		echo "Installation failed. Files are not executable."
 	fi

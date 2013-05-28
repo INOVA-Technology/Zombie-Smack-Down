@@ -2,7 +2,7 @@
 
 To install:
 
-    curl https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/install.sh -o install.sh; chmod +x install.sh; ./install.sh; rm install.sh
+    curl -s https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/install.sh | bash
 
 To play just run the ZSD command!
 
