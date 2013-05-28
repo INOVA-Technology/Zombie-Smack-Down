@@ -8,6 +8,11 @@ PUNCH:
    * Basic attack
    * Does between 4 and 7 damage
 
+TAUNT:
+   * gives anywhere from -10 to +10
+   * requires 2xp to use
+   * displays a completely pointless taunt
+
 BLOCK
    * Basic attack
    * Adds atleast 1 xp and health
