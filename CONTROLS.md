@@ -17,10 +17,6 @@ HEAL:
    * Gives health
    * 1 xp for 1 health point
 
-UPGRADE:
-   * Makes attacks more affective
-   * adds 5 xp to price of upgrade each time it is used
-
 COMBO:
    * Allows epic moves
    * Costs xp but does more damage
