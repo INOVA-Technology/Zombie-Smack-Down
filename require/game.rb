@@ -459,10 +459,10 @@ module Stuff
     def attack
       if @is_alive
         r = Random::rand(@pain[0]..@pain[1])
-        @hero.damage r
-      	print "\e[31;1m"
+        print "\e[31;1m"
         puts self.name + ' ' + @phrases + " -" + r.to_s
         puts "\e[39;22m"
+        @hero.damage r
       end
     end
 
