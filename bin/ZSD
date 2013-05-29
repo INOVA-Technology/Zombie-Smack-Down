@@ -4,6 +4,7 @@ if ARGV[0] == '-t' # only used for testing local version. eg: ./ZSD -t
   require "./require/game"
 elsif ARGV[0] == '-u' # updates to newest verion on github
   system "~/.zsd/update.sh"
+  exit
 elsif ARGV[0] == '-h' # shows help
   system "echo '\n  \e[35mBASICS:\e[39m \n
   Kick: does between 3 and 8 damage\n
