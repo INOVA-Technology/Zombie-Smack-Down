@@ -3,20 +3,7 @@
 if ARGV[0] == '-t' # only used for testing local version. eg: ./ZSD -t
   require "./require/game"
 elsif ARGV[0] == '-u' # updates to newest verion on github
-  system "curl -# https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/bin/ZSD -o ~/.zsd/bin/ZSD"
-  system "curl -# https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/require/game.rb -o ~/.zsd/require/game.rb"
-  system "chmod +x ~/.zsd/bin/ZSD"
-  zsd_sum = `md5 -q ~/.zsd/bin/ZSD 2> /dev/null`
-  game_sum = `md5 -q ~/.zsd/require/game.rb 2> /dev/null`
-  print "\e[35m"
-  if zsd_sum == `curl -s https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/bin/ZSD | md5` && game_sum == `curl -s https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/require/game.rb | md5`
-    puts "Update Successful!"
-  else
-    puts "Files failed to update (correctly)"
-    puts "Update Failed :("
-  end
-  print "\e[39m"
-  exit
+  system "~/.zsd/update.sh"
 elsif ARGV[0] == '-h' # shows help
   system "echo '\n  \e[35mBASICS:\e[39m \n
   Kick: does between 3 and 8 damage\n
