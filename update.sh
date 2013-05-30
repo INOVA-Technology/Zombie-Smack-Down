@@ -17,7 +17,7 @@ git2=`curl -s https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/r
 
 if [[ $file1 == $git1 ]] && [[ $file2 == $git2 ]]; then
 	if [[ -x "$zsd_path/bin/ZSD" ]]; then
-		echo -e "\033[35mSuccess! Now enter ZSD to play Zombie Smack Down. You may have to open a new window for it to work.\033[39m"
+		echo -e "\033[35mUpdate successful!\033[39m"
 	else
 		echo "Installation failed. ZSD is not executable."
 	fi
