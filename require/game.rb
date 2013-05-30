@@ -227,7 +227,7 @@ module Stuff
         end
       when "chuck norris stomp of mayhem" 
         if @prefs[:xp] >= 1000
-          @r = Random::rand(1..2000000)
+          @r = Random::rand(1..2_000_000)
           self.give_xp -1000
         else
           self.not_enough_xp
