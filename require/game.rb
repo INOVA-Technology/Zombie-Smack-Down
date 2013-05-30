@@ -32,10 +32,11 @@ end
 module Stuff
 
   class Game
-  	attr_accessor :prefs, :disp, :new_game, :r # r is the damage done to the enemy
+  	attr_accessor :prefs, :disp, :new_game, :taunts_available, :r # r is the damage done to the enemy
     require 'yaml'
     
     def initialize
+      @taunts_available = 3
       @new_game = true
       @prefs_file_path = ''
       if ARGV[0] == '-t' # uses local version of the prefs
@@ -401,8 +402,12 @@ module Stuff
         puts "\e[33All skills are fully upgraded.\e[39m"
         return
       end
-      puts "What do you want to upgrade? (kick, punch, or block)"
+      puts "What do you want to upgrade? (kick, punch, block, or extra taunt)"
       skill = prompt.to_sym
+      if ["extra taunt", "taunt"].include? skill.to_s
+        @taunts_available += 1
+        return
+      end
       if [:kick, :punch, :block].include? skill
         if @prefs[skill] < 7
           @prefs[skill] += 1
@@ -561,9 +566,9 @@ module Stuff
 
   class BasicallyDeadZombie < Zombie
     def setPower
-      @xp = 2
+      @xp = Random::rand(2..5)
       @pain = [50, 75]
-      @health = 1
+      @health = Random::rand(2..5)
       @name = "Basically Dead Zombie"
       @phrases = ["totally pwn-ed you!", "hurt you pretty bad", "obliterated you", "probably killed you", "is not dead"].sample
     end

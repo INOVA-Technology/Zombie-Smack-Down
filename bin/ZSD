@@ -73,7 +73,7 @@ def start hero
     kills = hero.prefs[:kills]
     if !hero.new_game && kills % 3 == 0
       wave = kills / 3 + 1
-			tmp = 0 # amount of extra health
+      tmp = 0 # amount of extra health
       case wave
       when 2, 3
         tmp = -4
@@ -84,12 +84,12 @@ def start hero
       when 9, 10, 11, 12
         tmp = -10
       end
-			hero.damage tmp
+      hero.damage tmp
       puts "\e[36mwave #{wave} +#{-1 * tmp}\e[39m"
     end
-  	case kills
-  	when 0, 1, 2
-  		e = Stuff::Zombie.new hero
+    case kills
+    when 0, 1, 2
+      e = Stuff::Zombie.new hero
     when 3, 4, 5
       e = Stuff::BigZombie.new hero
     when 6, 7, 8
@@ -141,12 +141,17 @@ def start hero
       when "combolist"
         hero.comboList
       when "combo"
-      	hero.attack e, "combo"
-      	e.attack if hero.r != 0 # enemy doesnt attack if player does no damage
+        hero.attack e, "combo"
+        e.attack if hero.r != 0 # enemy doesnt attack if player does no damage
       when "heal"
-      	hero.heal
+        hero.heal
       when "taunt"
-        hero.taunt
+        if hero.taunts_available > 0
+          hero.taunt
+          hero.taunts_available -= 1
+        else
+          puts "\e[33mYou used all your taunts this game\e[39m"
+        end
       when "easter egg"
         x = Random::rand(-175..150)
         hero.give_xp x
@@ -155,10 +160,9 @@ def start hero
         ask = false # dont display the commands
       when "save"
         hero.save
-        
       else
         print "\e[33m"
-      	puts "Input invalid"
+        puts "Input invalid"
         print "\e[39m"
       end
     end

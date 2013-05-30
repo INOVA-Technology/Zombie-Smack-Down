@@ -9,9 +9,9 @@ PUNCH:
    * Does between 4 and 7 damage
 
 TAUNT:
-   * gives anywhere from -10 to +10
-   * requires 2xp to use
+   * gives anywhere from -10 to +10 xp
    * displays a completely pointless taunt
+   * can only be used 3 times in a game, unless given an extra from a rank up
 
 BLOCK
    * Basic attack
