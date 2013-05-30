@@ -30,6 +30,7 @@ elsif ARGV[0] == '-h' # shows help
   Kick: does between 3 and 8 damage\n
   Punch: does between 4 and 7 damage \n
   Info: shows status of zombie, player, and level \n
+  Scores: Shows high score list\n
   Quit: quits the game and give option to save \n \n
 
   \e[35mCOMBOS:\e[39m \n
