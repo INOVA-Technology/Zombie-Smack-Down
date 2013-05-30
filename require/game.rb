@@ -88,6 +88,7 @@ module Stuff
 
     def win
       puts "You win!!"
+      hero.save_score
       prefs_file = File.open @prefs_file_path, 'w'
       prefs_file.puts @default.to_yaml + ":totalKills: " + @prefs[:totalKills].to_s + "\n:rank: " + @prefs[:rank].to_s
       prefs_file.close

@@ -111,7 +111,6 @@ def start hero
     when 30, 31, 32
       e = Stuff::BossZombie.new hero
     else
-      hero.save_score
       hero.win
       break
     end
