@@ -116,7 +116,7 @@ def start hero
       e = Stuff::SuperZombie.new hero
     when 30, 31, 32
       e = Stuff::BossZombie.new hero
-    when 33
+    when 33, 34, 35
       e = Stuff::UltimateZombie.new hero
     else
       hero.win
