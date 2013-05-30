@@ -33,7 +33,6 @@ module Stuff
 
   class Game
   	attr_accessor :prefs, :disp, :new_game, :taunts_available, :r # r is the damage done to the enemy
-    require 'yaml'
     
     def initialize
       @taunts_available = 3

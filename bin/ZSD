@@ -1,5 +1,25 @@
 #!/usr/bin/env ruby
 
+require 'yaml'
+
+def show_scores
+  puts "\e[33mHighscores:"
+  puts
+  begin
+    highscore_file = File.open("#{Dir.home}/.zsd/scores", "r")
+    highscore_list = YAML.load highscore_file.read
+    highscore_list.each { |s|
+      info = s.split(" ")
+      score = info.last
+      name = info[0, info.length - 1].join(" ")
+      puts "#{name.capitalize}: #{score}"
+    }
+  rescue
+    puts "No Highscores :("
+  end
+  puts "\e[39m"
+end
+
 if ARGV[0] == '-t' # only used for testing local version. eg: ./ZSD -t
   require "./require/game"
 elsif ARGV[0] == '-u' # updates to newest verion on github
@@ -38,22 +58,7 @@ elsif ARGV[0] == '-h' # shows help
   '"
   exit
 elsif ARGV[0] == '-s'
-  require 'yaml'
-  puts "\e[33mHighscores:"
-  puts
-  begin
-    highscore_file = File.open("#{Dir.home}/.zsd/scores", "r")
-    highscore_list = YAML.load highscore_file.read
-    highscore_list.each { |s|
-      info = s.split(" ")
-      score = info.last
-      name = info[0, info.length - 1].join(" ")
-      puts "#{name.capitalize}: #{score}"
-    }
-  rescue
-    puts "No Highscores :("
-  end
-  puts "\e[39m"
+  show_scores
   exit
 else
   require "#{Dir.home}/.zsd/require/game" # load normal game module, also loads the prompt function
@@ -67,7 +72,7 @@ end
 require "readline"
 
 def start hero
-  cmds = ["punch", "kick", "block", "combo", "heal", "combolist", "info", "quit", "taunt", "save"]
+  cmds = ["punch", "kick", "block", "combo", "heal", "combolist", "info", "quit", "taunt", "save", "scores"]
   wave = 1
   while true
     kills = hero.prefs[:kills]
@@ -162,6 +167,8 @@ def start hero
         ask = false # dont display the commands
       when "save"
         hero.save
+      when "scores"
+        show_scores
       else
         print "\e[33m"
         puts "Input invalid"
