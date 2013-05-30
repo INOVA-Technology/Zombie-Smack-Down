@@ -32,7 +32,10 @@ COMBOLIST:
 
 INFO:
    * Shows information about zombie health, player health, upgrades, etc.
-   * You can also see your game info when not playing by typing 'ZSD -i' 
+   * You can also see your game info when not playing by typing 'ZSD -i'  
+   
+SCORES:
+   * Shows high score list
 
 QUIT:
    * Allows you to exit the game
