@@ -72,6 +72,35 @@ module Stuff
       puts "\e[31m" + introPhrase + " " + @prefs[:kills].to_s + " " + endPhrase + "\e[39m (enter to exit)"
       prompt
 
+      self.save_score
+
+      # defualts
+      @prefs[:xp] = 15
+      @prefs[:kills] = 0
+      @prefs[:health] = 25
+
+      prefs_file = File.open @prefs_file_path, 'w'
+      prefs_file.puts @prefs.to_yaml
+      prefs_file.close
+
+      exit
+    end
+
+    def win
+      puts "You win!!"
+      prefs_file = File.open @prefs_file_path, 'w'
+      prefs_file.puts @default.to_yaml + ":totalKills: " + @prefs[:totalKills].to_s + "\n:rank: " + @prefs[:rank].to_s
+      prefs_file.close
+    end
+
+    def not_enough_xp
+      puts
+      puts "\e[33mNot enough xp...\e[39m"
+      @r = 0
+      @disp = false
+    end
+
+    def save_score
       unless ARGV[0] == '-n' || ARGV[1] == '-n'
         unless File.exists? "#{Dir.home}/.zsd/scores"
           system "touch ~/.zsd/scores"
@@ -107,31 +136,6 @@ module Stuff
           end
         end
       end
-
-      # defualts
-      @prefs[:xp] = 15
-      @prefs[:kills] = 0
-      @prefs[:health] = 25
-
-      prefs_file = File.open @prefs_file_path, 'w'
-      prefs_file.puts @prefs.to_yaml
-      prefs_file.close
-
-      exit
-    end
-
-    def win
-      puts "You win!!"
-      prefs_file = File.open @prefs_file_path, 'w'
-      prefs_file.puts @default.to_yaml + ":totalKills: " + @prefs[:totalKills].to_s + "\n:rank: " + @prefs[:rank].to_s
-      prefs_file.close
-    end
-
-    def not_enough_xp
-      puts
-      puts "\e[33mNot enough xp...\e[39m"
-      @r = 0
-      @disp = false
     end
 
     def combo com
