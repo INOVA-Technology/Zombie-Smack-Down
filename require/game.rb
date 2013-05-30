@@ -606,5 +606,15 @@ module Stuff
     end
   end
 
+  class UltimateZombie < Zombie
+    def setPower
+      @xp = 100
+      @pain = [75, 115]
+      @health = 100
+      @name = "Ultimate Zombie"
+      @phrases = ["is to ultimate", "is really scary", "just gave you a nice punch to the face", "is more ultimate than you", "makes you look... un-ultimate"].sample
+    end
+  end
+
 #end Stuff module
 end
