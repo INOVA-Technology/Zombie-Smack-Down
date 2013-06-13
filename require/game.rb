@@ -24,7 +24,7 @@ def prompt promptBegining="", hero=nil
     unless hero.nil?
       hero.save
     end
-    puts
+    puts "\e[39m"
     exit
   end
 end
