@@ -311,9 +311,9 @@ module Stuff
       @prefs.each{ |key, value|
         case key
         when :kick
-          puts "Kick upgrade: #{@prefs[:kick].to_s}"
+          puts "Kick upgrades: #{@prefs[:kick].to_s}"
         when :punch
-          puts "Punch upgrade: #{@prefs[:punch].to_s}"
+          puts "Punch upgrades: #{@prefs[:punch].to_s}"
         when :block
           puts "Block upgrade: #{@prefs[:block].to_s}"
         when :totalKills
