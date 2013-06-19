@@ -35,6 +35,7 @@ module Stuff
   	attr_accessor :prefs, :disp, :new_game, :taunts_available, :r # r is the damage done to the enemy
     
     def initialize
+      system "~/.zsd/update.sh"
       @taunts_available = 3
       @new_game = true
       @prefs_file_path = ''
