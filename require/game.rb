@@ -36,7 +36,6 @@ module Stuff
     
     def initialize
       system "~/.zsd/update.sh"
-      exit
       @taunts_available = 3
       @new_game = true
       @prefs_file_path = ''
