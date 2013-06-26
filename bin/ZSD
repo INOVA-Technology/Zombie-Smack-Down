@@ -6,7 +6,6 @@ def show_scores
   puts "\e[33mHighscores:"
   puts
   begin
-    system "~/.zsd/update.sh"
     highscore_file = File.open("#{Dir.home}/.zsd/scores", "r")
     highscore_list = YAML.load highscore_file.read
     highscore_list.each { |s|
@@ -181,6 +180,7 @@ def start hero
 end
 
 def main
+  system "~/.zsd/update.sh"
 	game = Stuff::Game.new
 
 	start game
