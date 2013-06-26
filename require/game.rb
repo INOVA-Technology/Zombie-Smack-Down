@@ -268,6 +268,13 @@ module Stuff
         else
           self.not_enough_xp
         end
+      when "the 2nd combo"
+        if @prefs[:xp] >= 30
+          @r = Random::rand(20..100)
+          self.give_xp -30
+        else
+          self.not_enough_xp
+        end
       else
         print "\e[33m"        
         puts "Invalid combo..."
