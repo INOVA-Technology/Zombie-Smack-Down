@@ -180,7 +180,6 @@ def start hero
 end
 
 def main
-  system "~/.zsd/update.sh"
 	game = Stuff::Game.new
 
 	start game
