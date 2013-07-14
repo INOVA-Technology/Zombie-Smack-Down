@@ -17,16 +17,9 @@
   # \e[22m gets rid of the bold
 
 def prompt promptBegining="", hero=nil
-  begin # the true parameter keeps a history of the previously entered commands
+    # the true parameter keeps a history of the previously entered commands
     inText = Readline.readline(promptBegining, true).squeeze(" ").strip.downcase
     inText
-  rescue Interrupt # this is run if the script is stopped with ctrl+c or ctrl+d
-    unless hero.nil?
-      hero.save
-    end
-    puts "\e[39m"
-    exit
-  end
 end
 
 module Stuff
@@ -35,7 +28,7 @@ module Stuff
   	attr_accessor :prefs, :disp, :new_game, :taunts_available, :r # r is the damage done to the enemy
     
     def initialize
-      system "~/.zsd/update.sh > /dev/null"
+      # system "~/.zsd/update.sh > /dev/null"
       @taunts_available = 3
       @new_game = true
       @prefs_file_path = ''

@@ -2,6 +2,14 @@
 
 require 'yaml'
 
+def exit_game game
+  Thread.new {
+    game.save
+    puts "\e[39m"
+    exit
+  }
+end
+
 def show_scores
   puts "\e[33mHighscores:"
   puts
@@ -73,6 +81,7 @@ end
 require "readline"
 
 def start hero
+
   cmds = ["punch", "kick", "block", "combo", "heal", "combolist", "info", "quit", "taunt", "save", "scores"]
   wave = 1
   while true
@@ -182,7 +191,20 @@ end
 def main
 	game = Stuff::Game.new
 
+  trap('TERM') {
+    exit_game game
+  }
+
+  trap('INT') {
+    exit_game game
+  }
+
+  trap('HUP') {
+    exit_game game
+  }
+
 	start game
+
 end
 
 if __FILE__ == $0 # just checks to make sure the file isnt being loaded through require
