@@ -28,6 +28,7 @@ fi
 if [[ $file1 == $git1 ]] && [[ $file2 == $git2 ]] && [[ $file3 == $git3 ]]; then
 	if [[ -x "$zsd_path/bin/ZSD" ]]; then
 		if cat ~/.bash_profile | grep -q "\$HOME/.zsd/bin" ; then
+			sudo curl -s https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/man/zsd.6 -o "/usr/share/man/man6/zsd.6"
 			echo -e "\033[35mSuccess! Now enter ZSD to play Zombie Smack Down. You may have to open a new window for it to work.\033[39m"
 		else
 			echo "Installation Failed. Didn't add correct path to \$PATH"
