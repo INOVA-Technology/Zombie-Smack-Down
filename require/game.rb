@@ -79,6 +79,11 @@ module Stuff
       exit
     end
 
+    def give_achievement a
+				@prefs[:achievements][a.to_sym] = true
+				puts "\e[35mAchievement earned! #{a.to_s.gsub "-", " "}\e[39m"
+		end
+
     def win
       puts "You win!!"
       hero.save_score
@@ -291,6 +296,7 @@ module Stuff
 	        @r = Random::rand(4..7) + @prefs[:punch]
 	      when "kick"
 	      	@r = Random::rand(3..8) + @prefs[:kick]
+	      	self.give_achievement :ultra_kick if @r >= 15
 	      when "combo"
 	      	puts "Which combo?"
 	      	c = prompt
@@ -434,7 +440,7 @@ module Stuff
           puts "successfully upgraded"
           print "\e[39m"
         else
-          puts "\e[33m#{skill.to_s} is at the maximum level (7)\e[33m"
+          puts "\e[33m#{skill.to_s} is at the maximum level (7)\e[39m"
           self.upgrade
         end
       else
@@ -494,6 +500,7 @@ module Stuff
       @hero.give_xp @xp
       @is_alive = false
       @hero.pwn
+      @hero.give_achievement :first_kill unless @hero.prefs[:achievements][:first_kill] == true
     end
 
     def damage amount
