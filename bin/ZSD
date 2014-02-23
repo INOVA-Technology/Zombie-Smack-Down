@@ -133,6 +133,7 @@ def start hero
     end
 
     ask = true
+    egg_available = true
 
   	while e.is_alive
   		puts "Type any of the following: " + cmds.join(", ") if ask
@@ -170,9 +171,14 @@ def start hero
           puts "\e[33mYou used all your taunts this game\e[39m"
         end
       when "easter egg"
-        x = Random::rand(-175..150)
-        hero.give_xp x
-        puts "\e[33mBraaaiiiiinnnnsss!\e[39m (plus #{x} xp)"
+        if egg_available
+          x = Random::rand(-175..150)
+          hero.give_xp x
+          puts "\e[33mBraaaiiiiinnnnsss!\e[39m (plus #{x} xp)"
+          egg_available = false
+        else
+          puts "\e[33mYou used your only easter egg this game\e[39m"
+        end
       when ""
         ask = false # dont display the commands
       when "save"
