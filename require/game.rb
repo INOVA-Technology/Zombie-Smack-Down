@@ -104,7 +104,7 @@ module Stuff
         unless File.exists? "#{Dir.home}/.zsd/scores"
           system "touch ~/.zsd/scores"
           name = prompt "New Highscore! Enter Your name: "
-          highscore_list = ["addison 31", "chase 32", "#{name} #{@prefs[:kills]}"]
+          highscore_list = ["Addison 33", "Chase 32", "#{name} #{@prefs[:kills]}"]
           highscore_file = File.open("#{Dir.home}/.zsd/scores", "w")
           highscore_list.sort! { |s1, s2| 
             s2.split(" ").last.to_i <=> s1.split(" ").last.to_i
