@@ -26,5 +26,5 @@ To-do (pull requests appreciated):
 * Add support for ruby >= 1.8.7
 
 ### IMPORTANT
-To use Zombie Smack Down, please install ruby 1.9.2 or later.
+To use Zombie Smack Down, please install ruby 1.9.3 or later.
 

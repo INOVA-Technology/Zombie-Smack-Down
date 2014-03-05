@@ -48,7 +48,7 @@ module Stuff
       @disp = true # tells weather it should attack/tell the damage done
       @combos      = [ "kick punch",       "elbow fist knee fist knee body slam",      "trip stomp",      "punch punch kick",       "knee punch face slap",      "heal fury",      "kick kick kick kick kick kick kick kick kick kick kick kick kick kick kick",      "combo of possible death",      "combo of death",       "coolest combo ever",       "chase punch of fire",       "addison kick of cold hard music",       "not a combo"        "pain with a side of blood",       "ultimate destruction kick punch",       "chuck norris stomp of mayhem"]
       #combos with xp cost
-      @comboValues = { "kick punch" => 2 , "elbow fist knee fist knee body slam" => 3, "trip stomp" => 3, "punch punch kick" => 4 , "knee punch face slap" => 4, "heal fury" => 5, "kick kick kick kick kick kick kick kick kick kick kick kick kick kick kick" => 7, "combo of possible death" => 9, "combo of death" => 12, "coolest combo ever" => 15, "chase punch of fire" => 20, "addison kick of cold hard music" => 20, "not a combo" => 20, "pain with a side of blood" => 25, "ultimate destruction kick punch" => 30, "chuck norris stomp of mayhem" => 1000}
+      @comboValues = { "kick punch" => 2 , "elbow fist knee fist knee body slam" => 3, "trip stomp" => 3, "punch punch kick" => 4 , "knee punch face slap" => 4, "heal fury" => 5, "kick kick kick kick kick kick kick kick kick kick kick kick kick kick kick" => 7, "combo of possible death" => 9, "combo of death" => 12, "coolest combo ever" => 15, "chase punch of fire" => 20, "addison kick of cold hard music" => 20, "not a combo" => 20, "pain with a side of blood" => 25, "ultimate destruction kick punch" => 30, "the 3rd combo" => 35, "chuck norris stomp of mayhem" => 1000}
     end
 
     def give_xp amount
@@ -174,6 +174,14 @@ module Stuff
         else
           self.not_enough_xp
         end
+      when "heal fury"
+        if @prefs[:xp] >= 5
+          @r = Random::rand(4..10)
+          self.damage(Random::rand(2..5) * -1)
+          self.give_xp -5
+        else
+          self.not_enough_xp
+        end
       when "kick kick kick kick kick kick kick kick kick kick kick kick kick kick kick" 
         if @prefs[:xp] >= 7
           @r = Random::rand(9..17)
@@ -195,6 +203,13 @@ module Stuff
         else
           self.not_enough_xp
         end
+      when "coolest combo ever" 
+        if @prefs[:xp] >= 15
+          @r = Random::rand(10..25)
+          self.give_xp -15
+        else
+          self.not_enough_xp
+        end
       when "chase punch of fire" 
         if @prefs[:xp] >= 20
           @r = Random::rand(20..40)
@@ -206,42 +221,6 @@ module Stuff
         if @prefs[:xp] >= 20
           @r = Random::rand(20..40)
           self.give_xp -20
-        else
-          self.not_enough_xp
-        end
-      when "ultimate destruction kick punch" 
-        if @prefs[:xp] >= 30
-          @r = Random::rand(1..50)
-          self.give_xp -30
-        else
-          self.not_enough_xp
-        end
-      when "pretty good combo"
-        if @prefs[:xp] >= 60
-          @r = Random::rand(45..111)
-          self.give_xp -60
-        else
-          self.not_enough_xp
-        end
-      when "chuck norris stomp of mayhem" 
-        if @prefs[:xp] >= 1000
-          @r = Random::rand(1..2_000_000)
-          self.give_xp -1000
-        else
-          self.not_enough_xp
-        end
-      when "coolest combo ever" 
-        if @prefs[:xp] >= 15
-          @r = Random::rand(10..25)
-          self.give_xp -15
-        else
-          self.not_enough_xp
-        end
-      when "heal fury"
-        if @prefs[:xp] >= 5
-          @r = Random::rand(4..10)
-          self.damage(Random::rand(2..5) * -1)
-          self.give_xp -5
         else
           self.not_enough_xp
         end
@@ -273,6 +252,35 @@ module Stuff
         else
           self.not_enough_xp
         end
+      when "the 3rd combo"
+        if @prefs[:xp] >= 35
+          @r = Random::rand(50..75)
+          self.give_xp -35
+        else
+          self.not_enough_xp
+        end
+      when "ultimate destruction kick punch" 
+        if @prefs[:xp] >= 30
+          @r = Random::rand(1..50)
+          self.give_xp -30
+        else
+          self.not_enough_xp
+        end
+      when "pretty good combo"
+        if @prefs[:xp] >= 60
+          @r = Random::rand(45..111)
+          self.give_xp -60
+        else
+          self.not_enough_xp
+        end
+      when "chuck norris stomp of mayhem" 
+        if @prefs[:xp] >= 1000
+          @r = Random::rand(1..2_000_000)
+          self.give_xp -1000
+        else
+          self.not_enough_xp
+        end
+      
       else
         print "\e[33m"        
         puts "Invalid combo..."
@@ -602,7 +610,7 @@ module Stuff
 
   class SuperZombie < Zombie
     def setPower
-      @xp = 37
+      @xp = 38
       @pain = [35, 56]
       @health = 65
       @name = "Super Zombie"
@@ -612,7 +620,7 @@ module Stuff
 
   class BossZombie < Zombie
     def setPower
-      @xp = 65
+      @xp = 70
       @pain = [60, 90]
       @health = 100
       @name = "Boss Zombie"
@@ -622,7 +630,7 @@ module Stuff
 
   class UltimateZombie < Zombie
     def setPower
-      @xp = 100
+      @xp = 115s
       @pain = [75, 115]
       @health = 100
       @name = "Ultimate Zombie"
