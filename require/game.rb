@@ -630,7 +630,7 @@ module Stuff
 
   class UltimateZombie < Zombie
     def setPower
-      @xp = 115s
+      @xp = 115
       @pain = [75, 115]
       @health = 100
       @name = "Ultimate Zombie"
