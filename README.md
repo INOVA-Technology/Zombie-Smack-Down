@@ -24,7 +24,6 @@ To-do (pull requests appreciated):
 * Add Windows & Linux support
 * Add web high scores
 * Add randomized unknown command messages
-* Have installer add the man file
 * Read todo.txt
 
 ### IMPORTANT

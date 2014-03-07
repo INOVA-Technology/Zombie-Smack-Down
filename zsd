@@ -21,6 +21,12 @@ def main
 	when "-i"
 		$player.info
 		exit
+	when "-h"
+		help
+		exit
+	when "-u"
+		system "~/.zsd/update.sh"
+		exit
 	end
 	start
 end
