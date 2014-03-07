@@ -1,13 +1,6 @@
 #!/usr/bin/env ruby
 
-$rpath = if ARGV[0] == "-t"
-			"."
-		 else
-		 	"#{File.expand_path '~'}/.zsd"
-		 	 # system "cd ~/.zsd"
-		 end
-
-# $rpath = "#{File.expand_path '~'}/.zsd"
+$rpath = (ARGV[0] == "-t" ? "." : "#{File.expand_path '~'}/.zsd")
 
 require "readline"
 require "#{$rpath}/require/colors"
