@@ -86,6 +86,7 @@ class Player
 	end
 
 	def reset
+		@saveOriginal[:rank] = @save[:rank]
 		@saveOriginal[:totalKills] = @save[:totalKills]
 		@saveOriginal[:kickUpgrade] = @save[:kickUpgrade]
 		@saveOriginal[:punchUpgrade] = @save[:punchUpgrade]
