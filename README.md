@@ -23,7 +23,9 @@ More info in CONTROLS.md
 To-do (pull requests appreciated):
 * Add Windows & Linux support
 * Add web high scores
-* Add support for ruby >= 1.8.7
+* Add randomized unknown command messages
+* Have installer add the man file
+* Read todo.txt
 
 ### IMPORTANT
 To use Zombie Smack Down, please install ruby 1.9.3 or later.

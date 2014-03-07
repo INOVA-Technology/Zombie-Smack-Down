@@ -1,0 +1,21 @@
+todo (for finishing converting to 1.8.7):
+add high scores
+options with argv (-h, -s)
+
+upload then:
+add installer
+
+then
+finish old installer and updater
+add extra taunt w/ upgrade
+signal trapping
+achievements
+
+
+CHECK FOR 1.8.7 COMPATIBILITY
+CHECK FOR 1.8.7 COMPATIBILITY
+CHECK FOR 1.8.7 COMPATIBILITY
+CHECK FOR 1.8.7 COMPATIBILITY
+CHECK FOR 1.8.7 COMPATIBILITY
+CHECK FOR 1.8.7 COMPATIBILITY
+

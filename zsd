@@ -1,0 +1,138 @@
+#!/usr/bin/env ruby
+
+$rpath = if ARGV[0] == "-t"
+			"."
+		 else
+		 	"#{File.expand_path '~'}/.zsd"
+		 	 # system "cd ~/.zsd"
+		 end
+
+# $rpath = "#{File.expand_path '~'}/.zsd"
+
+require "readline"
+require "#{$rpath}/require/colors"
+require "#{$rpath}/require/other"
+require "#{$rpath}/require/player"
+
+$player = Player.new
+
+def main
+	case ARGV[0]
+	when "-i"
+		$player.info
+		exit
+	end
+	start
+end
+
+def start
+
+	require "#{$rpath}/require/zombie"
+	require "#{$rpath}/require/combo"
+
+	# keep combos in order of xp cost
+	# keep lowercase
+	combos = { "kick punch" => KickPunch.new,
+			  "punch punch kick" => PunchPunchKick.new,
+			  "trip stomp" => TripStomp.new,
+			  "Knee Punch Face Slap" => KneePunchFaceSlap.new,
+			  "heal fury" => HealFury.new($player),
+			  "elbow fist knee fist knee body slam" => ElbowFistKneeFistKneeBodySlam.new,
+			  "kick kick kick kick kick kick kick kick kick kick kick kick kick kick kick" => KickKickKickKickKickKickKickKickKickKickKickKickKickKickKick.new,
+			  "combo of possible death" => ComboOfPossibleDeath.new,
+			  "combo of death" => ComboOfDeath.new,
+			  "coolest combo ever" => CoolestComboEver.new,
+			  "chase punch of fire" => ChasePunchOfFire.new,
+			  "addison kick of cold hard music" => AddisonKickOfColdHardMusic.new,
+			  "not a combo" => NotACombo.new,
+			  "pain with a side of blood" => PainWithASideOfBlood.new,
+			  "the combo" => TheCombo.new,
+			  "the 2nd combo" => The2ndCombo.new,
+			  "ultimate destruction kick punch" => UltimateDestructionKickPunch.new,
+			  "the 3rd combo" => The3rdCombo.new,
+			  "pretty good combo" => PrettyGoodCombo.new,
+			  "chuck norris stomp of mayhem" => ChuckNorrisStompOfMayhem.new
+	}
+
+	puts pInfo "Type help for help."
+
+	while true
+
+		zombie = Zombie.new if $player.save[:wave] == 1
+		zombie = BigZombie.new if $player.save[:wave] == 2
+		zombie = DaddyZombie.new if $player.save[:wave] == 3
+		zombie = GunZombie.new if $player.save[:wave] == 4
+		zombie = NinjaZombie.new if $player.save[:wave] == 5
+		zombie = IdiotZombie.new if $player.save[:wave] == 6
+		zombie = BlindZombie.new if $player.save[:wave] == 7
+		zombie = StrongZombie.new if $player.save[:wave] == 8
+		zombie = BasicllyDeadZombie.new if $player.save[:wave] == 9
+		zombie = SuperZombie.new if $player.save[:wave] == 10
+		zombie = BossZombie.new if $player.save[:wave] == 11
+		zombie = UltimateZombie.new if $player.save[:wave] == 12
+
+		while zombie.isAlive
+			input = prompt(">").split
+			command = input[0]
+			
+			case command
+			when "kick", "punch"
+				attack $player, zombie, command
+				attack zombie, $player if zombie.isAlive
+			when "combo"
+				success = combo $player, zombie, prompt("Which combo? "), combos
+				attack zombie, $player if zombie.isAlive if success
+			when "combolist"
+				combolist $player, combos
+			when "taunt"
+				if $player.save[:tauntsAvailable] > 0
+					$player.taunt
+				else
+					puts pWarn "You have no more taunts."
+				end
+			when "heal"
+				amount = input[1].to_i
+				if amount > 0
+					$player.heal amount
+				else
+					puts pWarn "Please specify a number greater than 0. Example: heal 5"
+				end
+			when "info"
+				$player.info
+				puts
+				zombie.info
+			when "help"
+				puts pWarn "Type commands for a list of commands, and tutorial for more in depth info."
+			when "commands"
+				puts "Avalible Commands:"
+				puts "kick, punch, combo, combolist, taunt, heal, info, help, commands, tutorial, save, quit"
+			when "tutorial"
+				help
+			when "save"
+				$player.saveGame
+			when "easter"
+				if input[1] == "egg"
+					unless $player.save[:eggUsed]
+						xp = (-50..75).to_a.rand_choice
+						$player.giveXP xp
+						puts pLevelUp "#{(xp >= 0 ? "+" : "-") + xp.abs.to_s} xp"
+						$player.save[:eggUsed] = true
+					else
+						puts pWarn "You used your easter egg this game you cheater :/"
+					end
+				end
+			when "quit"
+				quit $player
+			else
+				puts pWarn "Unknown Command." unless command.nil?
+			end
+
+		end # zombie has died if loop ends
+
+	end # end game loop
+
+end
+
+if __FILE__ == $0
+	main
+end
