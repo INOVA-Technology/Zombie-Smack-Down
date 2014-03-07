@@ -4,7 +4,7 @@ zsd_path="$HOME/.zsd"
 mkdir -p "$zsd_path" > /dev/null
 mkdir -p "$zsd_path/require" > /dev/null
 
-curl -s https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/bin/ZSD -o "$zsd_path/bin/zsd"
+curl -s https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/zsd -o "$zsd_path/zsd"
 curl -s https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/require/colors.rb -o "$zsd_path/require/colors.rb"
 curl -s https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/require/combo.rb -o "$zsd_path/require/combo.rb"
 curl -s https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/require/other.rb -o "$zsd_path/require/other.rb"
@@ -13,7 +13,7 @@ curl -s https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/require
 curl -s https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/require/player.yml -o "$zsd_path/require/player.yml"
 curl -s https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/update.sh -o "$zsd_path/update.sh"
 
-chmod +x "$zsd_path/bin/zsd"
+chmod +x "$zsd_path/zsd"
 chmod +x "$zsd_path/update.sh"
 
 # file1=`md5 -q $zsd_path/bin/ZSD 2> /dev/null`
