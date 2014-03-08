@@ -1,10 +1,6 @@
 todo (for finishing converting to 1.8.7):
-add high scores
-options with argv (-h, -s)
 
-then
 add extra taunt w/ upgrade
-signal trapping
 achievements
 
 

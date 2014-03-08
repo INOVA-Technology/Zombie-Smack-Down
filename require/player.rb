@@ -2,9 +2,6 @@ class Player
 
 	# try to put methods in alphebetical order, except init
 
-	require "#{$rpath}/require/colors"
-	require "yaml"
-
 	attr_accessor :save, :phrases
 
 	def initialize
@@ -35,6 +32,7 @@ class Player
 		self.reset
 		puts pWarn "You died!!!"
 		puts pWarn "You killed #{@save[:zombiesKilled]} zombies."
+		self.saveScore
 		exit
 	end
 
@@ -90,14 +88,28 @@ class Player
 		@saveOriginal[:totalKills] = @save[:totalKills]
 		@saveOriginal[:kickUpgrade] = @save[:kickUpgrade]
 		@saveOriginal[:punchUpgrade] = @save[:punchUpgrade]
-		File.open("#{$rpath}/require/player.yml", 'w') do |out|
+		File.open("#{$rpath}/require/player.yml", 'w') { |out|
 		   YAML.dump(@saveOriginal, out)
-		end
+		}
 	end
 
 	def saveGame
-		File.open("#{$rpath}/require/player.yml", 'w') do |out|
+		File.open("#{$rpath}/require/player.yml", 'w') { |out|
 		   YAML.dump(@save, out)
+		}
+	end
+
+	def saveScore
+		score = @save[:zombiesKilled]
+		scores = YAML.load_file("#{$rpath}/scores.yml")
+		if score > scores[-1][0]
+			puts pLevelUp "High Score! What is your name?"
+			name = prompt
+			scores = scores.push([score, name]).sort_by { |i| -i[0]}
+			scores.pop
+			File.open("#{$rpath}/scores.yml", "w") { |out| 
+				YAML.dump(scores, out)
+			}
 		end
 	end
 

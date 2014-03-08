@@ -78,6 +78,14 @@ def combolist player, combos
 	}
 end
 
+def scores
+	scores = YAML.load_file("#{$rpath}/scores.yml")
+	puts pInfo "High Scores:"
+	scores.each { |s|
+		puts pInfo "#{s[1]}: #{s[0]}"
+	}
+end
+
 def quit player
 	puts pWarn "Wanna save yo game? yes or no"
 	answer = prompt

@@ -3,6 +3,7 @@
 $rpath = (ARGV[0] == "-t" ? "." : "#{File.expand_path '~'}/.zsd")
 
 require "readline"
+require "yaml"
 require "#{$rpath}/require/colors"
 require "#{$rpath}/require/other"
 require "#{$rpath}/require/player"
@@ -16,6 +17,9 @@ def main
 		exit
 	when "-h"
 		help
+		exit
+	when "-s"
+		scores
 		exit
 	when "-u"
 		system "~/.zsd/update.sh"
@@ -115,11 +119,13 @@ def start
 				$player.info
 				puts
 				zombie.info
+			when "scores"
+				scores
 			when "help"
 				puts pWarn "Type commands for a list of commands, and tutorial for more in depth info."
 			when "commands"
 				puts "Avalible Commands:"
-				puts "kick, punch, combo, combolist, taunt, heal, info, help, commands, tutorial, save, quit"
+				puts "kick, punch, combo, combolist, taunt, heal, info, scores, help, commands, tutorial, save, quit"
 			when "tutorial"
 				help
 			when "save"
