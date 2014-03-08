@@ -21,6 +21,19 @@ def main
 		system "~/.zsd/update.sh"
 		exit
 	end
+
+	trap('TERM') {
+		exit_game $player
+	}
+
+	trap('INT') {
+		exit_game $player
+	}
+
+	trap('HUP') {
+		exit_game $player
+	}
+
 	start
 end
 
@@ -55,20 +68,22 @@ def start
 
 	puts pInfo "Type help for help."
 
+	zombies = [ Zombie,
+				BigZombie,
+				DaddyZombie,
+				GunZombie,
+				NinjaZombie,
+				IdiotZombie,
+				BlindZombie,
+				StrongZombie,
+				BasicallyDeadZombie,
+				SuperZombie,
+				BossZombie,
+				UltimateZombie ]
+
 	while true
 
-		zombie = Zombie.new if $player.save[:wave] == 1
-		zombie = BigZombie.new if $player.save[:wave] == 2
-		zombie = DaddyZombie.new if $player.save[:wave] == 3
-		zombie = GunZombie.new if $player.save[:wave] == 4
-		zombie = NinjaZombie.new if $player.save[:wave] == 5
-		zombie = IdiotZombie.new if $player.save[:wave] == 6
-		zombie = BlindZombie.new if $player.save[:wave] == 7
-		zombie = StrongZombie.new if $player.save[:wave] == 8
-		zombie = BasicllyDeadZombie.new if $player.save[:wave] == 9
-		zombie = SuperZombie.new if $player.save[:wave] == 10
-		zombie = BossZombie.new if $player.save[:wave] == 11
-		zombie = UltimateZombie.new if $player.save[:wave] == 12
+		zombie = zombies[$player.save[:wave] - 1].new
 
 		while zombie.isAlive
 			input = prompt(">").split

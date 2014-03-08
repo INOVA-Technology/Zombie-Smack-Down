@@ -8,6 +8,15 @@ class Array
 	end
 end
 
+def exit_game player
+  Thread.new {
+    player.saveGame
+    puts "^C"
+    puts pLevelUp "Game saved."
+    exit
+  }
+end
+
 def prompt _prompt="", newline=false
 	_prompt += "\n" if newline
 	inText = Readline.readline(_prompt, true).squeeze(" ").strip.downcase

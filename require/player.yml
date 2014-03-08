@@ -1,11 +1,11 @@
 --- 
-:totalKills: 0
-:eggUsed: false
 :kickUpgrade: 0
-:wave: 1
-:rank: 1
-:xp: 15
 :punchUpgrade: 0
-:health: 25
 :tauntsAvailable: 3
-:zombiesKilled: 0
+:health: 3
+:eggUsed: false
+:zombiesKilled: 2
+:rank: 1
+:xp: 19
+:totalKills: 5
+:wave: 1
