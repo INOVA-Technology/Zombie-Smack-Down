@@ -12,6 +12,7 @@ curl -s https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/update.
 
 chmod +x "$zsd_path/zsd"
 chmod +x "$zsd_path/update.sh"
+
 file1=`md5 -q $zsd_path/zsd 2> /dev/null`
 file2=`md5 -q $zsd_path/require/colors.rb 2> /dev/null`
 file3=`md5 -q $zsd_path/require/combo.rb 2> /dev/null`

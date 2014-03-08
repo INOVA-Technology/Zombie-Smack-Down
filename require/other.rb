@@ -61,8 +61,9 @@ def combolist player, combos
 	amount = player.save[:rank]
 	i = 1
 	puts pInfo "Unlocked Combos:"
-	combos.each_value { |c|
-		puts pInfo "#{c.name}: -#{c.price} xp"
+	combos = combos.sort_by { |k, v| v.price }
+	combos.each { |c|
+		puts pInfo "#{c[1].name}: -#{c[1].price} xp"
 		break if i >= amount
 		i += 1
 	}
