@@ -1,11 +1,11 @@
 ---
 :health: 25
 :xp: 15
-:rank: 4
+:rank: 1
 :wave: 1
 :zombiesKilled: 0
-:totalKills: 49
-:kickUpgrade: 3
+:totalKills: 0
+:kickUpgrade: 0
 :punchUpgrade: 0
 :tauntsAvailable: 3
 :eggUsed: false
