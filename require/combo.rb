@@ -28,19 +28,19 @@ class KickPunch < Combo
 	end
 end
 
-class PunchPunchKick < Combo
-	def setInfo
-		@name = "Punch Punch Kick"
-		@price = 4
-		@damage = (2..12)
-	end
-end
-
 class TripStomp < Combo
 	def setInfo
 		@name = "Trip Stomp"
 		@price = 3
 		@damage = (4..10)
+	end
+end
+
+class PunchPunchKick < Combo
+	def setInfo
+		@name = "Punch Punch Kick"
+		@price = 4
+		@damage = (4..12)
 	end
 end
 
