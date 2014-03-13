@@ -26,16 +26,10 @@ def main
 		exit
 	end
 
-	trap('TERM') {
-		exit_game $player
-	}
-
-	trap('INT') {
-		exit_game $player
-	}
-
-	trap('HUP') {
-		exit_game $player
+	["TERM", "INT", "HUP"].each { |signal|
+		trap(signal) {
+			exit_game $player
+		}
 	}
 
 	start
@@ -91,9 +85,8 @@ def start
 
 		while zombie.isAlive
 			input = prompt(">").split
-			command = input[0]
-			
-			case command
+
+			case command = input[0]
 			when "kick", "punch"
 				attack $player, zombie, command
 				attack zombie, $player if zombie.isAlive

@@ -15,7 +15,12 @@ class Player
 						   :kickUpgrade => 0,
 						   :punchUpgrade => 0,
 						   :tauntsAvailable => 3,
-						   :eggUsed => false, }
+						   :eggUsed => false,
+						   :newGame => true }
+		if @save[:newGame]
+			self.giveXP((@save[:rank] - 1) * 2)
+			@save[:newGame] = false
+		end
 
 		@phrases = ["You smacked down the", "You hit the", "Whose your daddy", "You just powned the"]
 
@@ -123,7 +128,7 @@ class Player
 		if @save[:xp] >= 2
 			xp = (-12..12).to_a.rand_choice
 			self.giveXP xp
-			puts pPain "#{taunt} #{(xp >= 0 ? "+" : "-") + xp.abs.to_s} xp"
+			puts pPain "#{taunt} #{(xp >= 0 ? "+" : "-")}#{xp.abs} xp"
 			@save[:tauntsAvailable] -= 1
 		else
 			puts pWarn "You are missing the necessary xp to taunt (2)"

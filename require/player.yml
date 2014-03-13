@@ -1,6 +1,6 @@
 ---
 :health: 25
-:xp: 15
+:xp: 5
 :rank: 1
 :wave: 1
 :zombiesKilled: 0
@@ -9,3 +9,4 @@
 :punchUpgrade: 0
 :tauntsAvailable: 3
 :eggUsed: false
+:newGame: true
