@@ -1,7 +1,5 @@
 class Zombie 
 
-	require "#{$rpath}/require/colors"
-
 	attr_accessor :isAlive, :name, :power, :xp, :phrases
 	
 	def initialize

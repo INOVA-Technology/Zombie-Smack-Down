@@ -58,7 +58,7 @@ def main
 		}
 	end
 
-	["TERM", "INT", "HUP"].each { |signal|
+	%w[ TERM INT HUP ].each { |signal|
 		trap(signal) {
 			exit_game $player
 		}
