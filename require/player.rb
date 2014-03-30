@@ -33,6 +33,10 @@ class Player
 		self.rankUp if @save[:totalKills] % 15 == 0
 	end
 
+	def checkDead
+		self.die if @save[:health] <= 0
+	end
+
 	def die
 		self.reset
 		puts pWarn "You died!!!"
@@ -120,7 +124,6 @@ class Player
 
 	def takeDamage damage
 		@save[:health] -= damage
-		self.die if @save[:health] <= 0
 	end
 
 	def taunt

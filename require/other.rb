@@ -1,3 +1,226 @@
+class Cli
+
+	attr_reader :player, :zombie
+
+	def initialize 
+		@player = Player.new
+		@combos = { "kick punch" => KickPunch.new,
+				   "trip stomp" => TripStomp.new,
+				   "punch punch kick" => PunchPunchKick.new,
+				   "Knee Punch Face Slap" => KneePunchFaceSlap.new,
+				   "heal fury" => HealFury.new(@player),
+				   "elbow fist knee fist knee body slam" => ElbowFistKneeFistKneeBodySlam.new,
+				   "kick kick kick kick kick kick kick kick kick kick kick kick kick kick kick" => KickKickKickKickKickKickKickKickKickKickKickKickKickKickKick.new,
+				   "combo of possible death" => ComboOfPossibleDeath.new,
+				   "combo of death" => ComboOfDeath.new,
+				   "coolest combo ever" => CoolestComboEver.new,
+				   "chase punch of fire" => ChasePunchOfFire.new,
+				   "addison kick of cold hard music" => AddisonKickOfColdHardMusic.new,
+				   "not a combo" => NotACombo.new,
+				   "pain with a side of blood" => PainWithASideOfBlood.new,
+				   "the combo" => TheCombo.new,
+				   "the 2nd combo" => The2ndCombo.new,
+				   "ultimate destruction kick punch" => UltimateDestructionKickPunch.new,
+				   "the 3rd combo" => The3rdCombo.new,
+				   "pretty good combo" => PrettyGoodCombo.new,
+				   "chuck norris stomp of mayhem" => ChuckNorrisStompOfMayhem.new
+		}
+	end
+
+	def spawn_zombie
+		zombies = [ Zombie,
+				BigZombie,
+				DaddyZombie,
+				GunZombie,
+				NinjaZombie,
+				IdiotZombie,
+				BlindZombie,
+				StrongZombie,
+				BasicallyDeadZombie,
+				SuperZombie,
+				BossZombie,
+				UltimateZombie ]
+
+		@zombie = zombies[@player.save[:wave] - 1].new
+	end
+
+	def attack damage
+		@zombie.takeDamage damage
+		@player.takeDamage @zombie.attack if @zombie.isAlive
+		puts pPain "#{@player.phrases.rand_choice} #{@zombie.name}! -#{damage}"
+		puts pPain "#{@zombie.name} #{@zombie.phrases.rand_choice}! -#{damage}"
+		@zombie.checkDead
+		@player.checkDead
+		@player.addKill if !@zombie.isAlive
+		@player.giveXP @zombie.xp if !@zombie.isAlive
+	end
+
+	# CLI METHODS BELOW:
+
+	def doCombo
+		# keep combos in order of xp cost
+		# and keep keys lowercase
+
+		if combos.has_key? c = prompt("Which combo? ")
+			used_combo = combos[c]
+			if @player.save[:xp] >= used_combo.price
+				damage = used_combo.use
+				@player.giveXP -used_combo.price
+				return true, damage
+			else
+				puts pWarn "You don't have enough xp loser."
+				return false
+			end
+		else 
+			puts pWarn "That is not a combo."
+			return false
+		end
+
+	end
+
+	def kick
+		attack @player.kick
+	end
+
+	def punch
+		attack @player.punch
+	end
+
+	def combo
+		success, damage = doCombo
+		attack damage if success
+	end
+
+	def combolist
+		amount = @player.save[:rank]
+		puts pInfo "Unlocked Combos:"
+		combos = @combos.sort_by { |k, v| v.price }
+		combos.each_with_index { |c, i|
+			puts pInfo "#{c[1].name}: -#{c[1].price} xp"
+			break if i + 1 >= amount
+		}
+	end
+
+	def scores
+		scores = YAML.load_file("#{$rpath}/scores.yml")
+		puts pInfo "High Scores:"
+		scores.each { |s|
+			puts pInfo "#{s[1]}: #{s[0]}"
+		}
+	end
+
+	def quit
+		puts pWarn "Wanna save yo game? yes or no"
+		answer = prompt
+		while !(["yes", "y", "no", "n"].include? answer)
+			puts pWarn "I didn't catch that. Yes or No?"
+			answer = prompt
+		end
+		save_game = (answer == "yes" ? true : false)
+		@player.saveGame if save_game
+		exit
+	end
+
+	def help
+		puts pWarn "Type commands for a list of commands, and tutorial for more in depth info."
+	end
+
+	def commands
+		puts "Avalible Commands:"
+		puts "kick, punch, combo, combolist, taunt, heal, info, scores, help, commands, tutorial, save, quit"
+	end
+
+	def taunt
+		if @player.save[:tauntsAvailable] > 0
+			@player.taunt
+		else
+			puts pWarn "You have no more taunts."
+		end
+	end
+
+	def heal amount
+		amount = amount.to_i
+		if amount > 0
+			@player.heal amount
+		else
+			puts pWarn "Please specify a number greater than 0. Example: heal 5"
+		end
+	end
+
+	def info
+		@player.info
+		puts
+		@zombie.info
+	end
+
+	def easter egg
+		if egg == "egg"
+			unless @player.save[:eggUsed]
+				xp = (-50..75).to_a.rand_choice
+				@player.giveXP xp
+				puts pLevelUp "#{(xp >= 0 ? "+" : "-") + xp.abs.to_s} xp"
+				@player.save[:eggUsed] = true
+			else
+				puts pWarn "You used your easter egg this game you cheater :/"
+			end
+		else
+			puts pWarn "Unknown Command."
+		end
+	end
+
+	def tutorial
+		puts pInfo "BASICS:"
+		puts
+		puts "Kick: does between 3 and 8 damage"
+		puts
+		puts "Punch: does between 4 and 7 damage"
+		puts
+		puts "Info: shows status of zombie, player, and level"
+		puts
+		puts "Scores: Shows high score list"
+		puts
+		puts "Quit: quits the game and give option to save"
+		puts
+		puts pInfo "COMBOS:"
+		puts
+		puts "To start using combos, type #{pInfo 'combo'}"
+		puts
+		puts "Combos are displayed using the combolist command."
+		puts
+		puts pInfo "HEALTH:"
+		puts
+		puts "If you want more health, type #{pInfo 'heal'}."
+		puts
+		puts "Healing costs 1 xp per health point."
+		puts
+		puts pInfo "UPGRADING:"
+		puts
+		puts "Upgrading makes attacks more affective."
+		puts
+		puts "To upgrade type #{pInfo 'upgrade <attack>'} replacing #{pInfo '<attack>'} with kick or punch."
+		puts
+		puts "Upgrading costs more each time."
+		puts
+		puts pInfo "TAUNT:"
+		puts
+		puts "Taunting gives or takes away xp."
+		puts
+		puts "To taunt type #{pInfo 'taunt'}"
+		puts
+		puts "You cannot taunt with less than 2 xp."
+		puts
+		puts pInfo "BLOCK:"
+		puts
+		puts "Blocking gives xp and health."
+		puts
+		puts "To block type #{pInfo 'block'}"
+		puts
+		puts "Upgrade your block to increase health and xp added."
+		puts
+	end
+
+end
+
 class Array
 	def rand_choice
 		if RUBY_VERSION.to_f > 1.8
@@ -21,132 +244,4 @@ def prompt _prompt="", newline=false
 	_prompt += "\n" if newline
 	inText = Readline.readline(_prompt, true).squeeze(" ").strip.downcase
 	inText
-end
-
-def attack attacker, victim, attack_method=nil
-	if attacker.class == Player
-		damage = case attack_method
-				 when "kick"
-				 	attacker.kick
-				 when "punch"
-				 	attacker.punch
-				 end
-		finish_attack attacker, damage, victim
-	else
-		damage = attacker.attack
-		puts pPain "#{attacker.name} #{attacker.phrases.rand_choice} -#{damage}"
-		victim.takeDamage damage
-	end
-end
-
-def combo attacker, victim, c, combos
-
-	if combos.has_key? c
-		_combo = combos[c]
-		if $player.save[:xp] >= _combo.price
-			damage = _combo.use
-			$player.save[:xp] -= _combo.price
-			finish_attack attacker, damage, victim
-			return true
-		else
-			puts pWarn "You don't have enough xp loser."
-			return false
-		end
-	else 
-		puts pWarn "That is not a combo."
-		return false
-	end
-end
-
-def finish_attack attacker, damage, victim
-	victim.takeDamage damage
-	puts pPain "#{attacker.phrases.rand_choice} #{victim.name}! -#{damage}"
-	victim.checkDead
-	attacker.addKill if !victim.isAlive
-	attacker.giveXP victim.xp if !victim.isAlive
-end
-
-def combolist player, combos
-	amount = player.save[:rank]
-	i = 1
-	puts pInfo "Unlocked Combos:"
-	combos = combos.sort_by { |k, v| v.price }
-	combos.each { |c|
-		puts pInfo "#{c[1].name}: -#{c[1].price} xp"
-		break if i >= amount
-		i += 1
-	}
-end
-
-def scores
-	scores = YAML.load_file("#{$rpath}/scores.yml")
-	puts pInfo "High Scores:"
-	scores.each { |s|
-		puts pInfo "#{s[1]}: #{s[0]}"
-	}
-end
-
-def quit player
-	puts pWarn "Wanna save yo game? yes or no"
-	answer = prompt
-	while !(["yes", "y", "no", "n"].include? answer)
-		puts pWarn "I didn't catch that. Yes or No?"
-		answer = prompt
-	end
-	save_game = (answer == "yes" ? true : false)
-	player.saveGame if save_game
-	exit
-end
-
-def help
-
-	puts pInfo "BASICS:"
-	puts
-	puts "Kick: does between 3 and 8 damage"
-	puts
-	puts "Punch: does between 4 and 7 damage"
-	puts
-	puts "Info: shows status of zombie, player, and level"
-	puts
-	puts "Scores: Shows high score list"
-	puts
-	puts "Quit: quits the game and give option to save"
-	puts
-	puts pInfo "COMBOS:"
-	puts
-	puts "To start using combos, type #{pInfo 'combo'}"
-	puts
-	puts "Combos are displayed using the combolist command."
-	puts
-	puts pInfo "HEALTH:"
-	puts
-	puts "If you want more health, type #{pInfo 'heal'}."
-	puts
-	puts "Healing costs 1 xp per health point."
-	puts
-	puts pInfo "UPGRADING:"
-	puts
-	puts "Upgrading makes attacks more affective."
-	puts
-	puts "To upgrade type #{pInfo 'upgrade <attack>'} replacing #{pInfo '<attack>'} with kick or punch."
-	puts
-	puts "Upgrading costs more each time."
-	puts
-	puts pInfo "TAUNT:"
-	puts
-	puts "Taunting gives or takes away xp."
-	puts
-	puts "To taunt type #{pInfo 'taunt'}"
-	puts
-	puts "You cannot taunt with less than 2 xp."
-	puts
-	puts pInfo "BLOCK:"
-	puts
-	puts "Blocking gives xp and health."
-	puts
-	puts "To block type #{pInfo 'block'}"
-	puts
-	puts "Upgrade your block to increase health and xp added."
-	puts
-
 end
