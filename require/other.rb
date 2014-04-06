@@ -46,23 +46,22 @@ class Cli
 
 	def attack damage
 		@zombie.takeDamage damage
-		@player.takeDamage @zombie.attack if @zombie.isAlive
+		z_damage = @zombie.attack
+		@player.takeDamage z_damage if @zombie.isAlive
 		puts pPain "#{@player.phrases.rand_choice} #{@zombie.name}! -#{damage}"
-		puts pPain "#{@zombie.name} #{@zombie.phrases.rand_choice}! -#{damage}"
+		puts pPain "#{@zombie.name} #{@zombie.phrases.rand_choice}! -#{z_damage}"
 		@zombie.checkDead
 		@player.checkDead
 		@player.addKill if !@zombie.isAlive
 		@player.giveXP @zombie.xp if !@zombie.isAlive
 	end
 
-	# CLI METHODS BELOW:
-
 	def doCombo
 		# keep combos in order of xp cost
 		# and keep keys lowercase
 
-		if combos.has_key? c = prompt("Which combo? ")
-			used_combo = combos[c]
+		if @combos.has_key? c = prompt("Which combo? ")
+			used_combo = @combos[c]
 			if @player.save[:xp] >= used_combo.price
 				damage = used_combo.use
 				@player.giveXP -used_combo.price
@@ -77,6 +76,8 @@ class Cli
 		end
 
 	end
+
+	# CLI METHODS BELOW
 
 	def kick
 		attack @player.kick

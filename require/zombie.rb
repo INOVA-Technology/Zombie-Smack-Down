@@ -1,6 +1,6 @@
 class Zombie 
 
-	attr_accessor :isAlive, :name, :power, :xp, :phrases
+	attr_accessor :isAlive, :name, :power, :xp, :phrases, :health
 	
 	def initialize
 		@isAlive = true
@@ -95,7 +95,7 @@ end
 class BlindZombie < Zombie
 	def setInfo
 		@name = "Blind Zombie"
-		@power = (0..25)
+		@power = (1..25)
 		@health = 24
 		@xp = 20
 		@phrases = ["tried to hit you", "cant see ur face", "cant touch this", "cant see you but hurt you anyway"]
