@@ -1,12 +1,12 @@
+#!/usr/bin/env ruby
+
 require 'minitest/autorun'
-require 'yaml'
-require './require/colors'
-require './require/player'
-require './require/zombie'
-require './require/combo'
-require './require/other'
-require 'readline'
 $rpath = "."
+require './require/other'
+
+def exit
+	"exited"
+end
 
 describe Player do
 
@@ -18,6 +18,31 @@ describe Player do
 		it "must be a new game" do 
 			@player.save[:newGame].must_equal false
 		end
+	end
+
+	describe "player is killed" do
+		before do
+			def prompt
+				"test"
+			end
+		end
+
+		it "must die" do
+			@player.save[:health] = 0
+			@player.checkDead.must_equal "exited"
+		end
+
+		# it "must reset game" do
+			
+		# end
+
+		# it "must save score if score is a highscore" do
+
+		# end
+
+		# it "wont save score if score isnt a highscore" do
+
+		# end
 	end
 
 end
@@ -74,6 +99,33 @@ describe Cli do
 			health = @cli.player.save[:health]
 			@cli.combo
 			@cli.player.save[:health].must_be :<, health
+		end
+
+		it "requires correct amount of xp" do
+			z_health = @cli.zombie.health
+			p_health = @cli.player.save[:health]
+			@cli.player.save[:xp] = 1
+			@cli.player.save[:xp].must_equal 1
+			z_health.must_equal @cli.zombie.health
+			p_health.must_equal @cli.player.save[:health]
+		end
+	end
+
+	describe "combolist" do
+		it "must list correct amount or combos" do
+			@cli.player.save[:rank] = 3
+
+			expected = capture_io do
+				puts ["Unlocked Combos:",
+					"Kick Punch: -2 xp",
+					"Trip Stomp: -3 xp",
+					"Punch Punch Kick: -4 xp"].map(&:magenta).join("\n")
+			end
+
+			message = capture_io do
+				@cli.combolist
+			end
+			assert_equal expected, message
 		end
 	end
 

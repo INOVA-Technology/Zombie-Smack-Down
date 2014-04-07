@@ -1,3 +1,10 @@
+require "readline"
+require "yaml"
+require "#{$rpath}/require/zombie"
+require "#{$rpath}/require/colors"
+require "#{$rpath}/require/combo"
+require "#{$rpath}/require/player"
+
 class Cli
 
 	attr_reader :player, :zombie

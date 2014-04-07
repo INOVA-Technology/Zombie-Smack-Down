@@ -29,12 +29,7 @@ OptionParser.new { |opts|
 
 }.parse!
 
-require "readline"
-require "yaml"
-require "#{$rpath}/require/colors"
-require "#{$rpath}/require/combo"
 require "#{$rpath}/require/other"
-require "#{$rpath}/require/player"
 
 def main
 
@@ -69,8 +64,6 @@ def main
 end
 
 def start cli
-
-	require "#{$rpath}/require/zombie"
 
 	puts pInfo "Type help for help."
 
