@@ -103,9 +103,8 @@ class Cli
 		amount = @player.save[:rank]
 		puts pInfo "Unlocked Combos:"
 		combos = @combos.sort_by { |k, v| v.price }
-		combos.each_with_index { |c, i|
-			puts pInfo "#{c[1].name}: -#{c[1].price} xp"
-			break if i + 1 >= amount
+		amount.times { |i|
+			puts pInfo "#{combos[i][1].name}: -#{combos[i][1].price} xp"
 		}
 	end
 
