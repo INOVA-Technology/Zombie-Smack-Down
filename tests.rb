@@ -221,4 +221,45 @@ describe Cli do
 		end
 	end
 
+	describe "scores" do
+		it "must show correct scores" do
+			actual = capture_io do
+				@cli.scores
+			end
+
+			expected = capture_io do
+				puts "High Scores:".magenta
+				puts "Addison: 33".magenta
+				puts "Chase: 32".magenta
+				puts "nobody: 0".magenta
+				puts "nobody: 0".magenta
+				puts "nobody: 0".magenta
+			end
+
+			assert_equal actual, expected
+		end
+	end
+
+	describe "quit" do
+		before do
+			def exit *args
+				"exited"
+			end
+
+			def @cli.prompt *args
+				"no"
+			end
+		end
+
+		it "must quit" do
+			@cli.quit.must_equal "exited"
+		end
+
+		# it progress
+		# it "must save if asked to" do
+		# 	@player.save[:health] = 2
+		# 	@player
+		# end
+	end
+
 end
