@@ -255,11 +255,47 @@ describe Cli do
 			@cli.quit.must_equal "exited"
 		end
 
-		# it progress
-		# it "must save if asked to" do
-		# 	@player.save[:health] = 2
-		# 	@player
-		# end
+		it "wont save if asked not to" do
+			health = @cli.player.save[:health] = 2
+			@cli.quit
+			expected = { :health => 25,
+						 :xp => 15,
+						 :rank => 1,
+						 :wave => 1,
+						 :zombiesKilled => 0,
+						 :totalKills => 0,
+						 :kickUpgrade => 0,
+						 :punchUpgrade => 0,
+						 :tauntsAvailable => 3,
+						 :eggUsed => false,
+						 :newGame => true }
+			@cli.player = Player.new
+			YAML.load_file("#{$rpath}/require/player.yml").must_equal expected
+		end
+
+		it "must save if asked to" do
+			def @cli.prompt *args
+				"yes"
+			end
+			health = @cli.player.save[:health] = 2
+			@cli.quit
+			expected = { :health => 2,
+						 :xp => 15,
+						 :rank => 1,
+						 :wave => 1,
+						 :zombiesKilled => 0,
+						 :totalKills => 0,
+						 :kickUpgrade => 0,
+						 :punchUpgrade => 0,
+						 :tauntsAvailable => 3,
+						 :eggUsed => false,
+						 :newGame => false }
+			YAML.load_file("#{$rpath}/require/player.yml").must_equal expected
+		end
+	end
+
+	describe "help" do
+		
 	end
 
 end

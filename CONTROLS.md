@@ -1,4 +1,4 @@
-##CONTROLS
+## CONTROLS
 
 KICK:
    * Basic attack
