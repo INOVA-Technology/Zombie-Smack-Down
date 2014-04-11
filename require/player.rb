@@ -39,8 +39,8 @@ class Player
 
 	def die
 		self.reset
-		puts pWarn "You died!!!"
-		puts pWarn "You killed #{@save[:zombiesKilled]} zombies."
+		puts(pWarn "You died!!!")
+		puts(pWarn "You killed #{@save[:zombiesKilled]} zombies.")
 		self.saveScore
 		exit
 	end
@@ -53,22 +53,22 @@ class Player
 		if @save[:xp] >= amount
 			@save[:health] += amount
 			self.giveXP -amount
-			puts pLevelUp "+#{amount} health!"
+			puts(pLevelUp "+#{amount} health!")
 		else
-			puts pWarn "You do not have enough xp!"
+			puts(pWarn "You do not have enough xp!")
 		end
 	end
 
 	def info
-		puts pInfo "Health: #{@save[:health]}"
-		puts pInfo "XP: #{@save[:xp]}"
-		puts pInfo "Rank: #{@save[:rank]}"
-		puts pInfo "Wave: #{@save[:wave]}"
-		puts pInfo "Zombies Killed: #{@save[:zombiesKilled]}"
-		puts pInfo "Total Kills: #{@save[:totalKills]}"
-		puts pInfo "Kick Upgrade: #{@save[:kickUpgrade]}"
-		puts pInfo "Punch Upgrade: #{@save[:punchUpgrade]}"
-		puts pInfo "Taunts Available: #{@save[:tauntsAvailable]}"
+		puts(pInfo "Health: #{@save[:health]}")
+		puts(pInfo "XP: #{@save[:xp]}")
+		puts(pInfo "Rank: #{@save[:rank]}")
+		puts(pInfo "Wave: #{@save[:wave]}")
+		puts(pInfo "Zombies Killed: #{@save[:zombiesKilled]}")
+		puts(pInfo "Total Kills: #{@save[:totalKills]}")
+		puts(pInfo "Kick Upgrade: #{@save[:kickUpgrade]}")
+		puts(pInfo "Punch Upgrade: #{@save[:punchUpgrade]}")
+		puts(pInfo "Taunts Available: #{@save[:tauntsAvailable]}")
 	end
 
 	def kick
@@ -79,7 +79,7 @@ class Player
 		@save[:wave] += 1
 		xp = @save[:wave] + 2
 		self.giveXP xp
-		puts pLevelUp "Wave #{@save[:wave]}, +#{xp} xp"
+		puts(pLevelUp "Wave #{@save[:wave]}, +#{xp} xp")
 	end
 
 	def punch
@@ -88,7 +88,7 @@ class Player
 
 	def rankUp
 		@save[:rank] += 1
-		puts pLevelUp "Rank Up! You are now rank #{@save[:rank]}. You unlocked a new combo."
+		puts(pLevelUp "Rank Up! You are now rank #{@save[:rank]}. You unlocked a new combo.")
 		self.upgrade
 	end
 
@@ -134,7 +134,7 @@ class Player
 			puts pPain "#{taunt} #{(xp >= 0 ? "+" : "-")}#{xp.abs} xp"
 			@save[:tauntsAvailable] -= 1
 		else
-			puts pWarn "You are missing the necessary xp to taunt (2)"
+			puts(pWarn "You are missing the necessary xp to taunt (2)")
 		end
 	end
 
@@ -143,10 +143,10 @@ class Player
 		if @save[:kickUpgrade] >= max_level && @save[:punchUpgrade] >= max_level
 			return
 		else
-			puts pLevelUp "What do you want to upgrade? (kick or punch)"
+			puts(pLevelUp "What do you want to upgrade? (kick or punch)")
 			skill = prompt
 			while !(["kick", "punch"].include? skill)
-				puts pWarn "Please answer with kick or punch. What would you like to upgrade?"
+				puts(pWarn "Please answer with kick or punch. What would you like to upgrade?")
 				skill = prompt
 			end
 			max_level_message = pWarn "#{skill} is at the max level (6)"
