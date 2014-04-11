@@ -55,8 +55,8 @@ class Cli
 		@zombie.takeDamage damage
 		z_damage = @zombie.attack
 		@player.takeDamage z_damage if @zombie.isAlive
-		puts pPain "#{@player.phrases.rand_choice} #{@zombie.name}! -#{damage}"
-		puts pPain "#{@zombie.name} #{@zombie.phrases.rand_choice}! -#{z_damage}"
+		puts (pPain "#{@player.phrases.rand_choice} #{@zombie.name}! -#{damage}")
+		puts (pPain "#{@zombie.name} #{@zombie.phrases.rand_choice}! -#{z_damage}")
 		@zombie.checkDead
 		@player.checkDead
 		@player.addKill if !@zombie.isAlive
@@ -74,7 +74,7 @@ class Cli
 				@player.giveXP -used_combo.price
 				return true, damage
 			else
-				puts pWarn "You don't have enough xp loser."
+				puts (pWarn "You don't have enough xp loser.")
 				return false
 			end
 		else 
