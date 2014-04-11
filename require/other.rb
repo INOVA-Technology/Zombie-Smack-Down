@@ -75,7 +75,7 @@ class Cli
 				@player.giveXP -used_combo.price
 				return true, damage
 			else
-				puts (pWarn "You don't have enough xp loser.")
+				puts(pWarn "You don't have enough xp loser.")
 				return false
 			end
 		else 
@@ -130,9 +130,9 @@ class Cli
 	end
 
 	def help *args
- 		puts "Avalible Commands:"
- 		puts "kick, punch, combo, combolist, taunt, heal, info, scores, help, commands, tutorial, save, quit"
- 		puts "Available commands:".magenta
+ 		puts("Avalible Commands:")
+ 		puts("kick, punch, combo, combolist, taunt, heal, info, scores, help, commands, tutorial, save, quit")
+ 		puts("Available commands:".magenta)
  		puts @available_commands.map(&:magenta).join " "		
   	end
 
@@ -164,13 +164,13 @@ class Cli
 			unless @player.save[:eggUsed]
 				xp = (-50..75).to_a.rand_choice
 				@player.giveXP xp
-				puts pLevelUp "#{(xp >= 0 ? "+" : "-") + xp.abs.to_s} xp"
+				puts(pLevelUp "#{(xp >= 0 ? "+" : "-") + xp.abs.to_s} xp")
 				@player.save[:eggUsed] = true
 			else
-				puts pWarn "You used your easter egg this game you cheater :/"
+				puts(pWarn "You used your easter egg this game you cheater :/")
 			end
 		else
-			puts pWarn "Unknown Command."
+			puts(pWarn "Unknown Command.")
 		end
 	end
 
@@ -189,8 +189,8 @@ end
 def exit_game player
   Thread.new {
     player.saveGame
-    puts "^C"
-    puts pLevelUp "Game saved."
+    puts("^C")
+    puts(pLevelUp "Game saved.")
     exit
   }
 end

@@ -17,8 +17,8 @@ class Zombie
 
 	def info
 		_power = @power.to_a
-		puts pInfo "#{@name} health: #{@health}"
-		puts pInfo "Attack Strength: #{_power[0]} to #{_power[-1]}"
+		puts(pInfo "#{@name} health: #{@health}")
+		puts(pInfo "Attack Strength: #{_power[0]} to #{_power[-1]}")
 	end
 
 	def attack
@@ -34,7 +34,7 @@ class Zombie
 	end
 
 	def die
-		puts pPain "KO! You killed the #{@name}"
+		puts(pPain "KO! You killed the #{@name}")
 		@isAlive = false
 	end
 
