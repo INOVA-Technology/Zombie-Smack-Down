@@ -11,7 +11,7 @@ class Cli
 
 	def initialize 
 		@player = Player.new
-		@available_commands = %w[ kick punch combo combolist taunt info scores quit help commands tutorial heal easter ]
+		@available_commands = %w[ kick punch combo combolist taunt info scores quit help heal easter ]
 		@combos = { "kick punch" => KickPunch.new,
 				   "trip stomp" => TripStomp.new,
 				   "punch punch kick" => PunchPunchKick.new,
@@ -130,10 +130,6 @@ class Cli
 	end
 
 	def help *args
-		puts pWarn "Type commands for a list of commands, and tutorial for more in depth info."
-	end
-
-	def commands *args
 		puts "Avalible Commands:"
 		puts "kick, punch, combo, combolist, taunt, heal, info, scores, help, commands, tutorial, save, quit"
 	end
@@ -174,57 +170,6 @@ class Cli
 		else
 			puts pWarn "Unknown Command."
 		end
-	end
-
-	def tutorial *args
-		puts pInfo "BASICS:"
-		puts
-		puts "Kick: does between 3 and 8 damage"
-		puts
-		puts "Punch: does between 4 and 7 damage"
-		puts
-		puts "Info: shows status of zombie, player, and level"
-		puts
-		puts "Scores: Shows high score list"
-		puts
-		puts "Quit: quits the game and give option to save"
-		puts
-		puts pInfo "COMBOS:"
-		puts
-		puts "To start using combos, type #{pInfo 'combo'}"
-		puts
-		puts "Combos are displayed using the combolist command."
-		puts
-		puts pInfo "HEALTH:"
-		puts
-		puts "If you want more health, type #{pInfo 'heal'}."
-		puts
-		puts "Healing costs 1 xp per health point."
-		puts
-		puts pInfo "UPGRADING:"
-		puts
-		puts "Upgrading makes attacks more affective."
-		puts
-		puts "To upgrade type #{pInfo 'upgrade <attack>'} replacing #{pInfo '<attack>'} with kick or punch."
-		puts
-		puts "Upgrading costs more each time."
-		puts
-		puts pInfo "TAUNT:"
-		puts
-		puts "Taunting gives or takes away xp."
-		puts
-		puts "To taunt type #{pInfo 'taunt'}"
-		puts
-		puts "You cannot taunt with less than 2 xp."
-		puts
-		puts pInfo "BLOCK:"
-		puts
-		puts "Blocking gives xp and health."
-		puts
-		puts "To block type #{pInfo 'block'}"
-		puts
-		puts "Upgrade your block to increase health and xp added."
-		puts
 	end
 
 end
