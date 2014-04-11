@@ -21,7 +21,8 @@ Also, you can see the highscores by running:
 More info in CONTROLS.md
 
 To-do (pull requests appreciated):
-* Add Windows & Linux support
+* Add Windows & Linux support (Linux may work, I dont know)
+* Add Linux and iOS installer
 * Add web high scores
 * Add randomized unknown command messages
 * Everything else in todo.txt
