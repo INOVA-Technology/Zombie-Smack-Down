@@ -75,11 +75,11 @@ class Cli
 				@player.giveXP -used_combo.price
 				return true, damage
 			else
-				puts(pWarn "You don't have enough xp loser.")
+				puts (pWarn "You don't have enough xp loser.")
 				return false
 			end
 		else 
-			puts pWarn "That is not a combo."
+			puts (pWarn "That is not a combo.")
 			return false
 		end
 
@@ -102,7 +102,7 @@ class Cli
 
 	def combolist *args
 		amount = @player.save[:rank]
-		puts pInfo "Unlocked Combos:"
+		puts (pInfo "Unlocked Combos:")
 		combos = @combos.sort_by { |k, v| v.price }
 		amount.times { |i|
 			puts pInfo "#{combos[i][1].name}: -#{combos[i][1].price} xp"
