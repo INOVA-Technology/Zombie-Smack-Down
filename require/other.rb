@@ -233,7 +233,7 @@ class Array
 		if RUBY_VERSION.to_f > 1.8
 			self.sample
 		else
-			self.choice
+			self[rand(self.length)]
 		end
 	end
 end
