@@ -75,11 +75,11 @@ class Cli
 				@player.giveXP -used_combo.price
 				return true, damage
 			else
-				puts(pWarn "You don't have enough xp loser.")
+				puts (pWarn "You don't have enough xp loser.")
 				return false
 			end
 		else 
-			puts pWarn "That is not a combo."
+			puts (pWarn "That is not a combo.")
 			return false
 		end
 
@@ -102,26 +102,26 @@ class Cli
 
 	def combolist *args
 		amount = @player.save[:rank]
-		puts pInfo "Unlocked Combos:"
+		puts (pInfo "Unlocked Combos:")
 		combos = @combos.sort_by { |k, v| v.price }
 		amount.times { |i|
-			puts pInfo "#{combos[i][1].name}: -#{combos[i][1].price} xp"
+			puts (pInfo "#{combos[i][1].name}: -#{combos[i][1].price} xp")
 		}
 	end
 
 	def scores *args
 		scores = YAML.load_file("#{$rpath}/scores.yml")
-		puts pInfo "High Scores:"
+		puts (pInfo "High Scores:")
 		scores.each { |s|
-			puts pInfo "#{s[1]}: #{s[0]}"
+			puts (pInfo "#{s[1]}: #{s[0]}")
 		}
 	end
 
 	def quit *args
-		puts pWarn "Wanna save yo game? yes or no"
+		puts (pWarn "Wanna save yo game? yes or no")
 		answer = prompt
 		while !(["yes", "y", "no", "n"].include? answer)
-			puts pWarn "I didn't catch that. Yes or No?"
+			puts (pWarn "I didn't catch that. Yes or No?")
 			answer = prompt
 		end
 		save_game = (answer == "yes" ? true : false)
@@ -130,8 +130,8 @@ class Cli
 	end
 
 	def help *args
-		puts "Available commands:".magenta
-		puts @available_commands.map(&:magenta).join " "		
+		puts ("Avalible Commands:")
+		puts ("kick, punch, combo, combolist, taunt, heal, info, scores, help, commands, tutorial, save, quit")
 	end
 
 	def taunt *args

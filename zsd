@@ -78,7 +78,7 @@ def start cli
 			if cli.available_commands.include? command
 				cli.send command, *input[1..-1]
 			else
-				puts(pWarn "Unknown Command.") unless command.nil?
+				puts (pWarn "Unknown Command.") unless command.nil?
 			end
 
 		end # zombie has died if loop ends
