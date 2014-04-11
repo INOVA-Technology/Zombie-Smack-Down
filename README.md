@@ -31,7 +31,11 @@ Guess what. After years of waiting, popular demand has been recognized. We have 
 
 
 ### IMPORTANT
-To use Zombie Smack Down, please install ruby 1.9.3 or later.
-If on iOS, the ruby installation must be 1.8.6 because 1.9.2 is broken
+#Desktop
+* To use Zombie Smack Down, please install ruby 1.9.3 or later.
+
+#iOS
+* The ruby installation must be 1.8.6 because 1.9.2 is broken
+* Must be logged in as root to save progress (program crashes on death)
 
 
