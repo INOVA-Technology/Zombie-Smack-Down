@@ -29,6 +29,7 @@ To-do (pull requests appreciated):
 * Convert all camel case to underscores
 * Get rid of all that pInfo etc crap
 * Finish tests
+* Add tests for all printed output
 * Have Cli#tutorial read from CONTROLS.md
 
 #iOS Support!

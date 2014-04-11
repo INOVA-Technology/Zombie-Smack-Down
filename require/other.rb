@@ -130,9 +130,11 @@ class Cli
 	end
 
 	def help *args
-		puts("Avalible Commands:")
-		puts("kick, punch, combo, combolist, taunt, heal, info, scores, help, commands, tutorial, save, quit")
-	end
+ 		puts "Avalible Commands:"
+ 		puts "kick, punch, combo, combolist, taunt, heal, info, scores, help, commands, tutorial, save, quit"
+ 		puts "Available commands:".magenta
+ 		puts @available_commands.map(&:magenta).join " "		
+  	end
 
 	def taunt *args
 		if @player.save[:tauntsAvailable] > 0
