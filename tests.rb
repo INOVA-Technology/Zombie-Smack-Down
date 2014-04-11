@@ -291,11 +291,23 @@ describe Cli do
 						 :eggUsed => false,
 						 :newGame => false }
 			YAML.load_file("#{$rpath}/require/player.yml").must_equal expected
+			@cli.player = Player.new
+			@cli.player.die
 		end
 	end
 
 	describe "help" do
-		
-	end
+		it "must print all commands" do
+			actual = capture_io do
+				@cli.help
+			end
 
+			expected = capture_io do
+				puts "Available commands:".magenta
+				puts @cli.available_commands.map(&:magenta).join " "
+			end
+
+			assert_equal actual, expected
+		end
+	end
 end
