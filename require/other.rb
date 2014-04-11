@@ -150,7 +150,7 @@ class Cli
 		if amount > 0
 			@player.heal amount
 		else
-			puts pWarn "Please specify a number greater than 0. Example: heal 5"
+			puts (pWarn "Please specify a number greater than 0. Example: heal 5")
 		end
 	end
 
