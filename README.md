@@ -28,6 +28,8 @@ To-do (pull requests appreciated):
 * Everything else in todo.txt
 * Convert all camel case to underscores
 * Get rid of all that pInfo etc crap
+* Finish tests
+* Have Cli#tutorial read from CONTROLS.md
 
 #iOS Support!
 Guess what. After years of waiting, popular demand has been recognized. We have finally added iOS support for Ruby 1.8.6. 

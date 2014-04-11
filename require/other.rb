@@ -7,10 +7,11 @@ require "#{$rpath}/require/player"
 
 class Cli
 
-	attr_accessor :player, :zombie
+	attr_accessor :player, :zombie, :available_commands
 
 	def initialize 
 		@player = Player.new
+		@available_commands = %w[ kick punch combo combolist taunt info scores quit help commands tutorial heal easter ]
 		@combos = { "kick punch" => KickPunch.new,
 				   "trip stomp" => TripStomp.new,
 				   "punch punch kick" => PunchPunchKick.new,
@@ -86,20 +87,20 @@ class Cli
 
 	# CLI METHODS BELOW
 
-	def kick
+	def kick *args
 		attack @player.kick
 	end
 
-	def punch
+	def punch *args
 		attack @player.punch
 	end
 
-	def combo
+	def combo *args
 		success, damage = doCombo
 		attack damage if success
 	end
 
-	def combolist
+	def combolist *args
 		amount = @player.save[:rank]
 		puts pInfo "Unlocked Combos:"
 		combos = @combos.sort_by { |k, v| v.price }
@@ -108,7 +109,7 @@ class Cli
 		}
 	end
 
-	def scores
+	def scores *args
 		scores = YAML.load_file("#{$rpath}/scores.yml")
 		puts pInfo "High Scores:"
 		scores.each { |s|
@@ -116,7 +117,7 @@ class Cli
 		}
 	end
 
-	def quit
+	def quit *args
 		puts pWarn "Wanna save yo game? yes or no"
 		answer = prompt
 		while !(["yes", "y", "no", "n"].include? answer)
@@ -128,16 +129,16 @@ class Cli
 		exit
 	end
 
-	def help
+	def help *args
 		puts pWarn "Type commands for a list of commands, and tutorial for more in depth info."
 	end
 
-	def commands
+	def commands *args
 		puts "Avalible Commands:"
 		puts "kick, punch, combo, combolist, taunt, heal, info, scores, help, commands, tutorial, save, quit"
 	end
 
-	def taunt
+	def taunt *args
 		if @player.save[:tauntsAvailable] > 0
 			@player.taunt
 		else
@@ -145,8 +146,8 @@ class Cli
 		end
 	end
 
-	def heal amount
-		amount = amount.to_i
+	def heal *args
+		amount = args[0].to_i
 		if amount > 0
 			@player.heal amount
 		else
@@ -154,14 +155,14 @@ class Cli
 		end
 	end
 
-	def info
+	def info *args
 		@player.info
 		puts
 		@zombie.info
 	end
 
-	def easter egg
-		if egg == "egg"
+	def easter *args
+		if args[0] == "egg"
 			unless @player.save[:eggUsed]
 				xp = (-50..75).to_a.rand_choice
 				@player.giveXP xp
@@ -175,7 +176,7 @@ class Cli
 		end
 	end
 
-	def tutorial
+	def tutorial *args
 		puts pInfo "BASICS:"
 		puts
 		puts "Kick: does between 3 and 8 damage"
