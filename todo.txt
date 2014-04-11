@@ -1,9 +1,8 @@
 todo (for finishing converting to 1.8.7):
 
-let options be used with -t
 add extra taunt w/ upgrade
 achievements
-
+fix installer (I think it's broken)
 
 CHECK FOR 1.8.7 COMPATIBILITY
 CHECK FOR 1.8.7 COMPATIBILITY

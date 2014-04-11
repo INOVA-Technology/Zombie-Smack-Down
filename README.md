@@ -21,20 +21,23 @@ Also, you can see the highscores by running:
 More info in CONTROLS.md
 
 To-do (pull requests appreciated):
-* Add Windows & Linux support
+* Add Windows & Linux support (Linux may work, I dont know)
+* Add Linux and iOS installer
 * Add web high scores
 * Add randomized unknown command messages
-* Read todo.txt
+* Everything else in todo.txt
+* Convert all camel case to underscores
+* Get rid of all that pInfo etc crap
 
 #iOS Support!
 Guess what. After years of waiting, popular demand has been recognized. We have finally added iOS support for Ruby 1.8.6. 
 
 
 ### IMPORTANT
-####Desktop
-* To use Zombie Smack Down, please install ruby 1.9.3 or later.
+#### Desktop
+* To use Zombie Smack Down, please install ruby 1.8.7 or later.
 
-####iOS
+#### iOS
 * The ruby installation must be 1.8.6 because 1.9.2 is broken
 * Must be logged in as root to save progress (program crashes on death)
 

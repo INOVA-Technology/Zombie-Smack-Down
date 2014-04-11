@@ -68,7 +68,7 @@ class Player
 		puts pInfo "Total Kills: #{@save[:totalKills]}"
 		puts pInfo "Kick Upgrade: #{@save[:kickUpgrade]}"
 		puts pInfo "Punch Upgrade: #{@save[:punchUpgrade]}"
-
+		puts pInfo "Taunts Available: #{@save[:tauntsAvailable]}"
 	end
 
 	def kick
@@ -111,7 +111,7 @@ class Player
 	def saveScore
 		score = @save[:zombiesKilled]
 		scores = YAML.load_file("#{$rpath}/scores.yml")
-		if score > scores[-1][0]
+		if score > scores.last[0]
 			puts pLevelUp "High Score! What is your name?"
 			name = prompt
 			scores = scores.push([score, name]).sort_by { |i| -i[0]}

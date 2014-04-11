@@ -7,7 +7,7 @@ require "#{$rpath}/require/player"
 
 class Cli
 
-	attr_reader :player, :zombie
+	attr_accessor :player, :zombie
 
 	def initialize 
 		@player = Player.new
