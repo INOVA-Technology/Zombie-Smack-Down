@@ -10,16 +10,16 @@ class Player
 						   :xp => 15,
 						   :rank => 1,
 						   :wave => 1,
-						   :zombiesKilled => 0,
-						   :totalKills => 0,
-						   :kickUpgrade => 0,
-						   :punchUpgrade => 0,
-						   :tauntsAvailable => 3,
-						   :eggUsed => false,
-						   :newGame => true }
-		if @save[:newGame]
+						   :zombies_killed => 0,
+						   :total_kills => 0,
+						   :kick_upgrade => 0,
+						   :punch_upgrade => 0,
+						   :taunts_available => 3,
+						   :egg_used => false,
+						   :new_game => true }
+		if @save[:new_game]
 			self.giveXP((@save[:rank] - 1) * 2)
-			@save[:newGame] = false
+			@save[:new_game] = false
 		end
 
 		@phrases = ["You smacked down the", "You hit the", "Whose your daddy", "You just powned the"]
@@ -27,10 +27,10 @@ class Player
 	end
 
 	def addKill
-		@save[:totalKills] += 1
-		@save[:zombiesKilled] += 1
-		self.nextWave if @save[:zombiesKilled] % 3 == 0
-		self.rankUp if @save[:totalKills] % 15 == 0
+		@save[:total_kills] += 1
+		@save[:zombies_killed] += 1
+		self.nextWave if @save[:zombies_killed] % 3 == 0
+		self.rankUp if @save[:total_kills] % 15 == 0
 	end
 
 	def checkDead
@@ -40,7 +40,7 @@ class Player
 	def die
 		self.reset
 		puts(pWarn "You died!!!")
-		puts(pWarn "You killed #{@save[:zombiesKilled]} zombies.")
+		puts(pWarn "You killed #{@save[:zombies_killed]} zombies.")
 		self.saveScore
 		exit
 	end
@@ -64,15 +64,15 @@ class Player
 		puts(pInfo "XP: #{@save[:xp]}")
 		puts(pInfo "Rank: #{@save[:rank]}")
 		puts(pInfo "Wave: #{@save[:wave]}")
-		puts(pInfo "Zombies Killed: #{@save[:zombiesKilled]}")
-		puts(pInfo "Total Kills: #{@save[:totalKills]}")
-		puts(pInfo "Kick Upgrade: #{@save[:kickUpgrade]}")
-		puts(pInfo "Punch Upgrade: #{@save[:punchUpgrade]}")
-		puts(pInfo "Taunts Available: #{@save[:tauntsAvailable]}")
+		puts(pInfo "Zombies Killed: #{@save[:zombies_killed]}")
+		puts(pInfo "Total Kills: #{@save[:total_kills]}")
+		puts(pInfo "Kick Upgrade: #{@save[:kick_upgrade]}")
+		puts(pInfo "Punch Upgrade: #{@save[:punch_upgrade]}")
+		puts(pInfo "Taunts Available: #{@save[:taunts_available]}")
 	end
 
 	def kick
-		(3..7).to_a.rand_choice + @save[:kickUpgrade]
+		(3..7).to_a.rand_choice + @save[:kick_upgrade]
 	end
 
 	def nextWave
@@ -83,7 +83,7 @@ class Player
 	end
 
 	def punch
-		(4..6).to_a.rand_choice + @save[:punchUpgrade]
+		(4..6).to_a.rand_choice + @save[:punch_upgrade]
 	end
 
 	def rankUp
@@ -94,9 +94,9 @@ class Player
 
 	def reset
 		@saveOriginal[:rank] = @save[:rank]
-		@saveOriginal[:totalKills] = @save[:totalKills]
-		@saveOriginal[:kickUpgrade] = @save[:kickUpgrade]
-		@saveOriginal[:punchUpgrade] = @save[:punchUpgrade]
+		@saveOriginal[:total_kills] = @save[:total_kills]
+		@saveOriginal[:kick_upgrade] = @save[:kick_upgrade]
+		@saveOriginal[:punch_upgrade] = @save[:punch_upgrade]
 		File.open("#{$rpath}/require/player.yml", 'w') { |out|
 		   YAML.dump(@saveOriginal, out)
 		}
@@ -109,7 +109,7 @@ class Player
 	end
 
 	def saveScore
-		score = @save[:zombiesKilled]
+		score = @save[:zombies_killed]
 		scores = YAML.load_file("#{$rpath}/scores.yml")
 		if score > scores.last[0]
 			puts pLevelUp "High Score! What is your name?"
@@ -132,7 +132,7 @@ class Player
 			xp = (-12..12).to_a.rand_choice
 			self.giveXP xp
 			puts pPain "#{taunt} #{(xp >= 0 ? "+" : "-")}#{xp.abs} xp"
-			@save[:tauntsAvailable] -= 1
+			@save[:taunts_available] -= 1
 		else
 			puts(pWarn "You are missing the necessary xp to taunt (2)")
 		end
@@ -140,7 +140,7 @@ class Player
 
 	def upgrade
 		max_level = 6
-		if @save[:kickUpgrade] >= max_level && @save[:punchUpgrade] >= max_level
+		if @save[:kick_upgrade] >= max_level && @save[:punch_upgrade] >= max_level
 			return
 		else
 			puts(pLevelUp "What do you want to upgrade? (kick or punch)")
@@ -153,16 +153,16 @@ class Player
 			plus_1 = pLevelUp "#{skill} +1"
 			case skill
 			when "kick"
-				if @save[:kickUpgrade] < max_level
-					@save[:kickUpgrade] += 1
+				if @save[:kick_upgrade] < max_level
+					@save[:kick_upgrade] += 1
 					puts plus_1
 				else 
 					puts max_level_message
 					upgrade
 				end
 			when "punch"
-				if @save[:punchUpgrade] < max_level
-					@save[:punchUpgrade] += 1
+				if @save[:punch_upgrade] < max_level
+					@save[:punch_upgrade] += 1
 					puts plus_1
 				else 
 					puts max_level_message

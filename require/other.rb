@@ -7,11 +7,11 @@ require "#{$rpath}/require/player"
 
 class Cli
 
-	attr_accessor :player, :zombie, :available_commands
+	attr_accessor :player, :zombie, :commands
 
 	def initialize 
 		@player = Player.new
-		@available_commands = %w[ kick punch combo combolist taunt info scores quit help heal easter ]
+		@commands = %w[ kick punch combo combolist taunt info scores quit help heal easter ]
 		@combos = { "kick punch" => KickPunch.new,
 				   "trip stomp" => TripStomp.new,
 				   "punch punch kick" => PunchPunchKick.new,
@@ -131,11 +131,11 @@ class Cli
 
 	def help *args
 		puts("Available commands:".magenta)
- 		puts(@available_commands.map(&:magenta).join " ")		
+ 		puts(@commands.map(&:magenta).join " ")		
   	end
 
 	def taunt *args
-		if @player.save[:tauntsAvailable] > 0
+		if @player.save[:taunts_available] > 0
 			@player.taunt
 		else
 			puts(pWarn "You have no more taunts.")
@@ -159,11 +159,11 @@ class Cli
 
 	def easter *args
 		if args[0] == "egg"
-			unless @player.save[:eggUsed]
+			unless @player.save[:egg_used]
 				xp = (-50..75).to_a.rand_choice
 				@player.giveXP xp
 				puts(pLevelUp "#{(xp >= 0 ? "+" : "-") + xp.abs.to_s} xp")
-				@player.save[:eggUsed] = true
+				@player.save[:egg_used] = true
 			else
 				puts(pWarn "You used your easter egg this game you cheater :/")
 			end

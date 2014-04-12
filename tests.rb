@@ -17,7 +17,7 @@ describe Player do
 
 	describe "new game started" do
 		it "must not longer be a new game" do 
-			@player.save[:newGame].must_equal false
+			@player.save[:new_game].must_equal false
 		end
 	end
 
@@ -38,13 +38,13 @@ describe Player do
 						 :xp => 15,
 						 :rank => 1,
 						 :wave => 1,
-						 :zombiesKilled => 0,
-						 :totalKills => 0,
-						 :kickUpgrade => 0,
-						 :punchUpgrade => 0,
-						 :tauntsAvailable => 3,
-						 :eggUsed => false,
-						 :newGame => true }
+						 :zombies_killed => 0,
+						 :total_kills => 0,
+						 :kick_upgrade => 0,
+						 :punch_upgrade => 0,
+						 :taunts_available => 3,
+						 :egg_used => false,
+						 :new_game => true }
 			@player.save[:health] = 14
 			@player.die
 			YAML.load_file("#{$rpath}/require/player.yml").must_equal expected
@@ -53,7 +53,7 @@ describe Player do
 		it "must save score if score is a highscore" do
 			scores_file = "#{$rpath}/scores.yml"
 			backup = YAML.load_file(scores_file)
-			@player.save[:zombiesKilled] = backup.last[0] + 1
+			@player.save[:zombies_killed] = backup.last[0] + 1
 			@player.saveScore
 			YAML.load_file(scores_file).must_equal(
 				[[33, "Addison"], [32, "Chase"], [1, "test"],
@@ -67,7 +67,7 @@ describe Player do
 		it "wont save score if score isnt a highscore" do
 			scores_file = "#{$rpath}/scores.yml"
 			backup = YAML.load_file(scores_file)
-			@player.save[:zombiesKilled] = backup.last[0] - 1
+			@player.save[:zombies_killed] = backup.last[0] - 1
 			@player.saveScore
 			YAML.load_file(scores_file).must_equal backup
 			# if this test fails, the scores.yml file will have to be reset
@@ -167,7 +167,7 @@ describe Cli do
 
 		it "wont work if no taunts are left" do
 			expected_xp = @cli.player.save[:xp]
-			@cli.player.save[:tauntsAvailable] = 0
+			@cli.player.save[:taunts_available] = 0
 			@cli.taunt
 			@cli.player.save[:xp].must_equal expected_xp
 		end
@@ -179,11 +179,11 @@ describe Cli do
 						 :xp => 27,
 						 :rank => 2,
 						 :wave => 2,
-						 :zombiesKilled => 6,
-						 :totalKills => 37,
-						 :kickUpgrade => 4,
-						 :punchUpgrade => 3,
-						 :tauntsAvailable => 2 }
+						 :zombies_killed => 6,
+						 :total_kills => 37,
+						 :kick_upgrade => 4,
+						 :punch_upgrade => 3,
+						 :taunts_available => 2 }
 			@cli.player.save.merge! new_save
 
 			actual = capture_io do
@@ -260,13 +260,13 @@ describe Cli do
 						 :xp => 15,
 						 :rank => 1,
 						 :wave => 1,
-						 :zombiesKilled => 0,
-						 :totalKills => 0,
-						 :kickUpgrade => 0,
-						 :punchUpgrade => 0,
-						 :tauntsAvailable => 3,
-						 :eggUsed => false,
-						 :newGame => true }
+						 :zombies_killed => 0,
+						 :total_kills => 0,
+						 :kick_upgrade => 0,
+						 :punch_upgrade => 0,
+						 :taunts_available => 3,
+						 :egg_used => false,
+						 :new_game => true }
 			@cli.player = Player.new
 			YAML.load_file("#{$rpath}/require/player.yml").must_equal expected
 		end
@@ -281,13 +281,13 @@ describe Cli do
 						 :xp => 15,
 						 :rank => 1,
 						 :wave => 1,
-						 :zombiesKilled => 0,
-						 :totalKills => 0,
-						 :kickUpgrade => 0,
-						 :punchUpgrade => 0,
-						 :tauntsAvailable => 3,
-						 :eggUsed => false,
-						 :newGame => false }
+						 :zombies_killed => 0,
+						 :total_kills => 0,
+						 :kick_upgrade => 0,
+						 :punch_upgrade => 0,
+						 :taunts_available => 3,
+						 :egg_used => false,
+						 :new_game => false }
 			YAML.load_file("#{$rpath}/require/player.yml").must_equal expected
 			@cli.player = Player.new
 			@cli.player.die
@@ -302,7 +302,7 @@ describe Cli do
 
 			expected = capture_io do
 				puts "Available commands:".magenta
-				puts @cli.available_commands.map(&:magenta).join " "
+				puts @cli.commands.map(&:magenta).join " "
 			end
 
 			assert_equal actual, expected
@@ -333,7 +333,7 @@ describe Cli do
 
 		it "wont work more than once" do
 			health = @cli.player.save[:xp]
-			@cli.player.save[:eggUsed] = true
+			@cli.player.save[:egg_used] = true
 			@cli.easter "egg"
 			@cli.player.save[:xp].must_equal health
 		end

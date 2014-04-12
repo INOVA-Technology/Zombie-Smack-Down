@@ -3,10 +3,10 @@
 :xp: 15
 :rank: 1
 :wave: 1
-:zombiesKilled: 0
-:totalKills: 0
-:kickUpgrade: 0
-:punchUpgrade: 0
-:tauntsAvailable: 3
-:eggUsed: false
-:newGame: true
+:zombies_killed: 0
+:total_kills: 0
+:kick_upgrade: 0
+:punch_upgrade: 0
+:taunts_available: 3
+:egg_used: false
+:new_game: true

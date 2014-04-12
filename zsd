@@ -75,7 +75,7 @@ def start cli
 			input = prompt(">").split
 			command = input[0]
 
-			if cli.available_commands.include? command
+			if cli.commands.include? command
 				cli.send command, *input[1..-1]
 			else
 				puts (pWarn "Unknown Command.") unless command.nil?
