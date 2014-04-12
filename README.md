@@ -1,4 +1,4 @@
-## Zombie Smack Down
+# Zombie Smack Down
 
 To install:
 
