@@ -56,8 +56,8 @@ class Cli
 		@zombie.takeDamage damage
 		z_damage = @zombie.attack
 		@player.takeDamage z_damage if @zombie.isAlive
-		puts(pPain "#{@player.phrases.rand_choice} #{@zombie.name}! -#{damage}")
-		puts(pPain "#{@zombie.name} #{@zombie.phrases.rand_choice}! -#{z_damage}")
+		puts (pPain "#{@player.phrases.rand_choice} #{@zombie.name}! -#{damage}")
+		puts (pPain "#{@zombie.name} #{@zombie.phrases.rand_choice}! -#{z_damage}")
 		@zombie.checkDead
 		@player.checkDead
 		@player.addKill if !@zombie.isAlive
@@ -75,11 +75,11 @@ class Cli
 				@player.giveXP -used_combo.price
 				return true, damage
 			else
-				puts (pWarn "You don't have enough xp loser.")
+				puts(pWarn "You don't have enough xp loser.")
 				return false
 			end
 		else 
-			puts (pWarn "That is not a combo.")
+			puts(pWarn "That is not a combo.")
 			return false
 		end
 
@@ -105,7 +105,7 @@ class Cli
 		puts (pInfo "Unlocked Combos:")
 		combos = @combos.sort_by { |k, v| v.price }
 		amount.times { |i|
-			puts (pInfo "#{combos[i][1].name}: -#{combos[i][1].price} xp")
+			puts(pInfo "#{combos[i][1].name}: -#{combos[i][1].price} xp")
 		}
 	end
 
@@ -113,7 +113,7 @@ class Cli
 		scores = YAML.load_file("#{$rpath}/scores.yml")
 		puts (pInfo "High Scores:")
 		scores.each { |s|
-			puts (pInfo "#{s[1]}: #{s[0]}")
+			puts(pInfo "#{s[1]}: #{s[0]}")
 		}
 	end
 
@@ -121,7 +121,7 @@ class Cli
 		puts (pWarn "Wanna save yo game? yes or no")
 		answer = prompt
 		while !(["yes", "y", "no", "n"].include? answer)
-			puts (pWarn "I didn't catch that. Yes or No?")
+			puts(pWarn "I didn't catch that. Yes or No?")
 			answer = prompt
 		end
 		save_game = (answer == "yes" ? true : false)
@@ -130,15 +130,17 @@ class Cli
 	end
 
 	def help *args
-		puts("Available commands:".magenta)
-		puts(@available_commands.map(&:magenta).join " ")
-	end
+ 		puts("Avalible Commands:")
+ 		puts("kick, punch, combo, combolist, taunt, heal, info, scores, help, commands, tutorial, save, quit")
+ 		puts("Available commands:".magenta)
+ 		puts @available_commands.map(&:magenta).join " "		
+  	end
 
 	def taunt *args
 		if @player.save[:tauntsAvailable] > 0
 			@player.taunt
 		else
-			puts pWarn "You have no more taunts."
+			puts(pWarn "You have no more taunts.")
 		end
 	end
 
@@ -162,13 +164,13 @@ class Cli
 			unless @player.save[:eggUsed]
 				xp = (-50..75).to_a.rand_choice
 				@player.giveXP xp
-				puts pLevelUp "#{(xp >= 0 ? "+" : "-") + xp.abs.to_s} xp"
+				puts(pLevelUp "#{(xp >= 0 ? "+" : "-") + xp.abs.to_s} xp")
 				@player.save[:eggUsed] = true
 			else
-				puts pWarn "You used your easter egg this game you cheater :/"
+				puts(pWarn "You used your easter egg this game you cheater :/")
 			end
 		else
-			puts pWarn "Unknown Command."
+			puts(pWarn "Unknown Command.")
 		end
 	end
 
@@ -187,8 +189,8 @@ end
 def exit_game player
   Thread.new {
     player.saveGame
-    puts "^C"
-    puts pLevelUp "Game saved."
+    puts("^C")
+    puts(pLevelUp "Game saved.")
     exit
   }
 end
