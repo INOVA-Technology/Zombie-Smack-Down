@@ -11,7 +11,7 @@ curl -s https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/require
 curl -s https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/require/player.rb -o "$zsd_path/require/player.rb"
 curl -s https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/require/zombie.rb -o "$zsd_path/require/zombie.rb"
 curl -s https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/require/player.yml -o "$zsd_path/require/player.yml"
-curl -s https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/player.yml -o "$zsd_path/scores.yml"
+curl -s https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/scores.yml -o "$zsd_path/scores.yml"
 curl -s https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/update.sh -o "$zsd_path/update.sh"
 
 chmod +x "$zsd_path/zsd"
