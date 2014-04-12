@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'minitest/autorun'
+require 'minitest/pride'
 $rpath = "."
 require './require/other'
 
@@ -159,11 +160,9 @@ describe Cli do
 
 	describe "taunt" do
 		it "must require correct amount of xp" do
-
 			expected_xp = @cli.player.save[:xp] = 1
 			@cli.taunt
 			@cli.player.save[:xp].must_equal expected_xp
-			# check io
 		end
 
 		it "wont work if no taunts are left" do
@@ -171,7 +170,6 @@ describe Cli do
 			@cli.player.save[:tauntsAvailable] = 0
 			@cli.taunt
 			@cli.player.save[:xp].must_equal expected_xp
-			# check io
 		end
 	end
 
@@ -308,6 +306,36 @@ describe Cli do
 			end
 
 			assert_equal actual, expected
+		end
+	end
+
+	describe "heal" do
+		it "must give health" do
+			health = @cli.player.save[:health]
+			@cli.heal 5
+			@cli.player.save[:health].must_equal(health + 5)
+		end
+
+		it "wont give health when there isnt enough xp" do
+			health = @cli.player.save[:health]
+			@cli.player.save[:xp] = 4 
+			@cli.heal 5
+			@cli.player.save[:health].must_equal health
+		end
+	end
+
+	describe "easter" do
+		it "must change xp" do
+			health = @cli.player.save[:xp]
+			@cli.easter "egg"
+			@cli.player.save[:xp].must_be :"!=", health
+		end
+
+		it "wont work more than once" do
+			health = @cli.player.save[:xp]
+			@cli.player.save[:eggUsed] = true
+			@cli.easter "egg"
+			@cli.player.save[:xp].must_equal health
 		end
 	end
 end
