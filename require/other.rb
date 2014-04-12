@@ -131,7 +131,7 @@ class Cli
 
 	def help *args
 		p_info "Available commands:"
- 		puts(@commands.join " ")	
+ 		puts(@commands.join(" "))
   	end
 
 	def taunt *args
