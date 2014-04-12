@@ -19,22 +19,22 @@ class String
 	def reverse_color;  "\033[7m#{self}\033[27m" end
 end
 
-def pInfo s
-	s.magenta
+def p_info s
+	puts s.magenta
 end
 
-def pError s
-	s.red
+def p_error s
+	puts s.red
 end
 
-def pPain s
-	s.red
+def p_pain s
+	puts s.red
 end
 
-def pLevelUp s
-	s.cyan
+def p_level_up s
+	puts s.cyan
 end
 
-def pWarn s
-	s.brown # its yellow
+def p_warn s
+	puts s.brown # its yellow
 end

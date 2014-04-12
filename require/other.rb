@@ -53,18 +53,18 @@ class Cli
 	end
 
 	def attack damage
-		@zombie.takeDamage damage
+		@zombie.take_damage damage
 		z_damage = @zombie.attack
-		@player.takeDamage z_damage if @zombie.isAlive
-		puts (pPain "#{@player.phrases.rand_choice} #{@zombie.name}! -#{damage}")
-		puts (pPain "#{@zombie.name} #{@zombie.phrases.rand_choice}! -#{z_damage}")
-		@zombie.checkDead
-		@player.checkDead
-		@player.addKill if !@zombie.isAlive
-		@player.giveXP @zombie.xp if !@zombie.isAlive
+		@player.take_damage z_damage if @zombie.is_alive
+		p_pain("#{@player.phrases.rand_choice} #{@zombie.name}! -#{damage}")
+		p_pain("#{@zombie.name} #{@zombie.phrases.rand_choice}! -#{z_damage}")
+		@zombie.check_dead
+		@player.check_dead
+		@player.add_kill if !@zombie.is_alive
+		@player.give_xp @zombie.xp if !@zombie.is_alive
 	end
 
-	def doCombo
+	def do_combo
 		# keep combos in order of xp cost
 		# and keep keys lowercase
 
@@ -72,14 +72,14 @@ class Cli
 			used_combo = @combos[c]
 			if @player.save[:xp] >= used_combo.price
 				damage = used_combo.use
-				@player.giveXP -used_combo.price
+				@player.give_xp -used_combo.price
 				return true, damage
 			else
-				puts(pWarn "You don't have enough xp loser.")
+				p_warn("You don't have enough xp loser.")
 				return false
 			end
 		else 
-			puts(pWarn "That is not a combo.")
+			p_warn("That is not a combo.")
 			return false
 		end
 
@@ -96,49 +96,49 @@ class Cli
 	end
 
 	def combo *args
-		success, damage = doCombo
+		success, damage = do_combo
 		attack damage if success
 	end
 
 	def combolist *args
 		amount = @player.save[:rank]
-		puts (pInfo "Unlocked Combos:")
+		p_info "Unlocked Combos:" 
 		combos = @combos.sort_by { |k, v| v.price }
 		amount.times { |i|
-			puts(pInfo "#{combos[i][1].name}: -#{combos[i][1].price} xp")
+			p_info "#{combos[i][1].name}: -#{combos[i][1].price} xp"
 		}
 	end
 
 	def scores *args
 		scores = YAML.load_file("#{$rpath}/scores.yml")
-		puts (pInfo "High Scores:")
+		p_info "High Scores:"
 		scores.each { |s|
-			puts(pInfo "#{s[1]}: #{s[0]}")
+			p_info "#{s[1]}: #{s[0]}"
 		}
 	end
 
 	def quit *args
-		puts (pWarn "Wanna save yo game? yes or no")
+		p_warn "Wanna save yo game? yes or no"
 		answer = prompt
 		while !(["yes", "y", "no", "n"].include? answer)
-			puts(pWarn "I didn't catch that. Yes or No?")
+			p_warn "I didn't catch that. Yes or No?"
 			answer = prompt
 		end
 		save_game = (answer == "yes" ? true : false)
-		@player.saveGame if save_game
+		@player.save_game if save_game
 		exit
 	end
 
 	def help *args
-		puts("Available commands:".magenta)
- 		puts(@commands.map(&:magenta).join " ")		
+		p_info "Available commands:"
+ 		puts(@commands.join " ")	
   	end
 
 	def taunt *args
 		if @player.save[:taunts_available] > 0
 			@player.taunt
 		else
-			puts(pWarn "You have no more taunts.")
+			p_warn "You have no more taunts."
 		end
 	end
 
@@ -147,7 +147,7 @@ class Cli
 		if amount > 0
 			@player.heal amount
 		else
-			puts(pWarn "Please specify a number greater than 0. Example: heal 5")
+			p_warn "Please specify a number greater than 0. Example: heal 5"
 		end
 	end
 
@@ -161,14 +161,14 @@ class Cli
 		if args[0] == "egg"
 			unless @player.save[:egg_used]
 				xp = (-50..75).to_a.rand_choice
-				@player.giveXP xp
-				puts(pLevelUp "#{(xp >= 0 ? "+" : "-") + xp.abs.to_s} xp")
+				@player.give_xp xp
+				p_level_up "#{(xp >= 0 ? "+" : "-") + xp.abs.to_s} xp"
 				@player.save[:egg_used] = true
 			else
-				puts(pWarn "You used your easter egg this game you cheater :/")
+				p_warn "You used your easter egg this game you cheater :/"
 			end
 		else
-			puts(pWarn "Unknown Command.")
+			p_warn "Unknown Command."
 		end
 	end
 
@@ -186,9 +186,9 @@ end
 
 def exit_game player
   Thread.new {
-    player.saveGame
+    player.save_game
     puts("^C")
-    puts(pLevelUp "Game saved.")
+    p_level_up "Game saved."
     exit
   }
 end

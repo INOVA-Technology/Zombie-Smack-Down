@@ -30,7 +30,7 @@ describe Player do
 
 		it "must die" do
 			@player.save[:health] = 0
-			@player.checkDead.must_equal "exited"
+			@player.check_dead.must_equal "exited"
 		end
 
 		it "must reset game" do
@@ -54,7 +54,7 @@ describe Player do
 			scores_file = "#{$rpath}/scores.yml"
 			backup = YAML.load_file(scores_file)
 			@player.save[:zombies_killed] = backup.last[0] + 1
-			@player.saveScore
+			@player.save_score
 			YAML.load_file(scores_file).must_equal(
 				[[33, "Addison"], [32, "Chase"], [1, "test"],
 				[0, "nobody"], [0, "nobody"]])
@@ -68,7 +68,7 @@ describe Player do
 			scores_file = "#{$rpath}/scores.yml"
 			backup = YAML.load_file(scores_file)
 			@player.save[:zombies_killed] = backup.last[0] - 1
-			@player.saveScore
+			@player.save_score
 			YAML.load_file(scores_file).must_equal backup
 			# if this test fails, the scores.yml file will have to be reset
 		end
@@ -301,8 +301,8 @@ describe Cli do
 			end
 
 			expected = capture_io do
-				puts "Available commands:".magenta
-				puts @cli.commands.map(&:magenta).join " "
+				p_info "Available commands:"
+				puts(@cli.commands.join " ")
 			end
 
 			assert_equal actual, expected

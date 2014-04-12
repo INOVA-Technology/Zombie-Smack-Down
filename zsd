@@ -65,20 +65,20 @@ end
 
 def start cli
 
-	puts(pInfo "Type help for help.")
+	p_info("Type help for help.")
 
 	loop {
 
 		cli.spawn_zombie
 
-		while cli.zombie.isAlive
+		while cli.zombie.is_alive
 			input = prompt(">").split
 			command = input[0]
 
 			if cli.commands.include? command
-				cli.send command, *input[1..-1]
+				cli.send(command, *input[1..-1])
 			else
-				puts (pWarn "Unknown Command.") unless command.nil?
+				p_warn("Unknown Command.") unless command.nil?
 			end
 
 		end # zombie has died if loop ends

@@ -13,7 +13,7 @@ class Combo
 	end
 
 	def extra
-
+		
 	end
 
 end
@@ -61,7 +61,7 @@ class HealFury < Combo
 
 	def extra
 		health = -((3..7).to_a.rand_choice)
-		@player.takeDamage health
+		@player.take_damage health
 	end
 end
 

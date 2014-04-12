@@ -1,9 +1,9 @@
 class Zombie 
 
-	attr_accessor :isAlive, :name, :power, :xp, :phrases, :health
+	attr_accessor :is_alive, :name, :power, :xp, :phrases, :health
 	
 	def initialize
-		@isAlive = true
+		@is_alive = true
 		self.setInfo
 	end
 
@@ -17,25 +17,25 @@ class Zombie
 
 	def info
 		_power = @power.to_a
-		puts(pInfo "#{@name} health: #{@health}")
-		puts(pInfo "Attack Strength: #{_power[0]} to #{_power[-1]}")
+		p_info "#{@name} health: #{@health}"
+		p_info "Attack Strength: #{_power[0]} to #{_power[-1]}"
 	end
 
 	def attack
 		@power.to_a.rand_choice
 	end
 
-	def takeDamage amount
+	def take_damage amount
 		@health -= amount
 	end
 
-	def checkDead
+	def check_dead
 		self.die if @health <= 0
 	end
 
 	def die
-		puts(pPain "KO! You killed the #{@name}")
-		@isAlive = false
+		p_pain "KO! You killed the #{@name}"
+		@is_alive = false
 	end
 
 end
