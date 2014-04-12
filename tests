@@ -57,7 +57,7 @@ describe Player do
 			@player.save_score
 			YAML.load_file(scores_file).must_equal(
 				[[33, "Addison"], [32, "Chase"], [1, "test"],
-				[0, "nobody"], [0, "nobody"]])
+				[0, "Nobody"], [0, "Nobody"]])
 			File.open(scores_file, "w") { |file| 
 				YAML.dump(backup, file)
 			}
@@ -229,9 +229,9 @@ describe Cli do
 				puts "High Scores:".magenta
 				puts "Addison: 33".magenta
 				puts "Chase: 32".magenta
-				puts "nobody: 0".magenta
-				puts "nobody: 0".magenta
-				puts "nobody: 0".magenta
+				puts "Nobody: 0".magenta
+				puts "Nobody: 0".magenta
+				puts "Nobody: 0".magenta
 			end
 
 			assert_equal actual, expected
