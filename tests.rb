@@ -328,7 +328,7 @@ describe Cli do
 		it "must change xp" do
 			health = @cli.player.save[:xp]
 			@cli.easter "egg"
-			@cli.player.save[:xp].must_be :"!=", health
+			@cli.player.save[:xp].wont_equal health
 		end
 
 		it "wont work more than once" do
