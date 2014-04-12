@@ -41,9 +41,9 @@ def main
 			when "i"
 				cli.player.info
 				exit
-			when "h"
-				cli.tutorial
-				exit
+			# when "h"
+			# 	cli.tutorial
+			# 	exit
 			when "s"
 				cli.scores
 				exit
