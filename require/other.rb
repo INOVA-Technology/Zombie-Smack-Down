@@ -59,7 +59,7 @@ class Cli
 			z_damage = @zombie.attack
 		end
 		@player.take_damage z_damage if @zombie.is_alive
-		p_pain("#{@player.phrases.rand_choice} #{@zombie.name}! -#{damage}")
+		p_pain("#{@player.phrases.rand_choice} #{@zombie.name}! -#{damage}") if @zombie.is_alive
 		p_pain("#{@zombie.name} #{@zombie.phrases.rand_choice}! -#{z_damage}") if @zombie.is_alive
 		
 		
