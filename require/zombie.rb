@@ -34,8 +34,9 @@ class Zombie
 	end
 
 	def die
-		p_pain "KO! You killed the #{@name}"
 		@is_alive = false
+		p_pain "KO! You killed the #{@name}"
+		
 	end
 
 end
