@@ -6,37 +6,39 @@ if [ ! $(which curl) ]; then
 fi
 
 
-mkdir -p "/usr/bin/zsd"
-mkdir -p "/usr/bin/zsd/require"
+mkdir -p "/usr/bin/zombieSD"
+mkdir -p "/usr/bin/zombieSD/require"
 
-curl -s https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/zsd -o "/usr/bin/zsd/zsd"
-curl -s https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/require/colors.rb -o "/usr/bin/zsd/require/colors.rb"
-curl -s https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/require/combo.rb -o "/usr/bin/zsd/require/combo.rb"
-curl -s https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/require/other.rb -o "/usr/bin/zsd/require/other.rb"
-curl -s https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/require/player.rb -o "/usr/bin/zsd/require/player.rb"
-curl -s https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/require/zombie.rb -o "/usr/bin/zsd/require/zombie.rb"
-curl -s https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/require/player.yml -o "/usr/bin/zsd/require/player.yml"
-curl -s https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/scores.yml -o "/usr/bin/zsd/scores.yml"
-curl -s https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/update.sh -o "/usr/bin/zsd/update.sh"
+curl -s https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/zombieSD -o "/usr/bin/zombieSD/zsd"
+curl -s https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/require/colors.rb -o "/usr/bin/zombieSD/require/colors.rb"
+curl -s https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/require/combo.rb -o "/usr/bin/zombieSD/require/combo.rb"
+curl -s https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/require/other.rb -o "/usr/bin/zombieSD/require/other.rb"
+curl -s https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/require/player.rb -o "/usr/bin/zombieSD/require/player.rb"
+curl -s https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/require/zombie.rb -o "/usr/bin/zombieSD/require/zombie.rb"
+curl -s https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/require/player.yml -o "/usr/bin/zombieSD/require/player.yml"
+curl -s https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/scores.yml -o "/usr/bin/zombieSD/scores.yml"
+curl -s https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/update.sh -o "/usr/bin/zombieSD/update.sh"
 
-chmod +x "/usr/bin/zsd/zsd"
-chmod +x "/usr/bin/zsd/update.sh"
+echo "ruby /usr/bin/zombieSD/zsd" > /usr/bin/zsd
+
+chmod +x "/usr/bin/zombieSD/zsd"
+chmod +x "/usr/bin/zombieSD/update.sh"
 
 
 
-if ! cat ~/.bash_profile | grep -q "\$HOME/.zsd" ; then
-	echo 'export PATH="/usr/bin/zsd:$PATH"' >> ~/.bash_profile
+if ! cat ~/.bash_profile | grep -q "\$HOME/.zombieSD" ; then
+	echo 'export PATH="/usr/bin/zombieSD:$PATH"' >> ~/.bash_profile
 	source ~/.bash_profile
 fi
 
 
-if [[ -x "/usr/bin/zsd/zsd" ]]; then
-	if cat ~/.bash_profile | grep -q "\$HOME/.zsd" ; then
-		 curl -s https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/man/zsd.6 -o "//usr/share/man/man6/zsd.6"
-		echo -e "\033[35mSuccess! Now enter zsd to play Zombie Smack Down. You may have to open a new window for it to work.\033[39m"
+if [[ -x "/usr/bin/zombieSD/zombieSD" ]]; then
+	if cat ~/.bash_profile | grep -q "\$HOME/.zombieSD" ; then
+		 curl -s https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/man/zombieSD.6 -o "//usr/share/man/man6/zombieSD.6"
+		echo -e "\033[35mSuccess! Now enter zombieSD to play Zombie Smack Down. You may have to open a new window for it to work.\033[39m"
 	else
 		echo "Installation Failed. Didn't add correct path to \$PATH"
 	fi
 else
-	echo "Installation failed. zsd is not executable."
+	echo "Installation failed. zombieSD is not executable."
 fi
