@@ -89,20 +89,20 @@ class Cli
 
 	# CLI METHODS BELOW
 
-	def kick *args
+	def kick
 		attack @player.kick
 	end
 
-	def punch *args
+	def punch
 		attack @player.punch
 	end
 
-	def combo *args
+	def combo
 		success, damage = do_combo
 		attack damage if success
 	end
 
-	def combolist *args
+	def combolist
 		amount = @player.save[:rank]
 		p_info "Unlocked Combos:" 
 		combos = @combos.sort_by { |k, v| v.price }
@@ -111,7 +111,7 @@ class Cli
 		}
 	end
 
-	def scores *args
+	def scores
 		scores = YAML.load_file("#{$rpath}/scores.yml")
 		p_info "High Scores:"
 		scores.each { |s|
@@ -119,7 +119,7 @@ class Cli
 		}
 	end
 
-	def quit *args
+	def quit
 		p_warn "Wanna save yo game? yes or no"
 		answer = prompt
 		while !(["yes", "y", "no", "n"].include? answer)
@@ -131,12 +131,12 @@ class Cli
 		exit
 	end
 
-	def help *args
+	def help
 		p_info "Available commands:"
  		puts(@commands.join(" "))
   	end
 
-	def taunt *args
+	def taunt
 		if @player.save[:taunts_available] > 0
 			@player.taunt
 		else
@@ -144,8 +144,8 @@ class Cli
 		end
 	end
 
-	def heal *args
-		amount = args[0].to_i
+	def heal amount
+		amount = amount.to_i
 		if amount > 0
 			@player.heal amount
 		else
@@ -153,14 +153,14 @@ class Cli
 		end
 	end
 
-	def info *args
+	def info
 		@player.info
 		puts
 		@zombie.info
 	end
 
-	def easter *args
-		if args[0] == "egg"
+	def easter egg
+		if egg == "egg"
 			unless @player.save[:egg_used]
 				xp = (-50..75).to_a.rand_choice
 				@player.give_xp xp

@@ -4,10 +4,10 @@ class Zombie
 	
 	def initialize
 		@is_alive = true
-		self.setInfo
+		self.set_info
 	end
 
-	def setInfo
+	def set_info
 		@name = "Zombie"
 		@power = (4..6)
 		@health = 10
@@ -44,7 +44,7 @@ end
 # start extra zombies
 
 class BigZombie < Zombie
-	def setInfo
+	def set_info
 		@name = "Big Zombie"
 		@power = (6..8)
 		@health = 15
@@ -54,7 +54,7 @@ class BigZombie < Zombie
 end
 
 class DaddyZombie < Zombie
-	def setInfo
+	def set_info
 		@name = "Daddy Zombie"
 		@power = (4..10)
 		@health = 20
@@ -64,7 +64,7 @@ class DaddyZombie < Zombie
 end
 
 class GunZombie < Zombie
-	def setInfo
+	def set_info
 		@name = "Gun Zombie"
 		@power = (3..15)
 		@health = 20
@@ -74,7 +74,7 @@ class GunZombie < Zombie
 end
 
 class NinjaZombie < Zombie
-	def setInfo
+	def set_info
 		@name = "Ninja Zombie"
 		@power = (7..20)
 		@health = 20
@@ -84,7 +84,7 @@ class NinjaZombie < Zombie
 end
 
 class IdiotZombie < Zombie
-	def setInfo
+	def set_info
 		@name = "Idiot Zombie"
 		@power = (7..20)
 		@health = 2
@@ -94,7 +94,7 @@ class IdiotZombie < Zombie
 end
 
 class BlindZombie < Zombie
-	def setInfo
+	def set_info
 		@name = "Blind Zombie"
 		@power = (1..25)
 		@health = 24
@@ -104,7 +104,7 @@ class BlindZombie < Zombie
 end
 
 class StrongZombie < Zombie
-	def setInfo
+	def set_info
 		@name = "Strong Zombie"
 		@power = (15..21)
 		@health = 30
@@ -114,7 +114,7 @@ class StrongZombie < Zombie
 end
 
 class BasicallyDeadZombie < Zombie
-	def setInfo
+	def set_info
 		@name = "Basically Dead Zombie"
 		@power = (50..75)
 		@health = (2..5).to_a.rand_choice
@@ -124,7 +124,7 @@ class BasicallyDeadZombie < Zombie
 end
 
 class SuperZombie < Zombie
-	def setInfo
+	def set_info
 		@name = "Super Zombie"
 		@power = (35..56)
 		@health = 65
@@ -134,7 +134,7 @@ class SuperZombie < Zombie
 end
 
 class BossZombie < Zombie
-	def setInfo
+	def set_info
 		@name = "Boss Zombie"
 		@power = (60..90)
 		@health = (95..105).to_a.rand_choice
@@ -144,7 +144,7 @@ class BossZombie < Zombie
 end
 
 class UltimateZombie < Zombie
-	def setInfo
+	def set_info
 		@name = "Ultimate Zombie"
 		@power = (75..115)
 		@health = 100
