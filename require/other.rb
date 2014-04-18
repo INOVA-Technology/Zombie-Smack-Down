@@ -57,15 +57,13 @@ class Cli
 		@zombie.check_dead
 		if @zombie.is_alive
 			z_damage = @zombie.attack
+			@player.take_damage z_damage
+		else
+			@player.give_xp @zombie.xp
+			@player.add_kill
 		end
-		@player.take_damage z_damage if @zombie.is_alive
-		p_pain("#{@player.phrases.rand_choice} #{@zombie.name}! -#{damage}") if @zombie.is_alive
+		p_pain("#{@player.phrases.rand_choice} #{@zombie.name}! -#{damage}")
 		p_pain("#{@zombie.name} #{@zombie.phrases.rand_choice}! -#{z_damage}") if @zombie.is_alive
-		
-		
-		@player.check_dead
-		@player.add_kill if !@zombie.is_alive
-		@player.give_xp @zombie.xp if !@zombie.is_alive
 	end
 
 	def do_combo
