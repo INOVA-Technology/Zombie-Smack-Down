@@ -5,7 +5,7 @@ mkdir -p "$ZSD_PATH" > /dev/null
 mkdir -p "$ZSD_PATH/require" > /dev/null
 
 download_file() {
-	from_url="https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/$1"
+	from_url="https://raw.githubusercontent.com/INOVA-Technology/Zombie-Smack-Down/master/$1"
 	curl -s $from_url -o "$ZSD_PATH/$1"
 	git=$(md5 -q "$ZSD_PATH/$1" 2> /dev/null)
 	file=$(curl -s https://raw.github.com/INOVA-Technology/Zombie-Smack-Down/master/$1 | md5)
