@@ -1,4 +1,4 @@
-#!//usr/bin/env bash
+#!/usr/bin/env bash
 
 if [ ! $(which curl) ]; then
     echo "ERROR: Please install the curl command, then try again."
