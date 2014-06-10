@@ -22,13 +22,10 @@ More info in CONTROLS.md
 
 To-do (pull requests appreciated):
 * Add Windows & Linux support (Linux may work, I dont know)
-* Add Linux and iOS installer
+* Fix iOS installer
 * Add web high scores
 * Add randomized unknown command messages
 * Everything else in todo.txt
-* Convert all camel case to underscores
-* Get rid of all that pInfo etc crap
-* Finish tests
 * Add tests for all printed output
 * Have Cli#tutorial read from CONTROLS.md
 
