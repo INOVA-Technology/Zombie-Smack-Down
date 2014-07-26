@@ -58,6 +58,7 @@ class Cli
 		if @zombie.is_alive
 			z_damage = @zombie.attack
 			@player.take_damage z_damage
+			@player.check_dead
 		else
 			@player.give_xp @zombie.xp
 			@player.add_kill
