@@ -96,6 +96,7 @@ class Cli
 
 	def punch
 		attack @player.punch
+		@player.upgrade
 	end
 
 	def combo

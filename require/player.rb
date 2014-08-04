@@ -150,7 +150,7 @@ class Player
 				skill = prompt
 			end
 			max_level_message = "#{skill} is at the max level (6)"
-			plus_1 = p_level_up "#{skill} +1"
+			plus_1 = "#{skill} +1"
 			case skill
 			when "kick"
 				if @save[:kick_upgrade] < max_level
