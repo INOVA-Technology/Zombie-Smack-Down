@@ -11,27 +11,27 @@ class Cli
 
 	def initialize 
 		@player = Player.new
-		@commands = %w[ kick punch combo combolist taunt info scores quit help heal easter ]
+		@commands = %w[ kick punch combo combolist taunt info scores quit help stat stats heal easter ]
 		@combos = { "kick punch" => KickPunch.new,
-				   "trip stomp" => TripStomp.new,
-				   "punch punch kick" => PunchPunchKick.new,
-				   "Knee Punch Face Slap" => KneePunchFaceSlap.new,
-				   "heal fury" => HealFury.new(@player),
-				   "elbow fist knee fist knee body slam" => ElbowFistKneeFistKneeBodySlam.new,
-				   "kick kick kick kick kick kick kick kick kick kick kick kick kick kick kick" => KickKickKickKickKickKickKickKickKickKickKickKickKickKickKick.new,
-				   "combo of possible death" => ComboOfPossibleDeath.new,
-				   "combo of death" => ComboOfDeath.new,
-				   "coolest combo ever" => CoolestComboEver.new,
-				   "chase punch of fire" => ChasePunchOfFire.new,
-				   "addison kick of cold hard music" => AddisonKickOfColdHardMusic.new,
-				   "not a combo" => NotACombo.new,
-				   "pain with a side of blood" => PainWithASideOfBlood.new,
-				   "the combo" => TheCombo.new,
-				   "the 2nd combo" => The2ndCombo.new,
-				   "ultimate destruction kick punch" => UltimateDestructionKickPunch.new,
-				   "the 3rd combo" => The3rdCombo.new,
-				   "pretty good combo" => PrettyGoodCombo.new,
-				   "chuck norris stomp of mayhem" => ChuckNorrisStompOfMayhem.new
+					"trip stomp" => TripStomp.new,
+					"punch punch kick" => PunchPunchKick.new,
+					"Knee Punch Face Slap" => KneePunchFaceSlap.new,
+					"heal fury" => HealFury.new(@player),
+					"elbow fist knee fist knee body slam" => ElbowFistKneeFistKneeBodySlam.new,
+					"kick kick kick kick kick kick kick kick kick kick kick kick kick kick kick" => KickKickKickKickKickKickKickKickKickKickKickKickKickKickKick.new,
+					"combo of possible death" => ComboOfPossibleDeath.new,
+					"combo of death" => ComboOfDeath.new,
+					"coolest combo ever" => CoolestComboEver.new,
+					"chase punch of fire" => ChasePunchOfFire.new,
+					"addison kick of cold hard music" => AddisonKickOfColdHardMusic.new,
+					"not a combo" => NotACombo.new,
+					"pain with a side of blood" => PainWithASideOfBlood.new,
+					"the combo" => TheCombo.new,
+					"the 2nd combo" => The2ndCombo.new,
+					"ultimate destruction kick punch" => UltimateDestructionKickPunch.new,
+					"the 3rd combo" => The3rdCombo.new,
+					"pretty good combo" => PrettyGoodCombo.new,
+					"chuck norris stomp of mayhem" => ChuckNorrisStompOfMayhem.new
 		}
 	end
 
@@ -135,8 +135,9 @@ class Cli
 
 	def help
 		p_info "Available commands:"
- 		puts(@commands.join(" "))
-  	end
+		puts(@commands.join(" "))
+	end
+
 
 	def taunt
 		if @player.save[:taunts_available] > 0
@@ -160,6 +161,9 @@ class Cli
 		puts
 		@zombie.info
 	end
+
+	alias_method :stats, :info
+	alias_method :stat, :info
 
 	def easter egg
 		if egg == "egg"
@@ -189,12 +193,12 @@ class Array
 end
 
 def exit_game player
-  Thread.new {
-    player.save_game
-    puts("^C")
-    p_level_up "Game saved."
-    exit
-  }
+	Thread.new do
+		player.save_game
+		puts("^C")
+		p_level_up "Game saved."
+		exit
+	end
 end
 
 def prompt _prompt="", newline=false
