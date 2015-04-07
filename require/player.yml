@@ -1,12 +1,12 @@
 ---
-:health: 25
-:xp: 15
-:rank: 1
-:wave: 1
-:zombies_killed: 0
-:total_kills: 12
-:kick_upgrade: 0
+:health: 10
+:xp: 18
+:rank: 2
+:wave: 2
+:zombies_killed: 3
+:total_kills: 15
+:kick_upgrade: 1
 :punch_upgrade: 0
 :taunts_available: 3
 :egg_used: false
-:new_game: true
+:new_game: false

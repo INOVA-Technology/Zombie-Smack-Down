@@ -37,17 +37,17 @@ class Cli
 
 	def spawn_zombie
 		zombies = [ Zombie,
-				BigZombie,
-				DaddyZombie,
-				GunZombie,
-				NinjaZombie,
-				IdiotZombie,
-				BlindZombie,
-				StrongZombie,
-				BasicallyDeadZombie,
-				SuperZombie,
-				BossZombie,
-				UltimateZombie ]
+					BigZombie,
+					DaddyZombie,
+					GunZombie,
+					NinjaZombie,
+					IdiotZombie,
+					BlindZombie,
+					StrongZombie,
+					BasicallyDeadZombie,
+					SuperZombie,
+					BossZombie,
+					UltimateZombie ]
 
 		@zombie = zombies[@player.save[:wave] - 1].new
 	end
@@ -147,7 +147,7 @@ class Cli
 		end
 	end
 
-	def heal amount
+	def heal(amount = 0)
 		amount = amount.to_i
 		if amount > 0
 			@player.heal amount
